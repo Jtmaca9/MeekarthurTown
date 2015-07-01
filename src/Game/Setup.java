@@ -1,7 +1,11 @@
 package Game;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -12,9 +16,15 @@ public class Setup extends StateBasedGame {
 
 	}
 
+	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	static int screenWidth = (int) screenSize.getWidth();
+	static int screenHeight = (int) screenSize.getHeight();
+	static final int GAMEWIDTH = 1920;
+	static final int GAMEHEIGHT = 1080;
+
 	public static void main(String[] args) throws SlickException {
-		AppGameContainer app = new AppGameContainer(new Setup("Game"));
-		app.setDisplayMode(800, 600, false);
+		AppGameContainer app = new AppGameContainer(new ScalableGame(new Setup("Game"), GAMEWIDTH, GAMEHEIGHT));
+		app.setDisplayMode(1440, 900, false);
 		app.setShowFPS(true);
 		app.setAlwaysRender(true);
 		app.setVSync(true);

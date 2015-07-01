@@ -7,20 +7,17 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends BasicGameState {
 
-	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	static int width = (int) screenSize.getWidth();
-	static int height = (int) screenSize.getHeight();
-
 	static Image player;
-	static Image enemy;
+	static Image enemyImage;
 
-	Level currLevel;
+	static Level currLevel;
 
 	public Game(String title) {
 		super();
@@ -36,21 +33,18 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame arg1, Graphics g) throws SlickException {
-		for (int i = 0; i < currLevel.playerCount; i++) {
-			currLevel.players[i].render(container, g);
-		}
-
+		currLevel.render(container, g);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int delta) throws SlickException {
-
+		currLevel.update();
 	}
 
 	void loadImages() {
 		try {
 			player = new Image("Images/obama_sprite.png");
-			enemy = new Image("Images/Character.png");
+			enemyImage = new Image("Images/Character.png");
 		} catch (SlickException e) {
 
 			e.printStackTrace();
@@ -61,6 +55,44 @@ public class Game extends BasicGameState {
 	@Override
 	public int getID() {
 		return 0;
+	}
+
+	public void keyPressed(int key, char code) {
+		// Player 1 Controls
+		if (key == Input.KEY_UP) {
+			currLevel.players[0].moveUp(true);
+		}
+
+		if (key == Input.KEY_LEFT) {
+			currLevel.players[0].moveLeft(true);
+		}
+
+		if (key == Input.KEY_DOWN) {
+			currLevel.players[0].moveDown(true);
+		}
+
+		if (key == Input.KEY_RIGHT) {
+			currLevel.players[0].moveRight(true);
+		}
+	}
+
+	public void keyReleased(int key, char code) {
+		// Player 1 Controls
+		if (key == Input.KEY_UP) {
+			currLevel.players[0].moveUp(false);
+		}
+
+		if (key == Input.KEY_LEFT) {
+			currLevel.players[0].moveLeft(false);
+		}
+
+		if (key == Input.KEY_DOWN) {
+			currLevel.players[0].moveDown(false);
+		}
+
+		if (key == Input.KEY_RIGHT) {
+			currLevel.players[0].moveRight(false);
+		}
 	}
 
 }

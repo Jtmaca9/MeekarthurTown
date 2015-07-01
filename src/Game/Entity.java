@@ -12,13 +12,18 @@ public class Entity {
 	int width, height;
 	Rectangle hitBox;
 	boolean destroyed;
+	boolean enemy;
 
 	Entity() {
-		hitBox = new Rectangle(xpos, ypos, width, height);
+
 	}
 
 	void render(GameContainer container, Graphics g) {
 		image.draw(xpos, ypos);
+	}
+
+	void update() {
+
 	}
 
 	Boolean checkCollision(Entity i) {

@@ -7,6 +7,7 @@ public class Wall extends Entity {
 	Wall(int x, int y) {
 		xpos = x;
 		ypos = y;
+		enemy = false;
 
 		// SET IMAGE VARIABLE HERE
 
