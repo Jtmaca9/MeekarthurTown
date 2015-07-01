@@ -9,9 +9,9 @@ public class Setup extends StateBasedGame {
 
 	public Setup(String name) {
 		super(name);
-		
+
 	}
-	
+
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer app = new AppGameContainer(new Setup("Game"));
 		app.setDisplayMode(800, 600, false);
@@ -25,7 +25,7 @@ public class Setup extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		this.addState(new Game("Game"));
-		
+
 	}
 
 }

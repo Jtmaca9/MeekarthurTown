@@ -6,25 +6,25 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Entity {
-	
+
 	Image image;
 	int xpos, ypos;
 	int width, height;
 	Rectangle hitBox;
 	boolean destroyed;
-	
-	Entity(){
+
+	Entity() {
 		hitBox = new Rectangle(xpos, ypos, width, height);
 	}
-	
-	void render(GameContainer container, Graphics g){
+
+	void render(GameContainer container, Graphics g) {
 		image.draw(xpos, ypos);
 	}
-	
-	Boolean checkCollision(Entity i){
-		if(hitBox.intersects(i.hitBox)){
+
+	Boolean checkCollision(Entity i) {
+		if (hitBox.intersects(i.hitBox)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}

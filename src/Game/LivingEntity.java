@@ -1,13 +1,13 @@
 package Game;
 
-public class LivingEntity extends Entity{
-	
+public class LivingEntity extends Entity {
+
 	int health;
 	int speed;
-	int direction; //between 0-3 clockwise
+	int direction; // between 0-3 clockwise
 	boolean enemy;
-	
-	boolean checkCollisionDirection(){
+
+	boolean checkCollisionDirection() {
 		return false;
 	}
 
