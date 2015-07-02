@@ -29,10 +29,6 @@ public class MeleeEnemy extends Enemy {
 			direction = DOWN;
 		}
 	}
-	
-	void render(GameContainer container, Graphics g) {
-		Game.enemyImage.draw(xpos, ypos, width, height);
-	}
 
 	void update() {
 		move();

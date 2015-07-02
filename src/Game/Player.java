@@ -9,6 +9,7 @@ public class Player extends LivingEntity {
 	int movementQueue[];
 	int lastDirection;
 	int tempX, tempY;
+	Ability abilityBasic;
 
 	Player(int pID, int x, int y, String pClass) {
 		enemy = false;
@@ -34,6 +35,7 @@ public class Player extends LivingEntity {
 			health = 75;
 			speed = 4;
 			image = Game.player;
+			abilityBasic = new Ability(0);
 			break;
 
 		default:
@@ -44,6 +46,10 @@ public class Player extends LivingEntity {
 	void update() {
 		move();
 		collision();
+	}
+	
+	void useBasic() {
+		abilityBasic.useAbility(lastDirection, xpos, ypos, width);
 	}
 
 	void move() {

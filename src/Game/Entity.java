@@ -19,7 +19,7 @@ public class Entity {
 	}
 
 	void render(GameContainer container, Graphics g) {
-		image.draw(xpos, ypos);
+		image.draw(xpos, ypos, width, height);
 	}
 
 	void update() {

@@ -16,6 +16,7 @@ public class Game extends BasicGameState {
 
 	static Image player;
 	static Image enemyImage;
+	static Image projectile;
 
 	static Level currLevel;
 
@@ -45,6 +46,7 @@ public class Game extends BasicGameState {
 		try {
 			player = new Image("Images/obama_sprite.png");
 			enemyImage = new Image("Images/Character.png");
+			projectile = new Image("Images/Green.png");
 		} catch (SlickException e) {
 
 			e.printStackTrace();
@@ -73,6 +75,10 @@ public class Game extends BasicGameState {
 
 		if (key == Input.KEY_RIGHT) {
 			currLevel.players[0].moveRight(true);
+		}
+		
+		if (key == Input.KEY_SPACE) {
+			currLevel.players[0].useBasic();
 		}
 	}
 

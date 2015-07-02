@@ -19,6 +19,8 @@ public class Level {
 	// Player List and Enemy list and Event list
 	List<LivingEntity> livingEntityList = new ArrayList<LivingEntity>();
 	List<Enemy> enemyList = new ArrayList<Enemy>();
+	List<Projectile> playerProjectiles = new ArrayList<Projectile>();
+	List<Projectile> enemyProjectiles = new ArrayList<Projectile>();
 	Iterator<Enemy> enemyIterator;
 
 	Level(int pCount, String lName) {
@@ -45,6 +47,10 @@ public class Level {
 		for (Enemy j : enemyList) {
 			j.update();
 		}
+		
+		for (Projectile p : playerProjectiles) {
+			p.update();
+		}
 
 		// We will use the same iterator loop for destroyed projectiles.
 		enemyIterator = enemyList.iterator();
@@ -55,7 +61,7 @@ public class Level {
 			}
 
 		}
-		System.out.println(enemyList.size());
+		
 	}
 
 	void render(GameContainer container, Graphics g) {
@@ -64,6 +70,9 @@ public class Level {
 		}
 		for (Enemy i : enemyList) {
 			i.render(container, g);
+		}
+		for (Projectile p : playerProjectiles) {
+			p.render(container, g);
 		}
 	}
 
