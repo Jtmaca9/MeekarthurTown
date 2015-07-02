@@ -24,7 +24,7 @@ public class Setup extends StateBasedGame {
 
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer app = new AppGameContainer(new ScalableGame(new Setup("Game"), GAMEWIDTH, GAMEHEIGHT));
-		app.setDisplayMode(1440, 900, false);
+		app.setDisplayMode(800, 600, false);
 		app.setShowFPS(true);
 		app.setAlwaysRender(true);
 		app.setVSync(true);

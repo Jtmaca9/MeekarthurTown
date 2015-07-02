@@ -9,7 +9,6 @@ public class Player extends LivingEntity {
 	int movementQueue[];
 	int lastDirection;
 	int tempX, tempY;
-	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, NOMOVE = 4;
 
 	Player(int pID, int x, int y, String pClass) {
 		enemy = false;
@@ -44,50 +43,30 @@ public class Player extends LivingEntity {
 
 	void update() {
 		move();
-		for (Enemy i : Game.currLevel.enemyList) {
-			if (checkCollision(i)) {
-				System.out.println("lol gay");
-			}
-		}
+		collision();
 	}
 
 	void move() {
 		direction = movementQueue[0];
 
-		
+		if (direction == NOMOVE) {
+			currSpeed = 0;
+		} else {
+			currSpeed = speed;
+		}
 
 		if (direction == UP) {
-			ypos -= speed;
+			ypos -= currSpeed;
 			lastDirection = UP;
-		}
-
-		if (direction == RIGHT) {
-			xpos += speed;
+		} else if (direction == RIGHT) {
+			xpos += currSpeed;
 			lastDirection = RIGHT;
-		}
-
-		if (direction == DOWN) {
-			ypos += speed;
+		} else if (direction == DOWN) {
+			ypos += currSpeed;
 			lastDirection = DOWN;
-		}
-
-		if (direction == LEFT) {
-			xpos -= speed;
+		} else if (direction == LEFT) {
+			xpos -= currSpeed;
 			lastDirection = LEFT;
-		}
-
-		for (Enemy e : Game.currLevel.enemyList) {
-			if (checkCollision(e)) {
-				if (lastDirection == UP) {
-					if (e.ypos > ypos - e.height + speed) {
-						ypos += speed + 1;
-					}
-				} else if (lastDirection == DOWN) {
-					if (e.ypos < ypos + e.height - speed) {
-						ypos -= speed - 1;
-					}
-				}
-			}
 		}
 
 		hitBox.setX(xpos);
@@ -181,6 +160,33 @@ public class Player extends LivingEntity {
 			}
 		}
 
+	}
+	
+	void collision () {
+		for (Enemy e : Game.currLevel.enemyList) {
+			checkFacingCollision(e);
+		}
+	}
+	
+	void checkFacingCollision(LivingEntity e) {
+		if ((xpos + (width - speed)) >= (e.xpos)
+				&& (xpos) <= (e.xpos) + (width - speed)
+				&& (ypos + (height) >= (e.ypos)
+				&& (ypos) <= (e.ypos) + (height - speed))) {
+			if (direction == RIGHT) {// right
+				xpos -= speed;
+
+			} else if (direction == LEFT) {// left
+				xpos += speed;
+
+			} else if (direction == UP) {// up
+				ypos += speed;
+
+			} else if (direction == DOWN) {// down
+				ypos -= speed;
+
+			}
+		}
 	}
 
 }

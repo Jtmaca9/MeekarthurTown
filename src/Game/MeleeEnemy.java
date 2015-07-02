@@ -4,11 +4,9 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class MeleeEnemy extends Enemy {
 
-	final int DOWN = 2;
-
-	MeleeEnemy(Coords lane, int mID, boolean bM) {
-		xpos = 320;// test values
-		ypos = 320;// test values
+	MeleeEnemy(int x, int y, int mID, boolean bM) {
+		xpos = x;
+		ypos = y;
 		monsterID = mID;
 		bigMonster = bM;
 		destroyed = false;
@@ -23,7 +21,7 @@ public class MeleeEnemy extends Enemy {
 		case 0:
 			image = Game.enemyImage;
 			health = 10;
-			speed = 0;
+			speed = 1;
 			width = 32;
 			height = 32;
 			direction = DOWN;
@@ -32,13 +30,14 @@ public class MeleeEnemy extends Enemy {
 
 	void update() {
 		move();
+		collision();
 		checkBounds();
 	}
 
 	void move() {
-
+		currSpeed = speed; // Change this later (test)
 		if (direction == DOWN) {
-			ypos += speed;
+			ypos += currSpeed;
 		}
 
 		hitBox.setY(ypos);

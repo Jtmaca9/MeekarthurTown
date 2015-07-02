@@ -29,9 +29,13 @@ public class Level {
 		lanes = new Coords[5];
 
 		// testing area
-		players[0] = new Player(1, 32, 32, "wizard");
-		lanes[0] = new Coords(320, -32);
-		enemyList.add(new MeleeEnemy(lanes[0], 0, false));
+		players[0] = new Player(1, 320, 320, "wizard");
+		lanes[0] = new Coords(320, 0);
+
+//		enemyList.add(new MeleeEnemy(lanes[0], 0, false));
+		for (int i = 0; i < 50; i++) {
+			enemyList.add(new MeleeEnemy(i*32, 0, 0, false));
+		}
 
 	}
 
@@ -53,6 +57,7 @@ public class Level {
 			}
 
 		}
+		System.out.println(enemyList.size());
 	}
 
 	void render(GameContainer container, Graphics g) {
