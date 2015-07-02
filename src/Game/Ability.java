@@ -10,13 +10,14 @@ public class Ability {
 	
 	int abilityID;
 	int direction, directionMod;
+	int range;
 	int numOfProjectiles;
 	Image image;
 	
 	final int UP = 0, RIGHT = 2, DOWN = 4, LEFT = 6;
 	
 	// negative healthMod value means damage, positive means heal
-	int speed, cooldown, healthMod, size;
+	int speed, cooldown, currCooldown, healthMod, size;
 	// if targetsEnemy is false, it hits players
 	boolean targetsEnemy;
 	
@@ -33,9 +34,11 @@ public class Ability {
 		case 0:
 			// Wizard Basic Attack
 			speed = 8;
-			cooldown = 1;
+			cooldown = 3;
+			currCooldown = cooldown;
 			healthMod = -10;
 			size = 8;
+			range = 1000;
 			targetsEnemy = true;
 			directionMod = 0;
 			numOfProjectiles = 1;
@@ -44,11 +47,13 @@ public class Ability {
 	}
 	
 	void useAbility(int dir, int pX, int pY, int cS) {
-		getCastDirection(dir);
-		if (targetsEnemy) {
-			Game.currLevel.playerProjectiles.add(new Projectile(speed, healthMod, size, dir, image, pX, pY, cS));
-		} else {
-			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, dir, image, pX, pY, cS));
+		if(checkCooldown()){
+			getCastDirection(dir);
+			if (targetsEnemy) {
+				Game.currLevel.playerProjectiles.add(new Projectile(speed, healthMod, size, dir, image, pX, pY, cS, range));
+			} else {
+				Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, dir, image, pX, pY, cS, range));
+			}
 		}
 	}
 	
@@ -64,6 +69,16 @@ public class Ability {
 			direction = LEFT;
 		}
 		direction += directionMod;
+		
+	}
+	
+	boolean checkCooldown(){
+		if (currCooldown == 0){
+			currCooldown = cooldown;
+			return true;
+		}else{
+			return false;
+		}
 		
 	}
 }

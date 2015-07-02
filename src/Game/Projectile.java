@@ -5,10 +5,10 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Projectile extends Entity {
 	
-	int speed, direction, healthMod, casterXpos, casterYpos, casterSize, size;
+	int speed, direction, healthMod, casterXpos, casterYpos, casterSize, size, range, currRange = 0;
 	Coords spawn;
 
-	Projectile(int s, int hM, int sz, int dir, Image im, int pX, int pY, int cS) {
+	Projectile(int s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r) {
 		speed = s;
 		image = im;
 		size = sz;
@@ -16,6 +16,7 @@ public class Projectile extends Entity {
 		height = size;
 		direction = dir;
 		healthMod = hM;
+		range = r;
 		casterXpos = pX;
 		casterYpos = pY;
 		casterSize = cS;
@@ -45,6 +46,7 @@ public class Projectile extends Entity {
 	void update() {
 		move();
 		checkBounds();
+		currRange += speed;
 	}
 	
 	void move() {
@@ -64,7 +66,9 @@ public class Projectile extends Entity {
 	void checkBounds(){
 		if(xpos > 1920 || xpos < -32 || ypos > 1080 || ypos < -32){
 			destroyed = true;
-		
+		}else if (currRange >= range){
+			destroyed = true;
 		}
 	}
+	
 }

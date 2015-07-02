@@ -46,10 +46,19 @@ public class Player extends LivingEntity {
 	void update() {
 		move();
 		collision();
+		cooldowns();
 	}
 	
 	void useBasic() {
 		abilityBasic.useAbility(lastDirection, xpos, ypos, width);
+	}
+	
+	void cooldowns(){
+		abilityBasic.currCooldown--;
+		
+		if(abilityBasic.currCooldown < 0){
+			abilityBasic.currCooldown = 0;
+		}
 	}
 
 	void move() {
