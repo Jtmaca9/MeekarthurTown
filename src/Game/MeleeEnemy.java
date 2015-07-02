@@ -1,12 +1,14 @@
 package Game;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 public class MeleeEnemy extends Enemy {
 
-	MeleeEnemy(int x, int y, int mID, boolean bM) {
-		xpos = x;
-		ypos = y;
+	MeleeEnemy(Coords lane, int mID, boolean bM) {
+		xpos = lane.x;
+		ypos = lane.y;
 		monsterID = mID;
 		bigMonster = bM;
 		destroyed = false;
@@ -22,10 +24,14 @@ public class MeleeEnemy extends Enemy {
 			image = Game.enemyImage;
 			health = 10;
 			speed = 1;
-			width = 32;
-			height = 32;
+			width = 64;
+			height = 128;
 			direction = DOWN;
 		}
+	}
+	
+	void render(GameContainer container, Graphics g) {
+		Game.enemyImage.draw(xpos, ypos, width, height);
 	}
 
 	void update() {

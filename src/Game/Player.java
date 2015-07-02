@@ -169,10 +169,10 @@ public class Player extends LivingEntity {
 	}
 	
 	void checkFacingCollision(LivingEntity e) {
-		if ((xpos + (width - speed)) >= (e.xpos)
-				&& (xpos) <= (e.xpos) + (width - speed)
-				&& (ypos + (height) >= (e.ypos)
-				&& (ypos) <= (e.ypos) + (height - speed))) {
+		if ((xpos + width - speed) >= e.xpos
+				&& xpos + speed <= (e.xpos + e.width)
+				&& (ypos + height - speed) >= e.ypos - e.speed
+				&& ypos + e.speed <= (e.ypos + e.height)) {
 			if (direction == RIGHT) {// right
 				xpos -= speed;
 

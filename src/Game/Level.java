@@ -30,12 +30,10 @@ public class Level {
 
 		// testing area
 		players[0] = new Player(1, 320, 320, "wizard");
-		lanes[0] = new Coords(320, 0);
+		lanes[0] = new Coords(320, 160);
 
-//		enemyList.add(new MeleeEnemy(lanes[0], 0, false));
-		for (int i = 0; i < 50; i++) {
-			enemyList.add(new MeleeEnemy(i*32, 0, 0, false));
-		}
+		enemyList.add(new MeleeEnemy(lanes[0], 0, false));
+
 
 	}
 
