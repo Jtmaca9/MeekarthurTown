@@ -11,9 +11,22 @@ public class Enemy extends LivingEntity {
 		}
 	}
 	
+	void checkHealth(){
+		if(health <= 0){
+			destroyed = true;
+		}
+	}
+	
 	void collision () {
 		for (Player e : Game.currLevel.players) {
 			checkFacingCollision(e);
+		}
+		
+		for (Projectile p : Game.currLevel.playerProjectiles) {
+			if(checkCollision(p)){
+				p.destroyed = true;
+				health += p.healthMod;
+			}
 		}
 	}
 	

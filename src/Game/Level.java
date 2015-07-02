@@ -22,6 +22,7 @@ public class Level {
 	List<Projectile> playerProjectiles = new ArrayList<Projectile>();
 	List<Projectile> enemyProjectiles = new ArrayList<Projectile>();
 	Iterator<Enemy> enemyIterator;
+	Iterator<Projectile> projectileIterator;
 
 	Level(int pCount, String lName) {
 		players = new Player[pCount];
@@ -33,8 +34,12 @@ public class Level {
 		// testing area
 		players[0] = new Player(1, 320, 320, "wizard");
 		lanes[0] = new Coords(320, 160);
+		
+		for(int i = 0; i < 20; i++){
+			enemyList.add(new MeleeEnemy(i * 50 +20, 0, 0, false));
+		}
 
-		enemyList.add(new MeleeEnemy(lanes[0], 0, false));
+		
 
 
 	}
@@ -58,6 +63,24 @@ public class Level {
 			Enemy e = enemyIterator.next();
 			if (e.destroyed) {
 				enemyIterator.remove();
+			}
+
+		}
+		
+		projectileIterator = playerProjectiles.iterator();
+		while (projectileIterator.hasNext()) {
+			Projectile p = projectileIterator.next();
+			if (p.destroyed) {
+				projectileIterator.remove();
+			}
+
+		}
+		
+		projectileIterator = enemyProjectiles.iterator();
+		while (projectileIterator.hasNext()) {
+			Projectile p = projectileIterator.next();
+			if (p.destroyed) {
+				projectileIterator.remove();
 			}
 
 		}

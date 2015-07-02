@@ -6,9 +6,10 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class MeleeEnemy extends Enemy {
 
-	MeleeEnemy(Coords lane, int mID, boolean bM) {
-		xpos = lane.x;
-		ypos = lane.y;
+	MeleeEnemy(int x, int y, int mID, boolean bM) {
+		xpos = x;
+		ypos = y;
+		//add lanes here for spawn data
 		monsterID = mID;
 		bigMonster = bM;
 		destroyed = false;
@@ -22,10 +23,10 @@ public class MeleeEnemy extends Enemy {
 
 		case 0:
 			image = Game.enemyImage;
-			health = 10;
+			health = 20;
 			speed = 1;
-			width = 64;
-			height = 128;
+			width = 32;
+			height = 32;
 			direction = DOWN;
 		}
 	}
@@ -34,6 +35,7 @@ public class MeleeEnemy extends Enemy {
 		move();
 		collision();
 		checkBounds();
+		checkHealth();
 	}
 
 	void move() {

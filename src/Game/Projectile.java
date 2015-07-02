@@ -44,6 +44,7 @@ public class Projectile extends Entity {
 	
 	void update() {
 		move();
+		checkBounds();
 	}
 	
 	void move() {
@@ -58,5 +59,12 @@ public class Projectile extends Entity {
 		}
 		hitBox.setX(xpos);
 		hitBox.setY(ypos);
+	}
+	
+	void checkBounds(){
+		if(xpos > 1920 || xpos < -32 || ypos > 1080 || ypos < -32){
+			destroyed = true;
+		
+		}
 	}
 }
