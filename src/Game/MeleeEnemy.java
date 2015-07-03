@@ -13,8 +13,10 @@ public class MeleeEnemy extends Enemy {
 		monsterID = mID;
 		bigMonster = bM;
 		destroyed = false;
+		ability = new Ability[2];
 		createMonster();
 		hitBox = new Rectangle(xpos, ypos, width, height);
+		
 	}
 
 	void createMonster() {
@@ -24,15 +26,20 @@ public class MeleeEnemy extends Enemy {
 		case 0:
 			image = Game.enemyImage;
 			health = 20;
+			currHealth = health;
 			speed = 1;
 			width = 32;
 			height = 32;
 			direction = DOWN;
+			ability[0] = new Ability(2);
+			ability[1] = new Ability(3);
 		}
 	}
 
 	void update() {
 		move();
+		cooldowns();
+		attack();
 		collision();
 		checkBounds();
 		checkHealth();
@@ -47,5 +54,11 @@ public class MeleeEnemy extends Enemy {
 		hitBox.setY(ypos);
 		hitBox.setX(xpos);
 
+	}
+	
+	void attack(){
+		
+		ability[0].useAbility(direction, xpos, ypos, width);
+		
 	}
 }

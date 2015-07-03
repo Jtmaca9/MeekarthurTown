@@ -14,7 +14,7 @@ public class Ability {
 	int numOfProjectiles;
 	Image image;
 	
-	final int UP = 0, RIGHT = 2, DOWN = 4, LEFT = 6;
+	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
 	
 	// negative healthMod value means damage, positive means heal
 	int speed, cooldown, currCooldown, healthMod, size;
@@ -32,9 +32,9 @@ public class Ability {
 		switch (abilityID) {
 		
 		case 0:
-			// Wizard Basic Attack
+			// Wizard Basic Range Attack
 			speed = 8;
-			cooldown = 3;
+			cooldown = 30;
 			currCooldown = cooldown;
 			healthMod = -10;
 			size = 8;
@@ -43,6 +43,46 @@ public class Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectile;
+			break;
+		case 1:
+			// Wizard Basic Melee Attack
+			speed = 8;
+			cooldown = 30;
+			currCooldown = cooldown;
+			healthMod = -10;
+			size = 8;
+			range = 100;
+			targetsEnemy = true;
+			directionMod = 0;
+			numOfProjectiles = 1;
+			image = Game.projectile;
+			break;
+		case 2:
+			// Monster Basic Range Attack
+			speed = 8;
+			cooldown = 50;
+			currCooldown = cooldown;
+			healthMod = -10;
+			size = 8;
+			range = 1000;
+			targetsEnemy = false;
+			directionMod = 0;
+			numOfProjectiles = 1;
+			image = Game.projectile;
+			break;
+		case 3:
+			// Monster Basic Melee Attack
+			speed = 8;
+			cooldown = 50;
+			currCooldown = cooldown;
+			healthMod = -10;
+			size = 8;
+			range = 100;
+			targetsEnemy = false;
+			directionMod = 0;
+			numOfProjectiles = 1;
+			image = Game.projectile;
+			break;
 		}
 	}
 	

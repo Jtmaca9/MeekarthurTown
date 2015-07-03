@@ -23,8 +23,8 @@ public class Setup extends StateBasedGame {
 	static final int GAMEHEIGHT = 1080;
 
 	public static void main(String[] args) throws SlickException {
-		AppGameContainer app = new AppGameContainer(new ScalableGame(new Setup("Game"), GAMEWIDTH, GAMEHEIGHT));
-		app.setDisplayMode(800, 600, false);
+		AppGameContainer app = new AppGameContainer(new ScalableGame(new Setup("Game"), GAMEWIDTH, GAMEHEIGHT, true));
+		app.setDisplayMode(1440, 900, false);
 		app.setShowFPS(true);
 		app.setAlwaysRender(true);
 		app.setVSync(true);
@@ -35,6 +35,7 @@ public class Setup extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		this.addState(new Game("Game"));
+		this.addState(new GameOver("GameOver"));
 
 	}
 

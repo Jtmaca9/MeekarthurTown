@@ -13,6 +13,7 @@ public class Level {
 	Wall[] walls;
 	Player[] players;
 	int playerCount;
+	int lives;
 	String levelName;
 	Coords[] lanes;
 
@@ -30,13 +31,18 @@ public class Level {
 		playerCount = pCount;
 		levelName = lName;
 		lanes = new Coords[5];
+		lives = 5;
 
 		// testing area
 		players[0] = new Player(1, 320, 320, "wizard");
 		lanes[0] = new Coords(320, 160);
 		
 		for(int i = 0; i < 20; i++){
-			enemyList.add(new MeleeEnemy(i * 50 +20, 0, 0, false));
+			enemyList.add(new MeleeEnemy((i * 100) +20, 0, 0, false));
+		}
+		
+		for(int j = 0; j < 5; j++){
+			walls[j] = new Wall(j*384,1000);
 		}
 
 		
@@ -46,15 +52,39 @@ public class Level {
 
 	void update() {
 		for (int i = 0; i < playerCount; i++) {
-			players[i].update();
+			
+			if(!players[i].destroyed){
+				players[i].update();
+				
+			}else{
+				players[i].xpos = -100;
+				players[i].ypos = -100;
+			}
+		}
+		
+		for(int j = 0; j < 5; j++){
+			
+
+			if(!walls[j].destroyed){
+				walls[j].update();
+				
+			}else{
+				walls[j].xpos = -1000;
+				walls[j].ypos = -1000;
+			}
+		}
+		
+		for (Projectile p : playerProjectiles) {
+			p.update();
 		}
 
 		for (Enemy j : enemyList) {
 			j.update();
 		}
+	
 		
-		for (Projectile p : playerProjectiles) {
-			p.update();
+		for (Projectile k : enemyProjectiles) {
+			k.update();
 		}
 
 		// We will use the same iterator loop for destroyed projectiles.
@@ -89,13 +119,32 @@ public class Level {
 
 	void render(GameContainer container, Graphics g) {
 		for (int i = 0; i < playerCount; i++) {
-			players[i].render(container, g);
+			if(!players[i].destroyed){
+				players[i].render(container, g);
+			}
 		}
 		for (Enemy i : enemyList) {
 			i.render(container, g);
 		}
 		for (Projectile p : playerProjectiles) {
 			p.render(container, g);
+		}
+		for (Projectile k : enemyProjectiles) {
+			k.render(container, g);
+		}
+		
+		for(int j = 0; j < 5; j++){
+			if(!walls[j].destroyed){
+				walls[j].render(container, g);
+			}
+		}
+	}
+	
+	boolean checkLives(){
+		if(lives <= 0){
+			return true;
+		}else{
+			return false;
 		}
 	}
 

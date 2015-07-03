@@ -17,6 +17,8 @@ public class Game extends BasicGameState {
 	static Image player;
 	static Image enemyImage;
 	static Image projectile;
+	static Image wallImage;
+	StateBasedGame game;
 
 	static Level currLevel;
 
@@ -26,7 +28,8 @@ public class Game extends BasicGameState {
 	}
 
 	@Override
-	public void init(GameContainer container, StateBasedGame arg1) throws SlickException {
+	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+		this.game = game;
 		loadImages();
 		currLevel = new Level(1, "PENIS");
 
@@ -40,6 +43,10 @@ public class Game extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int delta) throws SlickException {
 		currLevel.update();
+		
+		if(currLevel.checkLives()){
+			game.enterState(1);
+		}
 	}
 
 	void loadImages() {
@@ -47,6 +54,7 @@ public class Game extends BasicGameState {
 			player = new Image("Images/obama_sprite.png");
 			enemyImage = new Image("Images/Character.png");
 			projectile = new Image("Images/Green.png");
+			wallImage = new Image("Images/brick.png");
 		} catch (SlickException e) {
 
 			e.printStackTrace();

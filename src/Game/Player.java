@@ -1,5 +1,8 @@
 package Game;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Player extends LivingEntity {
@@ -9,7 +12,6 @@ public class Player extends LivingEntity {
 	int movementQueue[];
 	int lastDirection;
 	int tempX, tempY;
-	Ability abilityBasic;
 
 	Player(int pID, int x, int y, String pClass) {
 		enemy = false;
@@ -19,6 +21,7 @@ public class Player extends LivingEntity {
 		height = 32;
 		xpos = x;
 		ypos = y;
+		ability = new Ability[2];
 		movementQueue = new int[4];
 		hitBox = new Rectangle(xpos, ypos, width, height);
 		for (int i = 0; i < 4; i++) {
@@ -33,33 +36,37 @@ public class Player extends LivingEntity {
 
 		case "wizard":
 			health = 75;
+			currHealth = health;
 			speed = 4;
 			image = Game.player;
-			abilityBasic = new Ability(0);
+			ability[0] = new Ability(0);
 			break;
 
 		default:
 			break;
 		}
 	}
+	
+	void render(GameContainer container, Graphics g) {
+		image.draw(xpos, ypos, width, height);
+		g.setColor(Color.red);
+		g.fillRect(xpos, ypos - 10, 32, 5);
+		g.setColor(Color.green);
+		g.fillRect(xpos, ypos - 10, ((currHealth/health))*32, 5);
+	}
 
 	void update() {
 		move();
 		collision();
+		checkHealth();
 		cooldowns();
 	}
 	
 	void useBasic() {
-		abilityBasic.useAbility(lastDirection, xpos, ypos, width);
+		ability[0].useAbility(lastDirection, xpos, ypos, width);
 	}
 	
-	void cooldowns(){
-		abilityBasic.currCooldown--;
-		
-		if(abilityBasic.currCooldown < 0){
-			abilityBasic.currCooldown = 0;
-		}
-	}
+	
 
 	void move() {
 		direction = movementQueue[0];
@@ -180,6 +187,17 @@ public class Player extends LivingEntity {
 	void collision () {
 		for (Enemy e : Game.currLevel.enemyList) {
 			checkFacingCollision(e);
+		}
+		
+		for (Wall w : Game.currLevel.walls) {
+			checkFacingCollision(w);
+		}
+		
+		for (Projectile p : Game.currLevel.enemyProjectiles) {
+			if(checkCollision(p)){
+				currHealth += p.healthMod;
+				p.destroyed = true;
+			}
 		}
 	}
 	

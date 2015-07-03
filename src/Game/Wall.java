@@ -1,6 +1,8 @@
 package Game;
 
-public class Wall extends Entity {
+import org.newdawn.slick.geom.Rectangle;
+
+public class Wall extends LivingEntity {
 
 	int health;
 
@@ -8,13 +10,18 @@ public class Wall extends Entity {
 		xpos = x;
 		ypos = y;
 		enemy = false;
+		image = Game.wallImage;
 
 		// SET IMAGE VARIABLE HERE
 
 		// Placeholder values
-		width = 50;
-		height = 10;
+		width = 384;
+		height = 64;
 		health = 100;
+		currHealth= health;
+		hitBox = new Rectangle(xpos, ypos, width, height);
+		
+		direction = DOWN;
 		///////////////////
 	}
 
@@ -30,6 +37,21 @@ public class Wall extends Entity {
 		} else if (health < (health / 100 * 80)) {
 			// change image
 		}
+		
+		for (Projectile p : Game.currLevel.enemyProjectiles) {
+			if(checkCollision(p)){
+				currHealth += p.healthMod;
+				p.destroyed = true;
+			}
+		}
+		
+		for (Projectile p : Game.currLevel.playerProjectiles) {
+			if(checkCollision(p)){
+				p.destroyed = true;
+			}
+		}
+		
+		checkHealth();
 	}
 
 }
