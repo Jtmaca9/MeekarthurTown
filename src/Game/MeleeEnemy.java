@@ -31,16 +31,16 @@ public class MeleeEnemy extends Enemy {
 			width = 32;
 			height = 32;
 			direction = DOWN;
-			ability[0] = new Ability(2);
-			ability[1] = new Ability(3);
+			ability[0] = new Ability(3);
+			ability[1] = new Ability(2);
 		}
 	}
 
 	void update() {
 		move();
 		cooldowns();
-		attack();
 		collision();
+		behaviour();
 		checkBounds();
 		checkHealth();
 	}
@@ -56,9 +56,11 @@ public class MeleeEnemy extends Enemy {
 
 	}
 	
-	void attack(){
-		
-		ability[0].useAbility(direction, xpos, ypos, width);
-		
+	void behaviour(){
+		if(currHealth < health){
+			speed = 2;
+		}
 	}
+	
+	
 }

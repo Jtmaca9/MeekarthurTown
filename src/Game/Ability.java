@@ -77,7 +77,7 @@ public class Ability {
 			currCooldown = cooldown;
 			healthMod = -10;
 			size = 8;
-			range = 100;
+			range = 20;
 			targetsEnemy = false;
 			directionMod = 0;
 			numOfProjectiles = 1;
@@ -91,9 +91,19 @@ public class Ability {
 			getCastDirection(dir);
 			if (targetsEnemy) {
 				Game.currLevel.playerProjectiles.add(new Projectile(speed, healthMod, size, dir, image, pX, pY, cS, range));
+
 			} else {
-				Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, dir, image, pX, pY, cS, range));
+				Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, RIGHT, image, pX, pY, cS, range));
 			}
+		}
+	}
+	
+	void useMB(int dir, int pX, int pY, int cS) {
+		if(checkCooldown()){
+			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, RIGHT, image, pX, pY, cS, range));
+			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, LEFT, image, pX, pY, cS, range));
+			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, DOWN, image, pX, pY, cS, range));
+			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, UP, image, pX, pY, cS, range));
 		}
 	}
 	

@@ -118,11 +118,6 @@ public class Level {
 	}
 
 	void render(GameContainer container, Graphics g) {
-		for (int i = 0; i < playerCount; i++) {
-			if(!players[i].destroyed){
-				players[i].render(container, g);
-			}
-		}
 		for (Enemy i : enemyList) {
 			i.render(container, g);
 		}
@@ -136,6 +131,12 @@ public class Level {
 		for(int j = 0; j < 5; j++){
 			if(!walls[j].destroyed){
 				walls[j].render(container, g);
+			}
+		}
+		
+		for (int i = 0; i < playerCount; i++) {
+			if(!players[i].destroyed){
+				players[i].render(container, g);
 			}
 		}
 	}
