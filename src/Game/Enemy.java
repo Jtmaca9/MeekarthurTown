@@ -4,6 +4,28 @@ public class Enemy extends LivingEntity {
 
 	int monsterID;
 	boolean bigMonster;
+	
+	void update() {
+		move();
+		cooldowns();
+		collision();
+		baseBehaviour();
+		behaviour();
+		checkBounds();
+		checkHealth();
+	}
+	
+	void move() {
+
+	}
+	
+	void baseBehaviour() {
+		
+	}
+	
+	void behaviour(){
+		
+	}
 
 	void checkBounds() {
 		if (ypos > Setup.GAMEHEIGHT) {
@@ -15,18 +37,6 @@ public class Enemy extends LivingEntity {
 	
 	
 	void collision () {
-		for (Player e : Game.currLevel.players) {
-			if(checkFacingCollision(e)){
-				attack(0);
-			}
-		}
-		
-		for (Wall w : Game.currLevel.walls) {
-			if(checkFacingCollision(w)){
-				attack(0);
-			}
-		}
-		
 		for (Projectile p : Game.currLevel.playerProjectiles) {
 			if(checkCollision(p)){
 				p.destroyed = true;
@@ -35,8 +45,9 @@ public class Enemy extends LivingEntity {
 		}
 	}
 	
+	//fix ability then change this
 	void attack(int i){
-		ability[i].useMB(direction, xpos, ypos, width);
+
 	}
 	
 	boolean checkFacingCollision(LivingEntity e) {

@@ -39,7 +39,7 @@ public class Player extends LivingEntity {
 			currHealth = health;
 			speed = 4;
 			image = Game.player;
-			ability[0] = new Ability(0);
+			ability[0] = new ProjectileAbility(0);
 			break;
 
 		default:
@@ -186,7 +186,9 @@ public class Player extends LivingEntity {
 	
 	void collision () {
 		for (Enemy e : Game.currLevel.enemyList) {
-			checkFacingCollision(e);
+			if(checkFacingCollision(e)){
+				e.attack(0);
+			}
 		}
 		
 		for (Wall w : Game.currLevel.walls) {
@@ -201,25 +203,30 @@ public class Player extends LivingEntity {
 		}
 	}
 	
-	void checkFacingCollision(LivingEntity e) {
+	boolean checkFacingCollision(LivingEntity e) {
 		if ((xpos + width - speed) >= e.xpos
 				&& xpos + speed <= (e.xpos + e.width)
 				&& (ypos + height - speed) >= e.ypos - e.speed
 				&& ypos + e.speed <= (e.ypos + e.height)) {
 			if (direction == RIGHT) {// right
 				xpos -= speed;
+				return true;
 
 			} else if (direction == LEFT) {// left
 				xpos += speed;
+				return true;
 
 			} else if (direction == UP) {// up
 				ypos += speed;
+				return true;
 
 			} else if (direction == DOWN) {// down
 				ypos -= speed;
+				return true;
 
 			}
 		}
+		return false;
 	}
 
 }

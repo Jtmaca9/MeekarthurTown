@@ -23,69 +23,6 @@ public class Ability {
 	
 	Image abilityIcon, projectileImage;
 	
-	Ability(int aID) {
-		abilityID = aID;
-		createAbility();
-	}
-	
-	void createAbility() {
-		switch (abilityID) {
-		
-		case 0:
-			// Wizard Basic Range Attack
-			speed = 8;
-			cooldown = 30;
-			currCooldown = cooldown;
-			healthMod = -10;
-			size = 8;
-			range = 1000;
-			targetsEnemy = true;
-			directionMod = 0;
-			numOfProjectiles = 1;
-			image = Game.projectile;
-			break;
-		case 1:
-			// Wizard Basic Melee Attack
-			speed = 8;
-			cooldown = 30;
-			currCooldown = cooldown;
-			healthMod = -10;
-			size = 8;
-			range = 100;
-			targetsEnemy = true;
-			directionMod = 0;
-			numOfProjectiles = 1;
-			image = Game.projectile;
-			break;
-		case 2:
-			// Monster Basic Range Attack
-			speed = 8;
-			cooldown = 50;
-			currCooldown = cooldown;
-			healthMod = -10;
-			size = 8;
-			range = 1000;
-			targetsEnemy = false;
-			directionMod = 0;
-			numOfProjectiles = 1;
-			image = Game.projectile;
-			break;
-		case 3:
-			// Monster Basic Melee Attack
-			speed = 8;
-			cooldown = 50;
-			currCooldown = cooldown;
-			healthMod = -10;
-			size = 8;
-			range = 20;
-			targetsEnemy = false;
-			directionMod = 0;
-			numOfProjectiles = 1;
-			image = Game.projectile;
-			break;
-		}
-	}
-	
 	void useAbility(int dir, int pX, int pY, int cS) {
 		if(checkCooldown()){
 			getCastDirection(dir);
@@ -98,6 +35,7 @@ public class Ability {
 		}
 	}
 	
+	//move to enemy  
 	void useMB(int dir, int pX, int pY, int cS) {
 		if(checkCooldown()){
 			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, RIGHT, image, pX, pY, cS, range));
