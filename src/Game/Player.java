@@ -39,20 +39,23 @@ public class Player extends LivingEntity {
 			currHealth = health;
 			speed = 4;
 			image = Game.player;
+
 			ability[0] = new ProjectileAbility(0);
+			ability[1] = new ProjectileAbility(1);
+
 			break;
 
 		default:
 			break;
 		}
 	}
-	
+
 	void render(GameContainer container, Graphics g) {
 		image.draw(xpos, ypos, width, height);
 		g.setColor(Color.red);
 		g.fillRect(xpos, ypos - 10, 32, 5);
 		g.setColor(Color.green);
-		g.fillRect(xpos, ypos - 10, ((currHealth/health))*32, 5);
+		g.fillRect(xpos, ypos - 10, ((currHealth / health)) * 32, 5);
 	}
 
 	void update() {
@@ -61,12 +64,27 @@ public class Player extends LivingEntity {
 		checkHealth();
 		cooldowns();
 	}
-	
+
 	void useBasic() {
 		ability[0].useAbility(lastDirection, xpos, ypos, width);
 	}
 	
+	void wAbility() {
+		ability[1 ].useAbility(lastDirection, xpos, ypos, width);
+	}
 	
+	void cooldowns() {
+		ability[0].currCooldown--;
+
+		if (ability[0].currCooldown < 0) {
+			ability[0].currCooldown = 0;
+		}
+		ability[1].currCooldown--;
+
+		if (ability[1].currCooldown < 0) {
+			ability[1].currCooldown = 0;
+		}
+	}
 
 	void move() {
 		direction = movementQueue[0];
@@ -183,31 +201,29 @@ public class Player extends LivingEntity {
 		}
 
 	}
-	
-	void collision () {
+
+	void collision() {
 		for (Enemy e : Game.currLevel.enemyList) {
-			if(checkFacingCollision(e)){
+			if (checkFacingCollision(e)) {
 				e.attack(0);
 			}
 		}
-		
+
 		for (Wall w : Game.currLevel.walls) {
 			checkFacingCollision(w);
 		}
-		
+
 		for (Projectile p : Game.currLevel.enemyProjectiles) {
-			if(checkCollision(p)){
+			if (checkCollision(p)) {
 				currHealth += p.healthMod;
 				p.destroyed = true;
 			}
 		}
 	}
-	
+
 	boolean checkFacingCollision(LivingEntity e) {
-		if ((xpos + width - speed) >= e.xpos
-				&& xpos + speed <= (e.xpos + e.width)
-				&& (ypos + height - speed) >= e.ypos - e.speed
-				&& ypos + e.speed <= (e.ypos + e.height)) {
+		if ((xpos + width - speed) >= e.xpos && xpos + speed <= (e.xpos + e.width)
+				&& (ypos + height - speed) >= e.ypos - e.speed && ypos + e.speed <= (e.ypos + e.height)) {
 			if (direction == RIGHT) {// right
 				xpos -= speed;
 				return true;

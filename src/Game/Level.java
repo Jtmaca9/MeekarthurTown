@@ -37,43 +37,39 @@ public class Level {
 		players[0] = new Player(1, 320, 320, "wizard");
 		lanes[0] = new Coords(320, 160);
 		lanes[1] = new Coords(480, 160);
-		
+
 		enemyList.add(new BeserkerMeleeEnemy(lanes[0], false));
 		enemyList.add(new StandardMeleeEnemy(lanes[1], true));
-		
-		for(int j = 0; j < 5; j++){
-			walls[j] = new Wall(j*384,1000);
+
+		for (int j = 0; j < 5; j++) {
+			walls[j] = new Wall(j * 384, 1000);
 		}
-
-		
-
 
 	}
 
-	void update() {
+	void update(int delta) {
 		for (int i = 0; i < playerCount; i++) {
-			
-			if(!players[i].destroyed){
+
+			if (!players[i].destroyed) {
 				players[i].update();
-				
-			}else{
+
+			} else {
 				players[i].xpos = -100;
 				players[i].ypos = -100;
 			}
 		}
-		
-		for(int j = 0; j < 5; j++){
-			
 
-			if(!walls[j].destroyed){
+		for (int j = 0; j < 5; j++) {
+
+			if (!walls[j].destroyed) {
 				walls[j].update();
-				
-			}else{
+
+			} else {
 				walls[j].xpos = -1000;
 				walls[j].ypos = -1000;
 			}
 		}
-		
+
 		for (Projectile p : playerProjectiles) {
 			p.update();
 		}
@@ -81,8 +77,7 @@ public class Level {
 		for (Enemy j : enemyList) {
 			j.update();
 		}
-	
-		
+
 		for (Projectile k : enemyProjectiles) {
 			k.update();
 		}
@@ -96,7 +91,7 @@ public class Level {
 			}
 
 		}
-		
+
 		projectileIterator = playerProjectiles.iterator();
 		while (projectileIterator.hasNext()) {
 			Projectile p = projectileIterator.next();
@@ -105,7 +100,7 @@ public class Level {
 			}
 
 		}
-		
+
 		projectileIterator = enemyProjectiles.iterator();
 		while (projectileIterator.hasNext()) {
 			Projectile p = projectileIterator.next();
@@ -114,7 +109,7 @@ public class Level {
 			}
 
 		}
-		
+
 	}
 
 	void render(GameContainer container, Graphics g) {
@@ -127,24 +122,24 @@ public class Level {
 		for (Projectile k : enemyProjectiles) {
 			k.render(container, g);
 		}
-		
-		for(int j = 0; j < 5; j++){
-			if(!walls[j].destroyed){
+
+		for (int j = 0; j < 5; j++) {
+			if (!walls[j].destroyed) {
 				walls[j].render(container, g);
 			}
 		}
-		
+
 		for (int i = 0; i < playerCount; i++) {
-			if(!players[i].destroyed){
+			if (!players[i].destroyed) {
 				players[i].render(container, g);
 			}
 		}
 	}
-	
-	boolean checkLives(){
-		if(lives <= 0){
+
+	boolean checkLives() {
+		if (lives <= 0) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}

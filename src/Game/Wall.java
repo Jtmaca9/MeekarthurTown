@@ -18,9 +18,9 @@ public class Wall extends LivingEntity {
 		width = 384;
 		height = 64;
 		health = 100;
-		currHealth= health;
+		currHealth = health;
 		hitBox = new Rectangle(xpos, ypos, width, height);
-		
+
 		direction = DOWN;
 		///////////////////
 	}
@@ -37,20 +37,20 @@ public class Wall extends LivingEntity {
 		} else if (health < (health / 100 * 80)) {
 			// change image
 		}
-		
+
 		for (Projectile p : Game.currLevel.enemyProjectiles) {
-			if(checkCollision(p)){
+			if (checkCollision(p)) {
 				currHealth += p.healthMod;
 				p.destroyed = true;
 			}
 		}
-		
+
 		for (Projectile p : Game.currLevel.playerProjectiles) {
-			if(checkCollision(p)){
+			if (checkCollision(p)) {
 				p.destroyed = true;
 			}
 		}
-		
+
 		checkHealth();
 	}
 

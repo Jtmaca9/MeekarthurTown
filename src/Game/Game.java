@@ -42,7 +42,7 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int delta) throws SlickException {
-		currLevel.update();
+		currLevel.update(delta);
 		
 		if(currLevel.checkLives()){
 			game.enterState(1);
@@ -87,6 +87,10 @@ public class Game extends BasicGameState {
 		
 		if (key == Input.KEY_SPACE) {
 			currLevel.players[0].useBasic();
+		}
+		
+		if (key == Input.KEY_W) {
+			currLevel.players[0].wAbility();
 		}
 	}
 

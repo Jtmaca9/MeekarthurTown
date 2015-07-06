@@ -36,12 +36,12 @@ public class StandardMeleeEnemy extends MeleeEnemy {
 		direction = DOWN;
 		ability[0] = new ProjectileAbility(3);
 	}
-	
+
 	void attack(int i) {
-		//change me pls
+		// change me pls
 		ability[i].useMB(direction, xpos, ypos, width);
 	}
-	
+
 	void move() {
 		currSpeed = speed; // Change this later (test)
 		if (direction == DOWN) {
@@ -50,7 +50,7 @@ public class StandardMeleeEnemy extends MeleeEnemy {
 
 		hitBox.setY(ypos);
 		hitBox.setX(xpos);
-		
+
 	}
 
 }
