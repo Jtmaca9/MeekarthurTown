@@ -56,12 +56,13 @@ public class MeleeAbility extends Ability {
 			if (!directional) {
 				spawnHitBoxCentre(pX, pY, cS);
 			}
+
 		}
 	}
 	
 	void spawnHitBoxCentre(int x, int y, int cS) {
 		// Spawns the 'Melee attack' hitbox in centre of caster
-		if (targetsEnemy) {
+		if (!targetsEnemy) {
 			Game.currLevel.enemyMeleeList.add(new MeleeAbilityEntity(x - range, y - range, cS + (2 * range), cS + (2 * range), healthMod));
 		}
 	}

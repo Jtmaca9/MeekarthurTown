@@ -17,7 +17,7 @@ public class Wall extends LivingEntity {
 		// Placeholder values
 		width = 384;
 		height = 64;
-		health = 100;
+		health = 1;
 		currHealth = health;
 		hitBox = new Rectangle(xpos, ypos, width, height);
 
@@ -42,6 +42,13 @@ public class Wall extends LivingEntity {
 			if (checkCollision(p)) {
 				currHealth += p.healthMod;
 				p.destroyed = true;
+			}
+		}
+		
+		for (MeleeAbilityEntity m : Game.currLevel.enemyMeleeList) {
+			if (checkCollision(m)) {
+				currHealth += m.healthMod;
+				m.destroyed = true;
 			}
 		}
 

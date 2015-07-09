@@ -1,5 +1,7 @@
 package Game;
 
+import org.newdawn.slick.geom.Rectangle;
+
 public class Enemy extends LivingEntity {
 
 	int monsterID;

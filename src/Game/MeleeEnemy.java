@@ -15,7 +15,6 @@ public class MeleeEnemy extends Enemy {
 	void baseBehaviour() {
 		for (Player e : Game.currLevel.players) {
 			if (checkFacingCollision(e)) {
-				attack(0);
 			}
 		}
 

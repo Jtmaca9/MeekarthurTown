@@ -5,6 +5,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class StandardMeleeEnemy extends MeleeEnemy {
 
 	final int MONSTERID = 1;
+	int range;
 
 	StandardMeleeEnemy(Coords lane, boolean bM) {
 
@@ -35,10 +36,12 @@ public class StandardMeleeEnemy extends MeleeEnemy {
 
 		direction = DOWN;
 		ability[0] = new MeleeAbility(3);
+		range = ability[0].range;
+		
+		rangeBox = new Rectangle(xpos - range, ypos - range, width + (2 * range), height + (2 * range));
 	}
 
 	void attack(int i) {
-		// change me pls
 		ability[i].useAbility(direction, xpos, ypos, width);
 	}
 
@@ -50,6 +53,8 @@ public class StandardMeleeEnemy extends MeleeEnemy {
 
 		hitBox.setY(ypos);
 		hitBox.setX(xpos);
+		rangeBox.setY(ypos);
+		rangeBox.setX(xpos);
 
 	}
 

@@ -219,8 +219,11 @@ public class Player extends LivingEntity {
 
 	void collision() {
 		for (Enemy e : Game.currLevel.enemyList) {
-			if (checkFacingCollision(e)) {
-				e.attack(0);
+			checkFacingCollision(e);
+			if (e instanceof StandardMeleeEnemy) {
+				if (checkRangeBox(e)) {
+					e.attack(0);
+				}
 			}
 		}
 

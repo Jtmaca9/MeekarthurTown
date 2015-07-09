@@ -13,6 +13,7 @@ public class Entity {
 	Rectangle hitBox;
 	boolean destroyed;
 	boolean enemy;
+	Rectangle rangeBox;
 
 	Entity() {
 
@@ -28,6 +29,15 @@ public class Entity {
 
 	Boolean checkCollision(Entity i) {
 		if (hitBox.intersects(i.hitBox)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	Boolean checkRangeBox(Entity i) {
+		//used to check if player intersects with melee rangeBox
+		if  (hitBox.intersects(i.rangeBox)) {
 			return true;
 		} else {
 			return false;
