@@ -25,7 +25,7 @@ public class ProjectileAbility extends Ability {
 			range = 1000;
 			targetsEnemy = true;
 			directionMod = 0;
-			numOfProjectiles = 3;
+			numOfProjectiles = 1;
 			image = Game.projectile;
 			break;
 		case 1:
@@ -38,7 +38,7 @@ public class ProjectileAbility extends Ability {
 			range = 1000;
 			targetsEnemy = true;
 			directionMod = 0;
-			numOfProjectiles = 1;
+			numOfProjectiles = 3;
 			image = Game.projectile;
 			break;
 		case 2:

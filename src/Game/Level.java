@@ -149,7 +149,7 @@ public class Level {
 	}
 	
 	void getTime(int delta){
-		time+=delta;
+		time += delta;
 		//System.out.println(time);
 		
 	}

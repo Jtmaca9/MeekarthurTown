@@ -12,6 +12,8 @@ public class Player extends LivingEntity {
 	int movementQueue[];
 	int lastDirection;
 	int tempX, tempY;
+	int abilityDir;
+	Ability activeAbility;
 
 	Player(int pID, int x, int y, String pClass) {
 		enemy = false;
@@ -21,7 +23,7 @@ public class Player extends LivingEntity {
 		height = 32;
 		xpos = x;
 		ypos = y;
-		ability = new Ability[2];
+		ability = new Ability[3];
 		movementQueue = new int[4];
 		hitBox = new Rectangle(xpos, ypos, width, height);
 		for (int i = 0; i < 4; i++) {
@@ -42,6 +44,9 @@ public class Player extends LivingEntity {
 
 			ability[0] = new ProjectileAbility(0);
 			ability[1] = new ProjectileAbility(1);
+			ability[2] = new ProjectileAbility(1);
+			
+			activeAbility = ability[0];
 
 			break;
 
@@ -65,12 +70,17 @@ public class Player extends LivingEntity {
 		cooldowns();
 	}
 
-	void useBasic() {
-		ability[0].useAbility(lastDirection, xpos, ypos, width);
+	void useAbility(int dir) {
+		activeAbility.useAbility(dir, xpos, ypos, width);
+		activeAbility = ability[0];
 	}
 	
-	void wAbility() {
-		ability[1 ].useAbility(lastDirection, xpos, ypos, width);
+	void primeAbility(int a) {
+		if (activeAbility == ability[a]) {
+			activeAbility = ability[0];
+		} else {
+			activeAbility = ability[a];
+		}
 	}
 	
 	void cooldowns() {
@@ -83,6 +93,11 @@ public class Player extends LivingEntity {
 
 		if (ability[1].currCooldown < 0) {
 			ability[1].currCooldown = 0;
+		}
+		ability[2].currCooldown--;
+
+		if (ability[2].currCooldown < 0) {
+			ability[2].currCooldown = 0;
 		}
 	}
 

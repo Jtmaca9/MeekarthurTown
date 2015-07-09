@@ -13,6 +13,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends BasicGameState {
+	
+	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, NOMOVE = 4;
 
 	static Image player;
 	static Image enemyImage;
@@ -70,46 +72,62 @@ public class Game extends BasicGameState {
 
 	public void keyPressed(int key, char code) {
 		// Player 1 Controls
-		if (key == Input.KEY_UP) {
+		if (key == Input.KEY_W) {
 			currLevel.players[0].moveUp(true);
 		}
 
-		if (key == Input.KEY_LEFT) {
+		if (key == Input.KEY_A) {
 			currLevel.players[0].moveLeft(true);
 		}
 
-		if (key == Input.KEY_DOWN) {
+		if (key == Input.KEY_S) {
 			currLevel.players[0].moveDown(true);
 		}
 
-		if (key == Input.KEY_RIGHT) {
+		if (key == Input.KEY_D) {
 			currLevel.players[0].moveRight(true);
 		}
 		
-		if (key == Input.KEY_SPACE) {
-			currLevel.players[0].useBasic();
+		if (key == Input.KEY_UP) {
+			currLevel.players[0].useAbility(UP);
+		}
+
+		if (key == Input.KEY_LEFT) {
+			currLevel.players[0].useAbility(LEFT);
+		}
+
+		if (key == Input.KEY_DOWN) {
+			currLevel.players[0].useAbility(DOWN);
+		}
+
+		if (key == Input.KEY_RIGHT) {
+			currLevel.players[0].useAbility(RIGHT);
 		}
 		
-		if (key == Input.KEY_W) {
-			currLevel.players[0].wAbility();
+		if (key == Input.KEY_Q) {
+			currLevel.players[0].primeAbility(1);
+		}
+		
+		if (key == Input.KEY_E) {
+			currLevel.players[0].primeAbility(2);
 		}
 	}
 
 	public void keyReleased(int key, char code) {
 		// Player 1 Controls
-		if (key == Input.KEY_UP) {
+		if (key == Input.KEY_W) {
 			currLevel.players[0].moveUp(false);
 		}
 
-		if (key == Input.KEY_LEFT) {
+		if (key == Input.KEY_A) {
 			currLevel.players[0].moveLeft(false);
 		}
 
-		if (key == Input.KEY_DOWN) {
+		if (key == Input.KEY_S) {
 			currLevel.players[0].moveDown(false);
 		}
 
-		if (key == Input.KEY_RIGHT) {
+		if (key == Input.KEY_D) {
 			currLevel.players[0].moveRight(false);
 		}
 	}
