@@ -42,7 +42,7 @@ public class MeleeAbility extends Ability {
 			cooldown = 50;
 			currCooldown = cooldown;
 			healthMod = -10;
-			range = 10;
+			range = 32;
 			targetsEnemy = false;
 			directional = false;
 			numOfProjectiles = 1;

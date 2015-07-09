@@ -1,5 +1,6 @@
 package Game;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 public class MeleeAbilityEntity extends Entity {
@@ -12,6 +13,11 @@ public class MeleeAbilityEntity extends Entity {
 		currDuration = 0;
 		duration = 1000;
 		hitBox = new Rectangle(x, y, aWidth, aHeight);
+		image = Game.meleeIndicator;
+		width = aWidth;
+		height = aHeight;
+		xpos = x;
+		ypos = y;
 		
 	}
 	

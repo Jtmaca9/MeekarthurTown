@@ -17,9 +17,12 @@ public class Game extends BasicGameState {
 	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, NOMOVE = 4;
 
 	static Image player;
-	static Image enemyImage;
+	static Image StandardMeleeImage;
+	static Image BerserkerMeleeImage;
+	static Image meleeIndicator;
 	static Image projectile;
-	static Image wallImage;
+	static Image wallFullImage;
+	static Image wallHalfImage;
 	StateBasedGame game;
 
 	static Level currLevel;
@@ -39,7 +42,10 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame arg1, Graphics g) throws SlickException {
+		g.setColor(Color.white);
+		g.fillRect(0, 0, 1920, 1080);
 		currLevel.render(container, g);
+		g.setColor(Color.green);
 		g.drawString("Current time: " +(currLevel.time/1000), 20, 20);
 	}
 
@@ -55,9 +61,12 @@ public class Game extends BasicGameState {
 	void loadImages() {
 		try {
 			player = new Image("Images/obama_sprite.png");
-			enemyImage = new Image("Images/Character.png");
+			StandardMeleeImage = new Image("Images/MeleeStandard.png");
+			BerserkerMeleeImage = new Image("Images/MeleeBeserker.png");
+			meleeIndicator = new Image("Images/MeleeIndicator.png");
 			projectile = new Image("Images/Green.png");
-			wallImage = new Image("Images/brick.png");
+			wallFullImage = new Image("Images/WallFull.png");
+			wallHalfImage = new Image("Images/WallHalf.png");
 		} catch (SlickException e) {
 
 			e.printStackTrace();

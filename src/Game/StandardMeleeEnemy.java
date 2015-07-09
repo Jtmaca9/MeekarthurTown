@@ -30,7 +30,7 @@ public class StandardMeleeEnemy extends MeleeEnemy {
 
 		ability = new MeleeAbility[2];
 		hitBox = new Rectangle(xpos, ypos, width, height);
-		image = Game.enemyImage;
+		image = Game.StandardMeleeImage;
 
 		currHealth = health;
 
@@ -53,8 +53,8 @@ public class StandardMeleeEnemy extends MeleeEnemy {
 
 		hitBox.setY(ypos);
 		hitBox.setX(xpos);
-		rangeBox.setY(ypos);
-		rangeBox.setX(xpos);
+		rangeBox.setY(ypos - range);
+		rangeBox.setX(xpos - range);
 
 	}
 

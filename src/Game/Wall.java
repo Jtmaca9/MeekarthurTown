@@ -1,23 +1,26 @@
 package Game;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Wall extends LivingEntity {
 
 	int health;
+	Image halfImage;
 
 	Wall(int x, int y) {
 		xpos = x;
 		ypos = y;
 		enemy = false;
-		image = Game.wallImage;
+		image = Game.wallFullImage;
+		
 
 		// SET IMAGE VARIABLE HERE
 
 		// Placeholder values
 		width = 384;
 		height = 64;
-		health = 1;
+		health = 100;
 		currHealth = health;
 		hitBox = new Rectangle(xpos, ypos, width, height);
 
@@ -26,16 +29,11 @@ public class Wall extends LivingEntity {
 	}
 
 	void update() {
-		if (health <= 0) {
+		if (currHealth < ((health / 100) * 50)) {
+			image = Game.wallHalfImage;
+		}
+		if (currHealth <= 0) {
 			destroyed = true;
-		} else if (health < (health / 100 * 20)) {
-			// change image
-		} else if (health < (health / 100 * 40)) {
-			// change image
-		} else if (health < (health / 100 * 60)) {
-			// change image
-		} else if (health < (health / 100 * 80)) {
-			// change image
 		}
 
 		for (Projectile p : Game.currLevel.enemyProjectiles) {

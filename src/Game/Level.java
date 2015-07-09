@@ -171,6 +171,9 @@ public class Level {
 		for (Enemy i : enemyList) {
 			i.render(container, g);
 		}
+		for (MeleeAbilityEntity m : enemyMeleeList) {
+			m.render(container, g);
+		}
 		for (Projectile p : playerProjectiles) {
 			p.render(container, g);
 		}
