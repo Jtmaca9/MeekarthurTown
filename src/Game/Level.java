@@ -48,7 +48,17 @@ public class Level {
 
 		// testing area
 		players[0] = new Player(1, 320, 320, "wizard");
+		int eventTimes[] = {
+				1000, 2000, 3000, 4000, 5000,
+				7000, 8000, 9000, 10000, 11000,
+				13000, 15000, 17000, 19000, 21000
+		};
 		
+		for (int k = 0; k < 15; k++) {
+			eventList.add(new Event(1, false, lanes[k%5], eventTimes[k]));
+		}
+		
+		/*
 		eventList.add(new Event(1, false, lanes[0], 1000));
 		eventList.add(new Event(1, false, lanes[1], 2000));
 		eventList.add(new Event(1, false, lanes[2], 3000));
@@ -59,12 +69,8 @@ public class Level {
 		eventList.add(new Event(1, true, lanes[3], 8000));
 		eventList.add(new Event(1, true, lanes[2], 9000));
 		eventList.add(new Event(1, true, lanes[1], 10000));
-		eventList.add(new Event(1, true, lanes[0], 11000));
-
-		
-
-		
-
+		eventList.add(new Event(1, true, lanes[0], 11000));	
+		*/
 	}
 
 	void update(int delta) {
