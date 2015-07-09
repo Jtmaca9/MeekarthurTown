@@ -38,6 +38,7 @@ public class Game extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame arg1, Graphics g) throws SlickException {
 		currLevel.render(container, g);
+		g.drawString("Current time: " +(currLevel.time/1000), 20, 20);
 	}
 
 	@Override

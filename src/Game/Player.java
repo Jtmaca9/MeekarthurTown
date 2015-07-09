@@ -219,6 +219,12 @@ public class Player extends LivingEntity {
 				p.destroyed = true;
 			}
 		}
+		for (MeleeAbilityEntity m : Game.currLevel.enemyMeleeList) {
+			if (checkCollision(m)) {
+				currHealth += m.healthMod;
+				m.destroyed = true;
+			}
+		}
 	}
 
 	boolean checkFacingCollision(LivingEntity e) {

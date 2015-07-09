@@ -14,15 +14,20 @@ public class Level {
 	Player[] players;
 	int playerCount;
 	int lives;
+	long time = 0;
 	String levelName;
 	Coords[] lanes;
 
 	// Player List and Enemy list and Event list
 	List<LivingEntity> livingEntityList = new ArrayList<LivingEntity>();
 	List<Enemy> enemyList = new ArrayList<Enemy>();
+	List<Event> eventList = new ArrayList<Event>();
 	List<Projectile> playerProjectiles = new ArrayList<Projectile>();
 	List<Projectile> enemyProjectiles = new ArrayList<Projectile>();
+	List<MeleeAbilityEntity> enemyMeleeList = new ArrayList<MeleeAbilityEntity>();
+	Iterator<MeleeAbilityEntity> enemyMeleeIterator;
 	Iterator<Enemy> enemyIterator;
+	Iterator<Event> eventIterator;
 	Iterator<Projectile> projectileIterator;
 
 	Level(int pCount, String lName) {
@@ -32,18 +37,33 @@ public class Level {
 		levelName = lName;
 		lanes = new Coords[5];
 		lives = 5;
-
-		// testing area
-		players[0] = new Player(1, 320, 320, "wizard");
-		lanes[0] = new Coords(320, 160);
-		lanes[1] = new Coords(480, 160);
-
-		enemyList.add(new BeserkerMeleeEnemy(lanes[0], false));
-		enemyList.add(new StandardMeleeEnemy(lanes[1], true));
-
+		
+		for(int i = 0; i < 5; i++){
+			lanes[i] = new Coords((i*320)+320, -64);
+		}
+		
 		for (int j = 0; j < 5; j++) {
 			walls[j] = new Wall(j * 384, 1000);
 		}
+
+		// testing area
+		players[0] = new Player(1, 320, 320, "wizard");
+		
+		eventList.add(new Event(1, false, lanes[0], 1000));
+		eventList.add(new Event(1, false, lanes[1], 2000));
+		eventList.add(new Event(1, false, lanes[2], 3000));
+		eventList.add(new Event(1, false, lanes[3], 4000));
+		eventList.add(new Event(1, false, lanes[4], 5000));
+		
+		eventList.add(new Event(1, true, lanes[4], 7000));
+		eventList.add(new Event(1, true, lanes[3], 8000));
+		eventList.add(new Event(1, true, lanes[2], 9000));
+		eventList.add(new Event(1, true, lanes[1], 10000));
+		eventList.add(new Event(1, true, lanes[0], 11000));
+
+		
+
+		
 
 	}
 
@@ -81,6 +101,10 @@ public class Level {
 		for (Projectile k : enemyProjectiles) {
 			k.update();
 		}
+		
+		for (MeleeAbilityEntity m : enemyMeleeList) {
+			m.update();
+		}
 
 		// We will use the same iterator loop for destroyed projectiles.
 		enemyIterator = enemyList.iterator();
@@ -109,7 +133,38 @@ public class Level {
 			}
 
 		}
+		
+		enemyMeleeIterator = enemyMeleeList.iterator();
+		while (enemyMeleeIterator.hasNext()) {
+			MeleeAbilityEntity m = enemyMeleeIterator.next();
+			if (m.destroyed) {
+				enemyMeleeIterator.remove();
+			}
 
+		}
+		
+		getTime(delta);
+		checkEvent();
+
+	}
+	
+	void getTime(int delta){
+		time+=delta;
+		//System.out.println(time);
+		
+	}
+	
+	void checkEvent(){
+		eventIterator = eventList.iterator();
+		while (eventIterator.hasNext()) {
+			Event e = eventIterator.next();
+			if (time >= e.activateTime) {
+				e.fire();
+				eventIterator.remove();
+			}
+
+		}
+		
 	}
 
 	void render(GameContainer container, Graphics g) {

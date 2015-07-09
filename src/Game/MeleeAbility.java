@@ -20,6 +20,7 @@ public class MeleeAbility extends Ability {
 
 		case 0:
 			// Blank
+			break;
 		case 1:
 			// Wizard Basic Melee Attack
 			speed = 8;
@@ -34,6 +35,7 @@ public class MeleeAbility extends Ability {
 			break;
 		case 2:
 			// Blank
+			break;
 		case 3:
 			// Monster Basic Melee Attack
 			speed = 8;
@@ -52,7 +54,7 @@ public class MeleeAbility extends Ability {
 	void useAbility(int dir, int pX, int pY, int cS) {
 		if (checkCooldown()) {
 			if (!directional) {
-//				spawnHitBoxCentre(pX, pY, cS);
+				spawnHitBoxCentre(pX, pY, cS);
 			}
 		}
 	}
@@ -60,7 +62,7 @@ public class MeleeAbility extends Ability {
 	void spawnHitBoxCentre(int x, int y, int cS) {
 		// Spawns the 'Melee attack' hitbox in centre of caster
 		if (targetsEnemy) {
-			new Rectangle(x - range, y - range, cS + (2 * range), cS + (2 * range));
+			Game.currLevel.enemyMeleeList.add(new MeleeAbilityEntity(x - range, y - range, cS + (2 * range), cS + (2 * range), healthMod));
 		}
 	}
 }
