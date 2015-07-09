@@ -1,6 +1,7 @@
 package Game;
 
 import java.util.List;
+import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -48,14 +49,22 @@ public class Level {
 
 		// testing area
 		players[0] = new Player(1, 320, 320, "wizard");
-		int eventTimes[] = {
-				1000, 2000, 3000, 4000, 5000,
-				7000, 8000, 9000, 10000, 11000,
-				13000, 15000, 17000, 19000, 21000
-		};
+		
+		int enemyCount = 15;
+		int[][] eventData = new int[enemyCount][4];
+		
+		Random randomGenerator = new Random();
+		int rand;
+		
+		for (int n = 0; n < enemyCount; n++) {
+			eventData[n][0] = 1;
+			eventData[n][1] = (n%5==4) ? 1 : 0;
+			eventData[n][2] = (rand = randomGenerator.nextInt(5));
+			eventData[n][3] = 1000 * 2 * (n+1);
+		}
 		
 		for (int k = 0; k < 15; k++) {
-			eventList.add(new Event(1, false, lanes[k%5], eventTimes[k]));
+			eventList.add(new Event(eventData[k][0], (eventData[k][1]==1) ? true : false, lanes[eventData[k][2]], eventData[k][3]));
 		}
 		
 		/*
