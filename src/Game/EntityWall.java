@@ -3,17 +3,16 @@ package Game;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Wall extends LivingEntity {
+public class EntityWall extends EntityLiving {
 
 	int health;
 	Image halfImage;
 
-	Wall(int x, int y) {
+	EntityWall(int x, int y) {
 		xpos = x;
 		ypos = y;
 		enemy = false;
 		image = Game.wallFullImage;
-		
 
 		// SET IMAGE VARIABLE HERE
 
@@ -36,21 +35,21 @@ public class Wall extends LivingEntity {
 			destroyed = true;
 		}
 
-		for (Projectile p : Game.currLevel.enemyProjectiles) {
+		for (EntityProjectile p : Game.currLevel.enemyProjectiles) {
 			if (checkCollision(p)) {
 				currHealth += p.healthMod;
 				p.destroyed = true;
 			}
 		}
-		
-		for (MeleeAbilityEntity m : Game.currLevel.enemyMeleeList) {
+
+		for (EntityAbilityMelee m : Game.currLevel.enemyMeleeList) {
 			if (checkCollision(m)) {
 				currHealth += m.healthMod;
 				m.destroyed = true;
 			}
 		}
 
-		for (Projectile p : Game.currLevel.playerProjectiles) {
+		for (EntityProjectile p : Game.currLevel.playerProjectiles) {
 			if (checkCollision(p)) {
 				p.destroyed = true;
 			}

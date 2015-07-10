@@ -1,7 +1,9 @@
 package Game;
 
-public class MeleeEnemy extends Enemy {
+public class EnemyMelee extends Enemy {
 
+	int range;
+	
 	void move() {
 		currSpeed = speed; // Change this later (test)
 		if (direction == DOWN) {
@@ -13,12 +15,12 @@ public class MeleeEnemy extends Enemy {
 	}
 
 	void baseBehaviour() {
-		for (Player e : Game.currLevel.players) {
+		for (EntityPlayer e : Game.currLevel.players) {
 			if (checkFacingCollision(e)) {
 			}
 		}
 
-		for (Wall w : Game.currLevel.walls) {
+		for (EntityWall w : Game.currLevel.walls) {
 			if (checkFacingCollision(w)) {
 				attack(0);
 			}

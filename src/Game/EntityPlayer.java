@@ -5,7 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Player extends LivingEntity {
+public class EntityPlayer extends EntityLiving {
 
 	String playerClass;
 	int playerID;
@@ -13,9 +13,10 @@ public class Player extends LivingEntity {
 	int lastDirection;
 	int tempX, tempY;
 	int abilityDir;
+	float healthPercent;
 	Ability activeAbility;
 
-	Player(int pID, int x, int y, String pClass) {
+	EntityPlayer(int pID, int x, int y, String pClass) {
 		enemy = false;
 		playerID = pID;
 		playerClass = pClass;
@@ -42,10 +43,10 @@ public class Player extends LivingEntity {
 			speed = 4;
 			image = Game.player;
 
-			ability[0] = new ProjectileAbility(0);
-			ability[1] = new ProjectileAbility(1);
-			ability[2] = new ProjectileAbility(1);
-			
+			ability[0] = new AbilityProjectile(0);
+			ability[1] = new AbilityProjectile(1);
+			ability[2] = new AbilityProjectile(1);
+
 			activeAbility = ability[0];
 
 			break;
@@ -68,13 +69,14 @@ public class Player extends LivingEntity {
 		collision();
 		checkHealth();
 		cooldowns();
+		healthPercent = (currHealth / health) * 100;
 	}
 
 	void useAbility(int dir) {
 		activeAbility.useAbility(dir, xpos, ypos, width);
 		activeAbility = ability[0];
 	}
-	
+
 	void primeAbility(int a) {
 		if (activeAbility == ability[a]) {
 			activeAbility = ability[0];
@@ -82,19 +84,19 @@ public class Player extends LivingEntity {
 			activeAbility = ability[a];
 		}
 	}
-	
+
 	void cooldowns() {
-		ability[0].currCooldown--;
+		ability[0].currCooldown -= Game.currLevel.deltaTime;
 
 		if (ability[0].currCooldown < 0) {
 			ability[0].currCooldown = 0;
 		}
-		ability[1].currCooldown--;
+		ability[1].currCooldown -= Game.currLevel.deltaTime;
 
 		if (ability[1].currCooldown < 0) {
 			ability[1].currCooldown = 0;
 		}
-		ability[2].currCooldown--;
+		ability[2].currCooldown -= Game.currLevel.deltaTime;
 
 		if (ability[2].currCooldown < 0) {
 			ability[2].currCooldown = 0;
@@ -220,24 +222,24 @@ public class Player extends LivingEntity {
 	void collision() {
 		for (Enemy e : Game.currLevel.enemyList) {
 			checkFacingCollision(e);
-			if (e instanceof StandardMeleeEnemy) {
+			if (e instanceof EnemyMelee) {
 				if (checkRangeBox(e)) {
 					e.attack(0);
 				}
 			}
 		}
 
-		for (Wall w : Game.currLevel.walls) {
+		for (EntityWall w : Game.currLevel.walls) {
 			checkFacingCollision(w);
 		}
 
-		for (Projectile p : Game.currLevel.enemyProjectiles) {
+		for (EntityProjectile p : Game.currLevel.enemyProjectiles) {
 			if (checkCollision(p)) {
 				currHealth += p.healthMod;
 				p.destroyed = true;
 			}
 		}
-		for (MeleeAbilityEntity m : Game.currLevel.enemyMeleeList) {
+		for (EntityAbilityMelee m : Game.currLevel.enemyMeleeList) {
 			if (checkCollision(m)) {
 				currHealth += m.healthMod;
 				m.destroyed = true;
@@ -245,7 +247,7 @@ public class Player extends LivingEntity {
 		}
 	}
 
-	boolean checkFacingCollision(LivingEntity e) {
+	boolean checkFacingCollision(EntityLiving e) {
 		if ((xpos + width - speed) >= e.xpos && xpos + speed <= (e.xpos + e.width)
 				&& (ypos + height - speed) >= e.ypos - e.speed && ypos + e.speed <= (e.ypos + e.height)) {
 			if (direction == RIGHT) {// right

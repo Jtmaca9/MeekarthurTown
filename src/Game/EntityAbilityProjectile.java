@@ -3,15 +3,16 @@ package Game;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Projectile extends Entity {
+public class EntityAbilityProjectile extends EntityProjectile {
 
 	// N, S, E and W stand for North, South, East and West
 	final int N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7;
 
-	int speed, direction, healthMod, casterXpos, casterYpos, casterSize, size, range, currRange = 0;
+	int direction, casterXpos, casterYpos, casterSize, size, range, currRange = 0;
+	float speed;
 	Coords spawn;
 
-	Projectile(int s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r) {
+	EntityAbilityProjectile(float s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r) {
 
 		speed = s;
 		image = im;
@@ -78,23 +79,23 @@ public class Projectile extends Entity {
 		if (direction == 0) {
 			ypos -= speed;
 		} else if (direction == 1) {
-			xpos += speed;
-			ypos -= speed;
+			xpos += (0.7 * speed);
+			ypos -= (0.7 * speed);
 		} else if (direction == 2) {
 			xpos += speed;
 		} else if (direction == 3) {
-			xpos += speed;
-			ypos += speed;
+			xpos += (0.7 * speed);
+			ypos += (0.7 * speed);
 		} else if (direction == 4) {
 			ypos += speed;
 		} else if (direction == 5) {
-			xpos -= speed;
-			ypos += speed;
+			xpos -= (0.7 * speed);
+			ypos += (0.7 * speed);
 		} else if (direction == 6) {
 			xpos -= speed;
 		} else if (direction == 7) {
-			xpos -= speed;
-			ypos -= speed;
+			xpos -= (0.7 * speed);
+			ypos -= (0.7 * speed);
 		}
 		hitBox.setX(xpos);
 		hitBox.setY(ypos);

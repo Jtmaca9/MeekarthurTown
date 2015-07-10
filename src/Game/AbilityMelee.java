@@ -2,15 +2,15 @@ package Game;
 
 import org.newdawn.slick.geom.Rectangle;
 
-public class MeleeAbility extends Ability {
+public class AbilityMelee extends Ability {
 
 	// If false, melee attack is an AOE from centre of caster
 	// If true, is in direction caster facing OR ability direction
 	boolean directional;
-	
+
 	Rectangle hitBox;
 
-	MeleeAbility(int aID) {
+	AbilityMelee(int aID) {
 		abilityID = aID;
 		createAbility();
 	}
@@ -39,7 +39,7 @@ public class MeleeAbility extends Ability {
 		case 3:
 			// Monster Basic Melee Attack
 			speed = 8;
-			cooldown = 50;
+			cooldown = 500;
 			currCooldown = cooldown;
 			healthMod = -10;
 			range = 32;
@@ -59,11 +59,12 @@ public class MeleeAbility extends Ability {
 
 		}
 	}
-	
+
 	void spawnHitBoxCentre(int x, int y, int cS) {
 		// Spawns the 'Melee attack' hitbox in centre of caster
 		if (!targetsEnemy) {
-			Game.currLevel.enemyMeleeList.add(new MeleeAbilityEntity(x - range, y - range, cS + (2 * range), cS + (2 * range), healthMod));
+			Game.currLevel.enemyMeleeList
+					.add(new EntityAbilityMelee(x - range, y - range, cS + (2 * range), cS + (2 * range), healthMod));
 		}
 	}
 }

@@ -1,12 +1,11 @@
 package Game;
 
-public class LivingEntity extends Entity {
+public class EntityLiving extends Entity {
 
 	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, NOMOVE = 4;
 	float health, currHealth;
-	int speed;
+	float speed, currSpeed;
 	int direction; // between 0-3 clockwise
-	int currSpeed;
 	Ability ability[];
 
 	boolean checkCollisionDirection() {
@@ -14,11 +13,12 @@ public class LivingEntity extends Entity {
 	}
 
 	void cooldowns() {
-		ability[0].currCooldown--;
+		ability[0].currCooldown -= Game.currLevel.deltaTime;
 
 		if (ability[0].currCooldown < 0) {
 			ability[0].currCooldown = 0;
 		}
+		
 	}
 
 	void checkHealth() {
@@ -26,5 +26,4 @@ public class LivingEntity extends Entity {
 			destroyed = true;
 		}
 	}
-
 }

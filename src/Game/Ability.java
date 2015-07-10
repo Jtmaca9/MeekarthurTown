@@ -1,9 +1,5 @@
 package Game;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.newdawn.slick.Image;
 
 public class Ability {
@@ -26,15 +22,9 @@ public class Ability {
 	void useAbility(int dir, int pX, int pY, int cS) {
 
 	}
-
-	// move to AbilityMelee
-	void useMB(int dir, int pX, int pY, int cS) {
-		if (checkCooldown()) {
-			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, 0, image, pX, pY, cS, range));
-			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, 2, image, pX, pY, cS, range));
-			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, 4, image, pX, pY, cS, range));
-			Game.currLevel.enemyProjectiles.add(new Projectile(speed, healthMod, size, 6, image, pX, pY, cS, range));
-		}
+	
+	void useAbilityTarget(int cX, int cY, int cS, int tX, int tY) {
+		
 	}
 
 	boolean checkCooldown() {

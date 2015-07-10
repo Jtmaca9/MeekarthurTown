@@ -10,174 +10,83 @@ import java.util.Iterator;
 
 public class Level {
 
-	Wall[] walls;
-	Player[] players;
+	EntityWall[] walls;
+	EntityPlayer[] players;
 	int playerCount;
 	int lives;
+	int deltaTime;
 	long time = 0;
 	String levelName;
 	Coords[] lanes;
 
 	// Player List and Enemy list and Event list
-	List<LivingEntity> livingEntityList = new ArrayList<LivingEntity>();
+	List<EntityLiving> livingEntityList = new ArrayList<EntityLiving>();
 	List<Enemy> enemyList = new ArrayList<Enemy>();
 	List<Event> eventList = new ArrayList<Event>();
-	List<Projectile> playerProjectiles = new ArrayList<Projectile>();
-	List<Projectile> enemyProjectiles = new ArrayList<Projectile>();
-	List<MeleeAbilityEntity> enemyMeleeList = new ArrayList<MeleeAbilityEntity>();
-	Iterator<MeleeAbilityEntity> enemyMeleeIterator;
+	List<EntityProjectile> playerProjectiles = new ArrayList<EntityProjectile>();
+	List<EntityProjectile> enemyProjectiles = new ArrayList<EntityProjectile>();
+	List<EntityAbilityMelee> enemyMeleeList = new ArrayList<EntityAbilityMelee>();
+	Iterator<EntityAbilityMelee> enemyMeleeIterator;
 	Iterator<Enemy> enemyIterator;
 	Iterator<Event> eventIterator;
-	Iterator<Projectile> projectileIterator;
+	Iterator<EntityProjectile> projectileIterator;
 
 	Level(int pCount, String lName) {
-		players = new Player[pCount];
-		walls = new Wall[5];
+		players = new EntityPlayer[pCount];
+		walls = new EntityWall[5];
 		playerCount = pCount;
 		levelName = lName;
 		lanes = new Coords[5];
 		lives = 5;
-		
-		for(int i = 0; i < 5; i++){
-			lanes[i] = new Coords((i*320)+320, -64);
+		deltaTime = 0;
+
+		// Adjust so they are in the middle of wall segment
+		for (int i = 0; i < 5; i++) {
+			lanes[i] = new Coords((i * 384) + 192, -64);
 		}
-		
+
 		for (int j = 0; j < 5; j++) {
-			walls[j] = new Wall(j * 384, 1000);
+			walls[j] = new EntityWall(j * 384, 1000);
 		}
 
 		// testing area
-		players[0] = new Player(1, 320, 320, "wizard");
-		
-		eventList.add(new Event(1, false, lanes[0], 1000));
-		eventList.add(new Event(1, false, lanes[1], 2000));
+		players[0] = new EntityPlayer(1, 320, 320, "wizard");
+
+		eventList.add(new Event(2, false, lanes[0], 1000));
+		eventList.add(new Event(4, false, lanes[1], 2000));
 		eventList.add(new Event(1, false, lanes[2], 3000));
 		eventList.add(new Event(1, false, lanes[3], 4000));
 		eventList.add(new Event(1, false, lanes[4], 5000));
-		
+
 		eventList.add(new Event(1, true, lanes[4], 7000));
 		eventList.add(new Event(1, true, lanes[3], 8000));
 		eventList.add(new Event(1, true, lanes[2], 9000));
 		eventList.add(new Event(1, true, lanes[1], 10000));
 		eventList.add(new Event(1, true, lanes[0], 11000));
 
-		
-
-		
-
 	}
 
 	void update(int delta) {
-		for (int i = 0; i < playerCount; i++) {
-
-			if (!players[i].destroyed) {
-				players[i].update();
-
-			} else {
-				players[i].xpos = -100;
-				players[i].ypos = -100;
-			}
-		}
-
-		for (int j = 0; j < 5; j++) {
-
-			if (!walls[j].destroyed) {
-				walls[j].update();
-
-			} else {
-				walls[j].xpos = -1000;
-				walls[j].ypos = -1000;
-			}
-		}
-
-		for (Projectile p : playerProjectiles) {
-			p.update();
-		}
-
-		for (Enemy j : enemyList) {
-			j.update();
-		}
-
-		for (Projectile k : enemyProjectiles) {
-			k.update();
-		}
-		
-		for (MeleeAbilityEntity m : enemyMeleeList) {
-			m.update();
-		}
-
-		// We will use the same iterator loop for destroyed projectiles.
-		enemyIterator = enemyList.iterator();
-		while (enemyIterator.hasNext()) {
-			Enemy e = enemyIterator.next();
-			if (e.destroyed) {
-				enemyIterator.remove();
-			}
-
-		}
-
-		projectileIterator = playerProjectiles.iterator();
-		while (projectileIterator.hasNext()) {
-			Projectile p = projectileIterator.next();
-			if (p.destroyed) {
-				projectileIterator.remove();
-			}
-
-		}
-
-		projectileIterator = enemyProjectiles.iterator();
-		while (projectileIterator.hasNext()) {
-			Projectile p = projectileIterator.next();
-			if (p.destroyed) {
-				projectileIterator.remove();
-			}
-
-		}
-		
-		enemyMeleeIterator = enemyMeleeList.iterator();
-		while (enemyMeleeIterator.hasNext()) {
-			MeleeAbilityEntity m = enemyMeleeIterator.next();
-			if (m.destroyed) {
-				enemyMeleeIterator.remove();
-			}
-
-		}
-		
+		updatePlayers();
+		updateWalls();
+		updateAbilities();
+		updateEnemies();
 		getTime(delta);
+		deltaTime = delta;
 		checkEvent();
-
-	}
-	
-	void getTime(int delta){
-		time += delta;
-		//System.out.println(time);
-		
-	}
-	
-	void checkEvent(){
-		eventIterator = eventList.iterator();
-		while (eventIterator.hasNext()) {
-			Event e = eventIterator.next();
-			if (time >= e.activateTime) {
-				e.fire();
-				eventIterator.remove();
-			}
-
-		}
-		
 	}
 
 	void render(GameContainer container, Graphics g) {
 		for (Enemy i : enemyList) {
 			i.render(container, g);
 		}
-		for (MeleeAbilityEntity m : enemyMeleeList) {
+		for (EntityAbilityMelee m : enemyMeleeList) {
 			m.render(container, g);
 		}
-		for (Projectile p : playerProjectiles) {
+		for (EntityProjectile p : playerProjectiles) {
 			p.render(container, g);
 		}
-		for (Projectile k : enemyProjectiles) {
+		for (EntityProjectile k : enemyProjectiles) {
 			k.render(container, g);
 		}
 
@@ -191,6 +100,104 @@ public class Level {
 			if (!players[i].destroyed) {
 				players[i].render(container, g);
 			}
+		}
+	}
+
+	void getTime(int delta) {
+		time += delta;
+	}
+
+	void checkEvent() {
+		eventIterator = eventList.iterator();
+		while (eventIterator.hasNext()) {
+			Event e = eventIterator.next();
+			if (time >= e.activateTime) {
+				e.fire();
+				eventIterator.remove();
+			}
+
+		}
+
+	}
+
+	void updatePlayers() {
+		for (int i = 0; i < playerCount; i++) {
+
+			if (!players[i].destroyed) {
+				players[i].update();
+
+			} else {
+				players[i].xpos = -100;
+				players[i].ypos = -100;
+			}
+		}
+	}
+
+	void updateWalls() {
+		for (int j = 0; j < 5; j++) {
+
+			if (!walls[j].destroyed) {
+				walls[j].update();
+
+			} else {
+				walls[j].xpos = -1000;
+				walls[j].ypos = -1000;
+			}
+		}
+	}
+
+	void updateAbilities() {
+		for (EntityProjectile p : playerProjectiles) {
+			p.update();
+		}
+		for (EntityProjectile k : enemyProjectiles) {
+			k.update();
+		}
+
+		for (EntityAbilityMelee m : enemyMeleeList) {
+			m.update(deltaTime);
+		}
+		
+		projectileIterator = playerProjectiles.iterator();
+		while (projectileIterator.hasNext()) {
+			EntityProjectile p = projectileIterator.next();
+			if (p.destroyed) {
+				projectileIterator.remove();
+			}
+
+		}
+
+		projectileIterator = enemyProjectiles.iterator();
+		while (projectileIterator.hasNext()) {
+			EntityProjectile p = projectileIterator.next();
+			if (p.destroyed) {
+				projectileIterator.remove();
+			}
+
+		}
+
+		enemyMeleeIterator = enemyMeleeList.iterator();
+		while (enemyMeleeIterator.hasNext()) {
+			EntityAbilityMelee m = enemyMeleeIterator.next();
+			if (m.destroyed) {
+				enemyMeleeIterator.remove();
+			}
+
+		}
+	}
+
+	void updateEnemies() {
+		for (Enemy j : enemyList) {
+			j.update();
+		}
+
+		enemyIterator = enemyList.iterator();
+		while (enemyIterator.hasNext()) {
+			Enemy e = enemyIterator.next();
+			if (e.destroyed) {
+				enemyIterator.remove();
+			}
+
 		}
 	}
 

@@ -13,12 +13,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends BasicGameState {
-	
+
 	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, NOMOVE = 4;
 
 	static Image player;
 	static Image StandardMeleeImage;
 	static Image BerserkerMeleeImage;
+	static Image StandardRangedImage;
 	static Image meleeIndicator;
 	static Image projectile;
 	static Image wallFullImage;
@@ -46,14 +47,14 @@ public class Game extends BasicGameState {
 		g.fillRect(0, 0, 1920, 1080);
 		currLevel.render(container, g);
 		g.setColor(Color.green);
-		g.drawString("Current time: " +(currLevel.time/1000), 20, 20);
+		g.drawString("Current time: " + (currLevel.time / 1000), 20, 20);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int delta) throws SlickException {
 		currLevel.update(delta);
-		
-		if(currLevel.checkLives()){
+
+		if (currLevel.checkLives()) {
 			game.enterState(1);
 		}
 	}
@@ -63,6 +64,7 @@ public class Game extends BasicGameState {
 			player = new Image("Images/obama_sprite.png");
 			StandardMeleeImage = new Image("Images/MeleeStandard.png");
 			BerserkerMeleeImage = new Image("Images/MeleeBeserker.png");
+			StandardRangedImage = new Image("Images/Character.png");
 			meleeIndicator = new Image("Images/MeleeIndicator.png");
 			projectile = new Image("Images/Green.png");
 			wallFullImage = new Image("Images/WallFull.png");
@@ -96,7 +98,7 @@ public class Game extends BasicGameState {
 		if (key == Input.KEY_D) {
 			currLevel.players[0].moveRight(true);
 		}
-		
+
 		if (key == Input.KEY_UP) {
 			currLevel.players[0].useAbility(UP);
 		}
@@ -112,11 +114,11 @@ public class Game extends BasicGameState {
 		if (key == Input.KEY_RIGHT) {
 			currLevel.players[0].useAbility(RIGHT);
 		}
-		
+
 		if (key == Input.KEY_Q) {
 			currLevel.players[0].primeAbility(1);
 		}
-		
+
 		if (key == Input.KEY_E) {
 			currLevel.players[0].primeAbility(2);
 		}

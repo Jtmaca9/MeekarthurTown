@@ -34,10 +34,10 @@ public class Entity {
 			return false;
 		}
 	}
-	
+
 	Boolean checkRangeBox(Entity i) {
-		//used to check if player intersects with melee rangeBox
-		if  (hitBox.intersects(i.rangeBox)) {
+		// used to check if player intersects with melee rangeBox
+		if (hitBox.intersects(i.rangeBox)) {
 			return true;
 		} else {
 			return false;

@@ -2,15 +2,12 @@ package Game;
 
 import org.newdawn.slick.geom.Rectangle;
 
-public class StandardMeleeEnemy extends MeleeEnemy {
+public class EnemyMeleeStandard extends EnemyMelee {
 
 	final int MONSTERID = 1;
-	int range;
+	
 
-	StandardMeleeEnemy(Coords lane, boolean bM) {
-
-		xpos = lane.x;
-		ypos = lane.y;
+	EnemyMeleeStandard(Coords lane, boolean bM) {
 
 		destroyed = false;
 		bigMonster = bM;
@@ -28,16 +25,19 @@ public class StandardMeleeEnemy extends MeleeEnemy {
 			height = 32;
 		}
 
-		ability = new MeleeAbility[2];
+		xpos = (int) (lane.x - (0.5 * width));
+		ypos = lane.y;
+
+		ability = new AbilityMelee[2];
 		hitBox = new Rectangle(xpos, ypos, width, height);
 		image = Game.StandardMeleeImage;
 
 		currHealth = health;
 
 		direction = DOWN;
-		ability[0] = new MeleeAbility(3);
+		ability[0] = new AbilityMelee(3);
 		range = ability[0].range;
-		
+
 		rangeBox = new Rectangle(xpos - range, ypos - range, width + (2 * range), height + (2 * range));
 	}
 
