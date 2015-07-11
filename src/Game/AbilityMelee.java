@@ -32,6 +32,7 @@ public class AbilityMelee extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectile;
+			hasEffect = false;
 			break;
 		case 2:
 			// Blank
@@ -47,6 +48,7 @@ public class AbilityMelee extends Ability {
 			directional = false;
 			numOfProjectiles = 1;
 			image = Game.projectile;
+			hasEffect = true;
 			break;
 		}
 	}

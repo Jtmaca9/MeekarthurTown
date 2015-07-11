@@ -25,7 +25,8 @@ public class EnemyMeleeBeserker extends EnemyMelee {
 		}
 
 		xpos = (int) (lane.x - (0.5 * width));
-		ypos = lane.y;
+		ypos = (int) lane.y;
+		baseSpeed = speed;
 
 		ability = new AbilityMelee[2];
 		hitBox = new Rectangle(xpos, ypos, width, height);
@@ -60,6 +61,7 @@ public class EnemyMeleeBeserker extends EnemyMelee {
 		if (currHealth < health) {
 			// change to a constant
 			speed = 2;
+			baseSpeed = speed;
 		}
 	}
 }

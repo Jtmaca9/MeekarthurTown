@@ -37,20 +37,13 @@ public class EntityAbilityProjectileVector extends EntityProjectile {
 	}
 	
 	Coords getVector() {
-		Coords vector = new Coords(0,0);
-		vector.x = (casterXpos - targetXpos) / 100;
-		vector.y = (casterYpos - targetYpos) / 100;
-		
-//		if (vector.x >= vector.y) {
-//			vector.y = vector.x / vector.y;
-//			vector.x = 1;
-//		} else {
-//			vector.x = vector.y / vector.x;
-//			vector.y = 1;
-//		}
-		
-		
-		return vector;
+		Coords tvector = new Coords(0,0);
+		float x = (targetXpos- casterXpos);
+		float y = (targetYpos - casterYpos);
+		float total =((x*x) + (y*y));
+		tvector.x = (float) (((x*x) / total)) * speed;
+		tvector.y = (float) (((y*y) / total)) * speed;	
+		return tvector;
 	}
 	
 	void update() {
@@ -68,8 +61,8 @@ public class EntityAbilityProjectileVector extends EntityProjectile {
 	}
 	
 	void move(){
-		xpos -= (vector.x);
-		ypos -= (vector.y);
+		xpos += (vector.x);
+		ypos += (vector.y);
 		hitBox.setX(xpos);
 		hitBox.setY(ypos);
 	}

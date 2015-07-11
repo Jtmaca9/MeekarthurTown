@@ -20,13 +20,15 @@ public class AbilityProjectile extends Ability {
 			speed = 8;
 			cooldown = 300;
 			currCooldown = cooldown;
-			healthMod = -10;
+			healthMod = 0;
 			size = 8;
 			range = 1000;
 			targetsEnemy = true;
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectile;
+			hasEffect = true;
+			effectID = 0;
 			break;
 		case 1:
 			// Wizard pronged attack
@@ -40,6 +42,8 @@ public class AbilityProjectile extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 3;
 			image = Game.projectile;
+			hasEffect = false;
+			effectID = 0;
 			break;
 		case 2:
 			// StandardRangedEnemy Basic
@@ -53,6 +57,8 @@ public class AbilityProjectile extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectile;
+			hasEffect = false;
+			effectID = 0;
 			break;
 		case 3:
 			// Blank
@@ -70,23 +76,23 @@ public class AbilityProjectile extends Ability {
 		if (numOfProjectiles == 1) {
 			if (targetsEnemy) {
 				Game.currLevel.playerProjectiles
-						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range));
+						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID));
 			} else {
 				Game.currLevel.enemyProjectiles
-						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range));
+						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID));
 			}
 		} else if (numOfProjectiles == 3) {
 			if (targetsEnemy) {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.playerProjectiles
-							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, image, pX, pY, cS, range));
+							.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID));
 				}
 			} else {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.enemyProjectiles
-							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, image, pX, pY, cS, range));
+							.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID));
 				}
 			}
 		}

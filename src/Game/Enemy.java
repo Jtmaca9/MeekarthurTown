@@ -11,6 +11,7 @@ public class Enemy extends EntityLiving {
 		collision();
 		baseBehaviour();
 		behaviour();
+		updateEffects();
 		checkBounds();
 		checkHealth();
 	}
@@ -37,6 +38,9 @@ public class Enemy extends EntityLiving {
 	void collision() {
 		for (EntityProjectile p : Game.currLevel.playerProjectiles) {
 			if (checkCollision(p)) {
+				if(p.hasEffect){
+					getEffect(p.effectID);
+				}
 				p.destroyed = true;
 				currHealth += p.healthMod;
 			}

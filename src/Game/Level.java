@@ -53,7 +53,7 @@ public class Level {
 		players[0] = new EntityPlayer(1, 320, 320, "wizard");
 
 		eventList.add(new Event(2, false, lanes[0], 1000));
-		eventList.add(new Event(4, false, lanes[1], 2000));
+		eventList.add(new Event(2, false, lanes[1], 2000));
 		eventList.add(new Event(1, false, lanes[2], 3000));
 		eventList.add(new Event(1, false, lanes[3], 4000));
 		eventList.add(new Event(1, false, lanes[4], 5000));

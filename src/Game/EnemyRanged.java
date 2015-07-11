@@ -48,7 +48,7 @@ public class EnemyRanged extends Enemy {
 				}
 			}
 		}
-		getTargetCoords();
+		//gettarget
 	}
 	
 	void getTargetCoords() {

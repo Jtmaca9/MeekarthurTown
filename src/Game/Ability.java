@@ -8,6 +8,8 @@ public class Ability {
 	int direction, directionMod;
 	int range;
 	int numOfProjectiles;
+	boolean hasEffect;
+	int effectID;
 	Image image;
 
 	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
@@ -23,7 +25,7 @@ public class Ability {
 
 	}
 	
-	void useAbilityTarget(int cX, int cY, int cS, int tX, int tY) {
+	void useAbilityTarget(int cX, int cY, int cS, int x, int y) {
 		
 	}
 

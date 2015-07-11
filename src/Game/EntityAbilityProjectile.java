@@ -12,11 +12,13 @@ public class EntityAbilityProjectile extends EntityProjectile {
 	float speed;
 	Coords spawn;
 
-	EntityAbilityProjectile(float s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r) {
+	EntityAbilityProjectile(float s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r, boolean hE, int eID) {
 
 		speed = s;
 		image = im;
-
+		hasEffect = hE;
+		effectID = eID;
+		
 		size = sz;
 		width = size;
 		height = size;
@@ -33,8 +35,8 @@ public class EntityAbilityProjectile extends EntityProjectile {
 
 		getSpawnCoords();
 
-		xpos = spawn.x;
-		ypos = spawn.y;
+		xpos = (int) spawn.x;
+		ypos = (int) spawn.y;
 
 		hitBox = new Rectangle(xpos, ypos, width, height);
 	}

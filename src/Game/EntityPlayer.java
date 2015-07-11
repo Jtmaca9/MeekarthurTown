@@ -41,6 +41,7 @@ public class EntityPlayer extends EntityLiving {
 			health = 75;
 			currHealth = health;
 			speed = 4;
+			baseSpeed = speed;
 			image = Game.player;
 
 			ability[0] = new AbilityProjectile(0);
@@ -68,6 +69,7 @@ public class EntityPlayer extends EntityLiving {
 		move();
 		collision();
 		checkHealth();
+		updateEffects();
 		cooldowns();
 		healthPercent = (currHealth / health) * 100;
 	}
@@ -235,6 +237,9 @@ public class EntityPlayer extends EntityLiving {
 
 		for (EntityProjectile p : Game.currLevel.enemyProjectiles) {
 			if (checkCollision(p)) {
+				if(p.hasEffect){
+					getEffect(p.effectID);
+				}
 				currHealth += p.healthMod;
 				p.destroyed = true;
 			}

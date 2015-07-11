@@ -26,11 +26,12 @@ public class EnemyMeleeStandard extends EnemyMelee {
 		}
 
 		xpos = (int) (lane.x - (0.5 * width));
-		ypos = lane.y;
+		ypos = (int) lane.y;
 
 		ability = new AbilityMelee[2];
 		hitBox = new Rectangle(xpos, ypos, width, height);
 		image = Game.StandardMeleeImage;
+		baseSpeed = speed;
 
 		currHealth = health;
 

@@ -27,7 +27,7 @@ public class EnemyRangedStandard extends EnemyRanged {
 		}
 
 		xpos = (int) (lane.x - (0.5 * width));
-		ypos = lane.y;
+		ypos = (int) lane.y;
 
 		ability = new Ability[2];
 		hitBox = new Rectangle(xpos, ypos, width, height);
@@ -35,14 +35,16 @@ public class EnemyRangedStandard extends EnemyRanged {
 		
 		currHealth = health;
 		currAttackCD = attackCD;
+		baseSpeed = speed;
 
 		direction = DOWN;
 		ability[0] = new AbilityMelee(3);
 		range = ability[0].range;
-		ability[1] = new AbilityProjectileVector(0);
-		
 		targetPos = new Coords(0,0);
 		findTargetHighestHP();
+		ability[1] = new AbilityProjectileVector(0);
+		
+		
 	}
 
 	void attack(int i) {
@@ -50,7 +52,7 @@ public class EnemyRangedStandard extends EnemyRanged {
 	}
 	
 	void attackTarget() {
-		ability[1].useAbilityTarget(xpos, ypos, width, targetPos.x, targetPos.y);
+		ability[1].useAbilityTarget(xpos, ypos, width, (int) targetPos.x, (int)targetPos.y);
 	}
 	
 	void behaviour() {

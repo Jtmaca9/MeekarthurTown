@@ -1,10 +1,9 @@
 package Game;
 
 public class Coords {
-	int x;
-	int y;
+	float x, y;
 
-	Coords(int xpos, int ypos) {
+	Coords(float xpos, float ypos) {
 		x = xpos;
 		y = ypos;
 	}
