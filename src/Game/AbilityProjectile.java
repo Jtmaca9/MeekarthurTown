@@ -28,7 +28,7 @@ public class AbilityProjectile extends Ability {
 			numOfProjectiles = 1;
 			image = Game.projectile;
 			hasEffect = true;
-			effectID = 0;
+			effectID = 1;
 			break;
 		case 1:
 			// Wizard pronged attack

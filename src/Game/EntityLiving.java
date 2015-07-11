@@ -46,11 +46,16 @@ public class EntityLiving extends Entity {
 			if ((e.currTick < e.tickCount) && (e.currTickTime >= e.tickDuration)) {
 				currHealth += e.healthMod;
 				speed += e.speedMod;
+	
+				if(e.snare){
+					speed = 0;
+				}
+				
 				e.currTickTime = 0;
 				e.currTick++;
 				System.out.println("tick");
 				
-			}else if(e.currTick > e.tickCount){
+			}else if((e.currTick >= e.tickCount) && (e.currTickTime >= e.tickDuration)){
 				speed = baseSpeed;
 				effectIterator.remove();
 			}
