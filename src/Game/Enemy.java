@@ -66,9 +66,9 @@ public class Enemy extends EntityLiving {
 	void render(GameContainer container, Graphics g) {
 		image.draw(xpos, ypos, width, height);
 		g.setColor(Color.red);
-		g.fillRect(xpos, ypos - 10, 32, 5);
+		g.fillRect(xpos, ypos - 10, width, 5);
 		g.setColor(Color.green);
-		g.fillRect(xpos, ypos - 10, ((currHealth / health)) * 32, 5);
+		g.fillRect(xpos, ypos - 10, ((currHealth / health)) * width, 5);
 	}
 
 	boolean checkFacingCollision(EntityLiving e) {

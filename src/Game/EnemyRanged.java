@@ -39,20 +39,19 @@ public class EnemyRanged extends Enemy {
 	void findTargetHighestHP() {
 		// sets target to index of player with highest hp percentage
 		target = 0;
-		for (int i = 1; i <= Game.currLevel.playerCount; i++) {
-			if (Game.currLevel.playerCount == i) {
-				break;
-			} else if (!Game.currLevel.players[i-1].destroyed) {
-				if (Game.currLevel.players[target].healthPercent <= Game.currLevel.players[i].healthPercent) {
-					target = i;
-				}
+		float highest = 0;
+		for (int i = 0; i < Game.currLevel.playerCount; i++) {
+			if(Game.currLevel.players[i].healthPercent >= highest){
+				target = i;
+				highest = Game.currLevel.players[i].healthPercent;
 			}
 		}
-		//gettarget
+			
 	}
 	
 	void getTargetCoords() {
 		targetPos.x = Game.currLevel.players[target].xpos;
 		targetPos.y = Game.currLevel.players[target].ypos;
 	}
+	
 }

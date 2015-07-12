@@ -41,7 +41,7 @@ public class Level {
 		playerCount = pCount;
 		levelName = lName;
 		lanes = new Coords[5];
-		lives = 5;
+		lives = 11;
 		deltaTime = 0;
 
 		// Adjust so they are in the middle of wall segment
@@ -55,6 +55,7 @@ public class Level {
 
 		// testing area
 		players[0] = new EntityPlayer(1, 320, 320, "wizard");
+		players[1] = new EntityPlayer(2, 320, 320, "wizard");
 
 		eventList.add(new Event(7, false, lanes[0], 1000));
 		eventList.add(new Event(2, false, lanes[1], 2000));

@@ -41,7 +41,6 @@ public class EnemyRangedStandard extends EnemyRanged {
 		ability[0] = new AbilityMelee(3);
 		range = ability[0].range;
 		targetPos = new Coords(0,0);
-		findTargetHighestHP();
 		ability[1] = new AbilityProjectileVector(0);
 		
 		
@@ -57,7 +56,14 @@ public class EnemyRangedStandard extends EnemyRanged {
 	
 	void behaviour() {
 		currAttackCD -= Game.currLevel.deltaTime;
-		if (currAttackCD < 0) {
+		int alive = 0;
+		for(EntityPlayer p : Game.currLevel.players){
+			if(!p.destroyed){
+				alive++;
+			}
+		}
+		if (currAttackCD < 0 && (alive > 0)) {
+			findTargetHighestHP();
 			attackTarget();
 			currAttackCD = attackCD;
 		} 

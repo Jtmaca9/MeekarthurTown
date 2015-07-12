@@ -35,6 +35,7 @@ public class EntityLiving extends Entity {
 
 	void checkHealth() {
 		if (currHealth <= 0) {
+			currHealth = 0;
 			destroyed = true;
 		}
 	}
