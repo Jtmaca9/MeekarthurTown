@@ -33,7 +33,7 @@ public class GameOver extends BasicGameState{
 	}public void keyPressed(int key, char code) {
 		// Player 1 Controls
 		if (key == Input.KEY_SPACE) {
-			Game.currLevel = new Level(1, "PENIS");
+			Game.currLevel = new Level(Game.playerCount, "level");
 			game.enterState(0);
 			
 		}

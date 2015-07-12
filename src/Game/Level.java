@@ -33,6 +33,8 @@ public class Level {
 	List<EntityAbilityMelee> playerMeleeList = new ArrayList<EntityAbilityMelee>();
 	List<EntityAbilityAOE> enemyAOEList = new ArrayList<EntityAbilityAOE>();
 	List<EntityAbilityAOE> playerAOEList = new ArrayList<EntityAbilityAOE>();
+	List<EntityItem> itemList = new ArrayList<EntityItem>();
+	Iterator<EntityItem> itemIterator;
 	Iterator<EntityAbilityAOE> AOEIterator;
 	Iterator<EntityAbilityMelee> enemyMeleeIterator;
 	Iterator<Enemy> enemyIterator;
@@ -60,19 +62,7 @@ public class Level {
 
 		// testing area
 		players[0] = new EntityPlayer(1, 320, 320, "wizard");
-		players[1] = new EntityPlayer(2, 320, 320, "wizard");
-
-//		eventList.add(new Event(1, 0, lanes[0], 0));
-//		eventList.add(new Event(2, 0, lanes[1], 2000));
-//		eventList.add(new Event(4, 0, lanes[2], 3000));
-//		eventList.add(new Event(1, 0, lanes[3], 4000));
-//		eventList.add(new Event(4, 0, lanes[4], 5000));
-//
-//		eventList.add(new Event(7, 0, lanes[4], 7000));
-//		eventList.add(new Event(1, 0, lanes[3], 8000));
-//		eventList.add(new Event(4, 0, lanes[2], 9000));
-//		eventList.add(new Event(1, 0, lanes[1], 10000));
-//		eventList.add(new Event(4, 0, lanes[0], 11000));
+		players[1] = new EntityPlayer(2, 320, 640, "wizard");
 		
 		loadLevel();
 
@@ -80,6 +70,7 @@ public class Level {
 
 	void update(int delta) {
 		updatePlayers();
+		updateItems();
 		updateWalls();
 		updateAbilities();
 		updateEnemies();
@@ -115,6 +106,9 @@ public class Level {
 		}
 		for (EntityAbilityAOE o : playerAOEList) {
 			o.render(container, g);
+		}
+		for (EntityItem i : itemList) {
+			i.render(container, g);
 		}
 
 		
@@ -169,6 +163,21 @@ public class Level {
 
 		}
 
+	}
+	
+	void updateItems(){
+		for (EntityItem i : itemList) {
+			i.update(deltaTime);
+		}
+		
+		itemIterator = itemList.iterator();
+		while (itemIterator.hasNext()) {
+			EntityItem i = itemIterator.next();
+			if (i.destroyed) {
+				itemIterator.remove();
+			}
+
+		}
 	}
 	
 
@@ -297,7 +306,11 @@ public class Level {
 		while (enemyIterator.hasNext()) {
 			Enemy e = enemyIterator.next();
 			if (e.destroyed) {
+				if(e.bigMonster){
+					itemList.add(new EntityItem(0, (int)e.xpos + (e.width/2),(int) e.ypos + (e.height/2)));
+				}
 				enemyIterator.remove();
+				
 			}
 
 		}

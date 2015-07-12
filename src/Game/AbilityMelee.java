@@ -31,7 +31,7 @@ public class AbilityMelee extends Ability {
 			targetsEnemy = true;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.projectile;
+			image = Game.blueProjectile;
 			hasEffect = false;
 			break;
 		case 2:
@@ -47,7 +47,7 @@ public class AbilityMelee extends Ability {
 			targetsEnemy = false;
 			directional = false;
 			numOfProjectiles = 1;
-			image = Game.projectile;
+			image = Game.redProjectile;
 			hasEffect = true;
 			break;
 		}

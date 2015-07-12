@@ -23,7 +23,7 @@ public class AbilityAOE extends Ability {
 			healthMod = -10;
 			range = 10;
 			targetsEnemy = true;
-			image = Game.projectile;
+			image = Game.blueProjectile;
 			hasEffect = false;
 			break;
 		}

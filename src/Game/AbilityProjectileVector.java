@@ -21,7 +21,7 @@ public class AbilityProjectileVector extends Ability {
 			targetsEnemy = false;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.projectile;
+			image = Game.redProjectile;
 			spawnsAOE = false;
 			AOEID = 1;
 			break;
@@ -39,7 +39,7 @@ public class AbilityProjectileVector extends Ability {
 			targetsEnemy = false;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.projectile;
+			image = Game.redProjectile;
 			spawnsAOE = false;
 			AOEID = 1;
 			break;

@@ -243,6 +243,17 @@ public class EntityPlayer extends EntityLiving {
 				p.destroyed = true;
 			}
 		}
+		
+		for (EntityItem i : Game.currLevel.itemList) {
+			if (checkCollision(i)) {
+				if(i.hasEffect){
+					getEffect(i.effectID);
+				}
+				currHealth += i.healthMod;
+				i.destroyed = true;
+			}
+		}
+		
 		for (EntityAbilityMelee m : Game.currLevel.enemyMeleeList) {
 			if (checkCollision(m)) {
 				currHealth += m.healthMod;

@@ -22,13 +22,17 @@ public class Game extends BasicGameState {
 	static Image StandardRangedImage;
 	static Image StandardFlyingImage;
 	static Image meleeIndicator;
-	static Image projectile;
+	static Image blueProjectile;
+	static Image redProjectile;
 	static Image wallFullImage;
 	static Image wallHalfImage;
+	static Image healthImage;
 	static Image bg;
 	StateBasedGame game;
 
 	static Level currLevel;
+
+	public static int playerCount = 2;
 
 	public Game(String title) {
 		super();
@@ -39,7 +43,7 @@ public class Game extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.game = game;
 		loadImages();
-		currLevel = new Level(2, "level");
+		currLevel = new Level(playerCount, "level");
 
 	}
 
@@ -71,9 +75,11 @@ public class Game extends BasicGameState {
 			BerserkerMeleeImage = new Image("Images/GoblinB.png");
 			StandardRangedImage = new Image("Images/GoblinA.png");
 			meleeIndicator = new Image("Images/MeleeIndicator.png");
-			projectile = new Image("Images/Green.png");
+			blueProjectile = new Image("Images/BlueOrb.png");
+			redProjectile = new Image("Images/RedOrb.png");
 			wallFullImage = new Image("Images/WallFull.png");
 			wallHalfImage = new Image("Images/WallHalf.png");
+			healthImage = new Image("Images/Health.png");
 			
 		} catch (SlickException e) {
 
