@@ -3,5 +3,5 @@ package Game;
 public class EntityProjectile extends Entity {
 	// Only exists so EntityAbilityProjectile and EntityAbilityProjectileVector are related
 	int healthMod, effectID;
-	boolean hasEffect;
+	boolean hasEffect, targetsEnemy, spawnsAOE;
 }

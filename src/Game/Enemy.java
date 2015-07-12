@@ -45,6 +45,14 @@ public class Enemy extends EntityLiving {
 				currHealth += p.healthMod;
 			}
 		}
+		
+		for (EntityAbilityMelee m : Game.currLevel.playerMeleeList) {
+			if (checkCollision(m)) {
+			
+				m.destroyed = true;
+				currHealth += m.healthMod;
+			}
+		}
 	}
 
 	void attack(int i) {

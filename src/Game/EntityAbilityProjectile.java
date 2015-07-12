@@ -10,10 +10,13 @@ public class EntityAbilityProjectile extends EntityProjectile {
 
 	int direction, casterXpos, casterYpos, casterSize, size, range, currRange = 0;
 	float speed;
+	int AOEID;
 	Coords spawn;
 
-	EntityAbilityProjectile(float s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r, boolean hE, int eID) {
-
+	EntityAbilityProjectile(float s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r, boolean hE, int eID, boolean sA, int AOID, boolean tE ) {
+		spawnsAOE = sA;
+		targetsEnemy = tE;
+		AOEID = AOID;
 		speed = s;
 		image = im;
 		hasEffect = hE;
@@ -107,6 +110,8 @@ public class EntityAbilityProjectile extends EntityProjectile {
 		if (xpos > 1920 || xpos < -32 || ypos > 1080 || ypos < -32) {
 			destroyed = true;
 		} else if (currRange >= range) {
+			
+			
 			destroyed = true;
 		}
 	}

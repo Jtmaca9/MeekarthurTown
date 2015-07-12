@@ -22,13 +22,15 @@ public class AbilityProjectile extends Ability {
 			currCooldown = cooldown;
 			healthMod = 0;
 			size = 8;
-			range = 1000;
+			range = 400;
 			targetsEnemy = true;
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectile;
-			hasEffect = true;
+			hasEffect = false;
 			effectID = 1;
+			spawnsAOE = true;
+			AOEID = 0;
 			break;
 		case 1:
 			// Wizard pronged attack
@@ -44,6 +46,8 @@ public class AbilityProjectile extends Ability {
 			image = Game.projectile;
 			hasEffect = true;
 			effectID = 2;
+			spawnsAOE = false;
+			AOEID = 0;
 			break;
 		case 2:
 			// StandardRangedEnemy Basic
@@ -59,6 +63,8 @@ public class AbilityProjectile extends Ability {
 			image = Game.projectile;
 			hasEffect = false;
 			effectID = 0;
+			spawnsAOE = false;
+			AOEID = 0;
 			break;
 		case 3:
 			// Blank
@@ -76,23 +82,23 @@ public class AbilityProjectile extends Ability {
 		if (numOfProjectiles == 1) {
 			if (targetsEnemy) {
 				Game.currLevel.playerProjectiles
-						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID));
+						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
 			} else {
 				Game.currLevel.enemyProjectiles
-						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID));
+						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
 			}
 		} else if (numOfProjectiles == 3) {
 			if (targetsEnemy) {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.playerProjectiles
-							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, image, pX, pY, cS, range, hasEffect, effectID));
+							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, image, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
 				}
 			} else {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.enemyProjectiles
-							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, image, pX, pY, cS, range, hasEffect, effectID));
+							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, image, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
 				}
 			}
 		}

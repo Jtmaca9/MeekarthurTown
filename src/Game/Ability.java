@@ -8,8 +8,8 @@ public class Ability {
 	int direction, directionMod;
 	int range;
 	int numOfProjectiles;
-	boolean hasEffect;
-	int effectID;
+	boolean hasEffect, spawnsAOE;
+	int effectID, AOEID;
 	Image image;
 
 	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;

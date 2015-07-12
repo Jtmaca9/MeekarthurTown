@@ -4,13 +4,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 public class Entity {
 
 	Image image;
 	float xpos, ypos;
 	int width, height;
-	Rectangle hitBox;
+	Shape hitBox;
 	boolean destroyed;
 	boolean enemy;
 	Rectangle rangeBox;

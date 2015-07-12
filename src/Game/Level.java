@@ -26,6 +26,10 @@ public class Level {
 	List<EntityProjectile> playerProjectiles = new ArrayList<EntityProjectile>();
 	List<EntityProjectile> enemyProjectiles = new ArrayList<EntityProjectile>();
 	List<EntityAbilityMelee> enemyMeleeList = new ArrayList<EntityAbilityMelee>();
+	List<EntityAbilityMelee> playerMeleeList = new ArrayList<EntityAbilityMelee>();
+	List<EntityAbilityAOE> enemyAOEList = new ArrayList<EntityAbilityAOE>();
+	List<EntityAbilityAOE> playerAOEList = new ArrayList<EntityAbilityAOE>();
+	Iterator<EntityAbilityAOE> AOEIterator;
 	Iterator<EntityAbilityMelee> enemyMeleeIterator;
 	Iterator<Enemy> enemyIterator;
 	Iterator<Event> eventIterator;
@@ -54,15 +58,15 @@ public class Level {
 
 		eventList.add(new Event(2, false, lanes[0], 1000));
 		eventList.add(new Event(2, false, lanes[1], 2000));
-		eventList.add(new Event(1, false, lanes[2], 3000));
+		eventList.add(new Event(4, false, lanes[2], 3000));
 		eventList.add(new Event(1, false, lanes[3], 4000));
-		eventList.add(new Event(1, false, lanes[4], 5000));
+		eventList.add(new Event(4, false, lanes[4], 5000));
 
 		eventList.add(new Event(1, true, lanes[4], 7000));
 		eventList.add(new Event(1, true, lanes[3], 8000));
-		eventList.add(new Event(1, true, lanes[2], 9000));
+		eventList.add(new Event(4, true, lanes[2], 9000));
 		eventList.add(new Event(1, true, lanes[1], 10000));
-		eventList.add(new Event(1, true, lanes[0], 11000));
+		eventList.add(new Event(4, true, lanes[0], 11000));
 
 	}
 
@@ -83,11 +87,20 @@ public class Level {
 		for (EntityAbilityMelee m : enemyMeleeList) {
 			m.render(container, g);
 		}
+		for (EntityAbilityMelee n : playerMeleeList) {
+			n.render(container, g);
+		}
 		for (EntityProjectile p : playerProjectiles) {
 			p.render(container, g);
 		}
 		for (EntityProjectile k : enemyProjectiles) {
 			k.render(container, g);
+		}
+		for (EntityAbilityAOE a : enemyAOEList) {
+			a.render(container, g);
+		}
+		for (EntityAbilityAOE o : playerAOEList) {
+			o.render(container, g);
 		}
 
 		for (int j = 0; j < 5; j++) {
@@ -119,6 +132,8 @@ public class Level {
 		}
 
 	}
+	
+
 
 	void updatePlayers() {
 		for (int i = 0; i < playerCount; i++) {
@@ -158,10 +173,27 @@ public class Level {
 			m.update(deltaTime);
 		}
 		
+		for (EntityAbilityMelee n : playerMeleeList) {
+			n.update(deltaTime);
+		}
+		
+		for (EntityAbilityAOE a : enemyAOEList) {
+			a.update(deltaTime);
+		}
+		
+		for (EntityAbilityAOE o : playerAOEList) {
+			o.update(deltaTime);
+		}
+		
 		projectileIterator = playerProjectiles.iterator();
 		while (projectileIterator.hasNext()) {
 			EntityProjectile p = projectileIterator.next();
 			if (p.destroyed) {
+				if(p.targetsEnemy && p.spawnsAOE){
+					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0));
+				}else if(p.spawnsAOE){
+					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1));
+				}
 				projectileIterator.remove();
 			}
 
@@ -171,7 +203,30 @@ public class Level {
 		while (projectileIterator.hasNext()) {
 			EntityProjectile p = projectileIterator.next();
 			if (p.destroyed) {
+				if(p.targetsEnemy && p.spawnsAOE){
+					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0));
+				}else if(p.spawnsAOE){
+					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1));
+				}
 				projectileIterator.remove();
+			}
+
+		}
+		
+		AOEIterator = enemyAOEList.iterator();
+		while (AOEIterator.hasNext()) {
+			EntityAbilityAOE a = AOEIterator.next();
+			if (a.destroyed) {
+				AOEIterator.remove();
+			}
+
+		}
+
+		AOEIterator = playerAOEList.iterator();
+		while (AOEIterator.hasNext()) {
+			EntityAbilityAOE o = AOEIterator.next();
+			if (o.destroyed) {
+				AOEIterator.remove();
 			}
 
 		}
@@ -180,6 +235,15 @@ public class Level {
 		while (enemyMeleeIterator.hasNext()) {
 			EntityAbilityMelee m = enemyMeleeIterator.next();
 			if (m.destroyed) {
+				enemyMeleeIterator.remove();
+			}
+
+		}
+		
+		enemyMeleeIterator = playerMeleeList.iterator();
+		while (enemyMeleeIterator.hasNext()) {
+			EntityAbilityMelee n = enemyMeleeIterator.next();
+			if (n.destroyed) {
 				enemyMeleeIterator.remove();
 			}
 

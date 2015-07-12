@@ -24,6 +24,7 @@ public class Game extends BasicGameState {
 	static Image projectile;
 	static Image wallFullImage;
 	static Image wallHalfImage;
+	static Image bg;
 	StateBasedGame game;
 
 	static Level currLevel;
@@ -61,10 +62,11 @@ public class Game extends BasicGameState {
 
 	void loadImages() {
 		try {
+			bg = new Image("Images/bg.jpg");
 			player = new Image("Images/obama_sprite.png");
-			StandardMeleeImage = new Image("Images/MeleeStandard.png");
-			BerserkerMeleeImage = new Image("Images/MeleeBeserker.png");
-			StandardRangedImage = new Image("Images/Character.png");
+			StandardMeleeImage = new Image("Images/Goblin.png");
+			BerserkerMeleeImage = new Image("Images/GoblinB.png");
+			StandardRangedImage = new Image("Images/GoblinA.png");
 			meleeIndicator = new Image("Images/MeleeIndicator.png");
 			projectile = new Image("Images/Green.png");
 			wallFullImage = new Image("Images/WallFull.png");
