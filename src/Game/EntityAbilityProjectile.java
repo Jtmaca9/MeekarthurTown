@@ -10,7 +10,7 @@ public class EntityAbilityProjectile extends EntityProjectile {
 
 	int direction, casterXpos, casterYpos, casterSize, size, range, currRange = 0;
 	float speed;
-	int AOEID;
+	
 	Coords spawn;
 
 	EntityAbilityProjectile(float s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r, boolean hE, int eID, boolean sA, int AOID, boolean tE ) {

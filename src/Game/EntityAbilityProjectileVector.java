@@ -9,10 +9,11 @@ public class EntityAbilityProjectileVector extends EntityProjectile {
 	float speed;
 	Coords vector;
 	
-	EntityAbilityProjectileVector(int cX, int cY, int cS, int tX, int tY, int s, Image im, int sz, int hM, int r) {
+	EntityAbilityProjectileVector(int cX, int cY, int cS, int tX, int tY, int s, Image im, int sz, int hM, int r, boolean sA, int AOID) {
 		speed = s;
 		image = im;
-
+		spawnsAOE = sA;
+		AOEID = AOID;
 		size = sz;
 		width = size;
 		height = size;

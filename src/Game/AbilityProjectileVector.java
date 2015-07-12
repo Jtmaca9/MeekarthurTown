@@ -22,6 +22,8 @@ public class AbilityProjectileVector extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectile;
+			spawnsAOE = false;
+			AOEID = 1;
 			break;
 		case 1:
 			// Wizard pronged attack
@@ -38,6 +40,8 @@ public class AbilityProjectileVector extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectile;
+			spawnsAOE = false;
+			AOEID = 1;
 			break;
 		case 3:
 			// Blank
@@ -55,11 +59,11 @@ public class AbilityProjectileVector extends Ability {
 		if (targetsEnemy) {
 			Game.currLevel.playerProjectiles
 					.add(new EntityAbilityProjectileVector(
-							cX, cY, cS, tX, tY, speed, image, size, healthMod, range));
+							cX, cY, cS, tX, tY, speed, image, size, healthMod, range, spawnsAOE, AOEID));
 		} else {
 			Game.currLevel.enemyProjectiles
 					.add(new EntityAbilityProjectileVector(
-							cX, cY, cS, tX, tY, speed, image, size, healthMod, range));
+							cX, cY, cS, tX, tY, speed, image, size, healthMod, range, spawnsAOE, AOEID));
 		}
 	}
 	
