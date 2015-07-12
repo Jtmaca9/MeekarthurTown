@@ -18,7 +18,7 @@ public class Effect {
 			// DOT
 			healthMod = -5;
 			speedMod = 0;
-			tickCount = 2;
+			tickCount = 4;
 			tickDuration = 1000;
 			currTickTime = tickDuration;
 			effectsSpeed = false;

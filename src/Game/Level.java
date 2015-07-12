@@ -56,13 +56,13 @@ public class Level {
 		// testing area
 		players[0] = new EntityPlayer(1, 320, 320, "wizard");
 
-		eventList.add(new Event(2, false, lanes[0], 1000));
+		eventList.add(new Event(7, false, lanes[0], 1000));
 		eventList.add(new Event(2, false, lanes[1], 2000));
 		eventList.add(new Event(4, false, lanes[2], 3000));
 		eventList.add(new Event(1, false, lanes[3], 4000));
 		eventList.add(new Event(4, false, lanes[4], 5000));
 
-		eventList.add(new Event(1, true, lanes[4], 7000));
+		eventList.add(new Event(7, true, lanes[4], 7000));
 		eventList.add(new Event(1, true, lanes[3], 8000));
 		eventList.add(new Event(4, true, lanes[2], 9000));
 		eventList.add(new Event(1, true, lanes[1], 10000));
@@ -81,6 +81,12 @@ public class Level {
 	}
 
 	void render(GameContainer container, Graphics g) {
+		for (int j = 0; j < 5; j++) {
+			if (!walls[j].destroyed) {
+				walls[j].render(container, g);
+			}
+		}
+		
 		for (Enemy i : enemyList) {
 			i.render(container, g);
 		}
@@ -103,11 +109,7 @@ public class Level {
 			o.render(container, g);
 		}
 
-		for (int j = 0; j < 5; j++) {
-			if (!walls[j].destroyed) {
-				walls[j].render(container, g);
-			}
-		}
+		
 
 		for (int i = 0; i < playerCount; i++) {
 			if (!players[i].destroyed) {

@@ -1,5 +1,9 @@
 package Game;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+
 public class Enemy extends EntityLiving {
 
 	int monsterID;
@@ -57,6 +61,14 @@ public class Enemy extends EntityLiving {
 
 	void attack(int i) {
 
+	}
+	
+	void render(GameContainer container, Graphics g) {
+		image.draw(xpos, ypos, width, height);
+		g.setColor(Color.red);
+		g.fillRect(xpos, ypos - 10, 32, 5);
+		g.setColor(Color.green);
+		g.fillRect(xpos, ypos - 10, ((currHealth / health)) * 32, 5);
 	}
 
 	boolean checkFacingCollision(EntityLiving e) {

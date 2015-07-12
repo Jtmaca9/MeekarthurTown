@@ -23,7 +23,7 @@ public class GameOver extends BasicGameState{
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
-		g.drawString("Game Over", 1000, 500);
+		g.drawString("Game Over", 950, 500);
 		
 	}
 

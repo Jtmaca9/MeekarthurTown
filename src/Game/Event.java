@@ -25,6 +25,9 @@ public class Event {
 		case 4:
 			Game.currLevel.enemyList.add(new EnemyRangedStandard(lane, bigMonster));
 			break;
+		case 7:
+			Game.currLevel.enemyList.add(new EnemyFlyingStandard(lane, bigMonster));
+			break;
 		}
 
 	}

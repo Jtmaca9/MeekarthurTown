@@ -56,7 +56,6 @@ public class EntityPlayer extends EntityLiving {
 			break;
 		}
 	}
-
 	void render(GameContainer container, Graphics g) {
 		image.draw(xpos, ypos, width, height);
 		g.setColor(Color.red);

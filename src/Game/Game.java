@@ -20,6 +20,7 @@ public class Game extends BasicGameState {
 	static Image StandardMeleeImage;
 	static Image BerserkerMeleeImage;
 	static Image StandardRangedImage;
+	static Image StandardFlyingImage;
 	static Image meleeIndicator;
 	static Image projectile;
 	static Image wallFullImage;
@@ -49,6 +50,7 @@ public class Game extends BasicGameState {
 		currLevel.render(container, g);
 		g.setColor(Color.green);
 		g.drawString("Current time: " + (currLevel.time / 1000), 20, 20);
+		g.drawString("Current lives: " + (currLevel.lives), 20, 40);
 	}
 
 	@Override
@@ -64,6 +66,7 @@ public class Game extends BasicGameState {
 		try {
 			bg = new Image("Images/bg.jpg");
 			player = new Image("Images/obama_sprite.png");
+			StandardFlyingImage = new Image("Images/FlyingStandard.png");
 			StandardMeleeImage = new Image("Images/Goblin.png");
 			BerserkerMeleeImage = new Image("Images/GoblinB.png");
 			StandardRangedImage = new Image("Images/GoblinA.png");
@@ -71,6 +74,7 @@ public class Game extends BasicGameState {
 			projectile = new Image("Images/Green.png");
 			wallFullImage = new Image("Images/WallFull.png");
 			wallHalfImage = new Image("Images/WallHalf.png");
+			
 		} catch (SlickException e) {
 
 			e.printStackTrace();

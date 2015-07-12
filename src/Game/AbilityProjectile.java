@@ -27,9 +27,9 @@ public class AbilityProjectile extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectile;
-			hasEffect = false;
-			effectID = 1;
-			spawnsAOE = true;
+			hasEffect = true;
+			effectID = 0;
+			spawnsAOE = false;
 			AOEID = 0;
 			break;
 		case 1:

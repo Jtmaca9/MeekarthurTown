@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+
 public class EntityLiving extends Entity {
 
 	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, NOMOVE = 4;
@@ -26,6 +30,8 @@ public class EntityLiving extends Entity {
 		}
 		
 	}
+	
+	
 
 	void checkHealth() {
 		if (currHealth <= 0) {
