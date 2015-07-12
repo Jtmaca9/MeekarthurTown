@@ -48,7 +48,7 @@ public class Level {
 		playerCount = pCount;
 		levelName = lName;
 		lanes = new Coords[5];
-		lives = 10;
+		lives = 50;
 		deltaTime = 0;
 
 		// Adjust so they are in the middle of wall segment

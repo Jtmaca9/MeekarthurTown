@@ -261,6 +261,16 @@ public class EntityPlayer extends EntityLiving {
 			}
 		}
 	}
+	
+	void checkHealth() {
+		if (currHealth <= 0) {
+			currHealth = 0;
+			destroyed = true;
+		}else if(currHealth > health){
+			currHealth = health;
+		}
+	}
+	
 
 	boolean checkFacingCollision(EntityLiving e) {
 		if ((xpos + width - speed) >= e.xpos && xpos + speed <= (e.xpos + e.width)

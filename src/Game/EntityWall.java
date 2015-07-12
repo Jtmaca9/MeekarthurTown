@@ -31,9 +31,6 @@ public class EntityWall extends EntityLiving {
 		if (currHealth < ((health / 100) * 50)) {
 			image = Game.wallHalfImage;
 		}
-		if (currHealth <= 0) {
-			destroyed = true;
-		}
 
 		for (EntityProjectile p : Game.currLevel.enemyProjectiles) {
 			if (checkCollision(p)) {

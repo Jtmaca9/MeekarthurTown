@@ -39,8 +39,8 @@ public class EntityAbilityProjectileVector extends EntityProjectile {
 	
 	Coords getVector() {
 		Coords vector = new Coords(0,0);
-		float x = (targetXpos - casterXpos);
-		float y = (targetYpos - casterYpos);
+		float x = (targetXpos - xpos);
+		float y = (targetYpos - ypos);
 		double trueDistance = Math.sqrt((x*x) + (y*y));
 		
 		vector.x = (float) ((x / trueDistance) * speed);

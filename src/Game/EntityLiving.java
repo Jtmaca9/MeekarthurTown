@@ -37,6 +37,8 @@ public class EntityLiving extends Entity {
 		if (currHealth <= 0) {
 			currHealth = 0;
 			destroyed = true;
+		}else if(currHealth >= health){
+			//currHealth = health;
 		}
 	}
 	
