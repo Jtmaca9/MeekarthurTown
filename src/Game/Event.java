@@ -4,12 +4,18 @@ public class Event {
 
 	int monsterID;
 	boolean bigMonster;
+	int big;
 	int activateTime;
 	Coords lane;
 
-	Event(int mid, boolean bm, Coords l, int at) {
+	Event(int mid, int bm, Coords l, int at) {
 		monsterID = mid;
-		bigMonster = bm;
+		big= bm;
+		if(big == 1){
+			bigMonster = true;
+		}else{
+			bigMonster = false;
+		}
 		lane = l;
 		activateTime = at;
 	}

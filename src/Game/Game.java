@@ -39,7 +39,7 @@ public class Game extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.game = game;
 		loadImages();
-		currLevel = new Level(2, "PENIS");
+		currLevel = new Level(2, "level");
 
 	}
 

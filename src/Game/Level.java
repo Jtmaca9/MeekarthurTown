@@ -1,10 +1,13 @@
 package Game;
 
 import java.util.List;
+import java.util.Scanner;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -16,6 +19,7 @@ public class Level {
 	int lives;
 	int deltaTime;
 	long time = 0;
+	int[] tempEvent;
 	String levelName;
 	Coords[] lanes;
 
@@ -34,6 +38,7 @@ public class Level {
 	Iterator<Enemy> enemyIterator;
 	Iterator<Event> eventIterator;
 	Iterator<EntityProjectile> projectileIterator;
+	Scanner scanner;
 
 	Level(int pCount, String lName) {
 		players = new EntityPlayer[pCount];
@@ -41,7 +46,7 @@ public class Level {
 		playerCount = pCount;
 		levelName = lName;
 		lanes = new Coords[5];
-		lives = 11;
+		lives = 10;
 		deltaTime = 0;
 
 		// Adjust so they are in the middle of wall segment
@@ -57,17 +62,19 @@ public class Level {
 		players[0] = new EntityPlayer(1, 320, 320, "wizard");
 		players[1] = new EntityPlayer(2, 320, 320, "wizard");
 
-		eventList.add(new Event(7, false, lanes[0], 1000));
-		eventList.add(new Event(2, false, lanes[1], 2000));
-		eventList.add(new Event(4, false, lanes[2], 3000));
-		eventList.add(new Event(1, false, lanes[3], 4000));
-		eventList.add(new Event(4, false, lanes[4], 5000));
-
-		eventList.add(new Event(7, true, lanes[4], 7000));
-		eventList.add(new Event(1, true, lanes[3], 8000));
-		eventList.add(new Event(4, true, lanes[2], 9000));
-		eventList.add(new Event(1, true, lanes[1], 10000));
-		eventList.add(new Event(4, true, lanes[0], 11000));
+//		eventList.add(new Event(1, 0, lanes[0], 0));
+//		eventList.add(new Event(2, 0, lanes[1], 2000));
+//		eventList.add(new Event(4, 0, lanes[2], 3000));
+//		eventList.add(new Event(1, 0, lanes[3], 4000));
+//		eventList.add(new Event(4, 0, lanes[4], 5000));
+//
+//		eventList.add(new Event(7, 0, lanes[4], 7000));
+//		eventList.add(new Event(1, 0, lanes[3], 8000));
+//		eventList.add(new Event(4, 0, lanes[2], 9000));
+//		eventList.add(new Event(1, 0, lanes[1], 10000));
+//		eventList.add(new Event(4, 0, lanes[0], 11000));
+		
+		loadLevel();
 
 	}
 
@@ -116,6 +123,34 @@ public class Level {
 			if (!players[i].destroyed) {
 				players[i].render(container, g);
 			}
+		}
+	}
+	
+	void loadLevel(){
+		if (new File("Data/Levels/" + levelName + ".txt").isFile()){
+			
+			try {
+				scanner = new Scanner(new File("Data/Levels/" + levelName + ".txt"));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			int p = 0;
+			tempEvent= new int[4];
+			
+			
+			while(scanner.hasNextInt()){
+				if(p < 4){
+					tempEvent[p++] = scanner.nextInt();
+				}else{
+					p = 0;
+					eventList.add(new Event(tempEvent[0], tempEvent[1], lanes[tempEvent[2]], tempEvent[3]));
+					
+				}
+				
+			}
+			
 		}
 	}
 
