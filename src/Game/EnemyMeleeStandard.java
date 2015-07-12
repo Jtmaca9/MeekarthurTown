@@ -43,7 +43,7 @@ public class EnemyMeleeStandard extends EnemyMelee {
 	}
 
 	void attack(int i) {
-		ability[i].useAbility(direction, xpos, ypos, width);
+		ability[i].useAbility(direction, (int) xpos, (int) ypos, width);
 	}
 
 	void move() {

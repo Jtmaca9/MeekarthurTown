@@ -37,13 +37,15 @@ public class EntityAbilityProjectileVector extends EntityProjectile {
 	}
 	
 	Coords getVector() {
-		Coords tvector = new Coords(0,0);
-		float x = (targetXpos- casterXpos);
+		Coords vector = new Coords(0,0);
+		float x = (targetXpos - casterXpos);
 		float y = (targetYpos - casterYpos);
-		float total =((x*x) + (y*y));
-		tvector.x = (float) (((x*x) / total)) * speed;
-		tvector.y = (float) (((y*y) / total)) * speed;	
-		return tvector;
+		double trueDistance = Math.sqrt((x*x) + (y*y));
+		
+		vector.x = (float) ((x / trueDistance) * speed);
+		vector.y = (float) ((y / trueDistance) * speed);
+
+		return vector;
 	}
 	
 	void update() {

@@ -42,8 +42,8 @@ public class AbilityProjectile extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 3;
 			image = Game.projectile;
-			hasEffect = false;
-			effectID = 0;
+			hasEffect = true;
+			effectID = 2;
 			break;
 		case 2:
 			// StandardRangedEnemy Basic
@@ -55,7 +55,7 @@ public class AbilityProjectile extends Ability {
 			range = 1000;
 			targetsEnemy = false;
 			directionMod = 0;
-			numOfProjectiles = 1;
+			numOfProjectiles = 3;
 			image = Game.projectile;
 			hasEffect = false;
 			effectID = 0;
@@ -86,13 +86,13 @@ public class AbilityProjectile extends Ability {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.playerProjectiles
-							.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID));
+							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, image, pX, pY, cS, range, hasEffect, effectID));
 				}
 			} else {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.enemyProjectiles
-							.add(new EntityAbilityProjectile(speed, healthMod, size, dir, image, pX, pY, cS, range, hasEffect, effectID));
+							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, image, pX, pY, cS, range, hasEffect, effectID));
 				}
 			}
 		}

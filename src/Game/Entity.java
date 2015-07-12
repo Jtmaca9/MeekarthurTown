@@ -8,7 +8,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class Entity {
 
 	Image image;
-	int xpos, ypos;
+	float xpos, ypos;
 	int width, height;
 	Rectangle hitBox;
 	boolean destroyed;
@@ -20,7 +20,7 @@ public class Entity {
 	}
 
 	void render(GameContainer container, Graphics g) {
-		image.draw(xpos, ypos, width, height);
+		image.draw((int) xpos, (int) ypos, width, height);
 	}
 
 	void update() {

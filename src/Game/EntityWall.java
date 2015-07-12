@@ -37,7 +37,6 @@ public class EntityWall extends EntityLiving {
 
 		for (EntityProjectile p : Game.currLevel.enemyProjectiles) {
 			if (checkCollision(p)) {
-				currHealth += p.healthMod;
 				p.destroyed = true;
 			}
 		}

@@ -48,11 +48,11 @@ public class EnemyRangedStandard extends EnemyRanged {
 	}
 
 	void attack(int i) {
-		ability[i].useAbility(direction, xpos, ypos, width);
+		ability[i].useAbility(direction, (int) xpos, (int) ypos, width);
 	}
 	
 	void attackTarget() {
-		ability[1].useAbilityTarget(xpos, ypos, width, (int) targetPos.x, (int)targetPos.y);
+		ability[1].useAbilityTarget((int) xpos, (int) ypos, width, (int) targetPos.x, (int)targetPos.y);
 	}
 	
 	void behaviour() {

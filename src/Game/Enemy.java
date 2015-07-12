@@ -6,11 +6,11 @@ public class Enemy extends EntityLiving {
 	boolean bigMonster;
 
 	void update() {
+		baseBehaviour();
+		behaviour();
 		move();
 		cooldowns();
 		collision();
-		baseBehaviour();
-		behaviour();
 		updateEffects();
 		checkBounds();
 		checkHealth();

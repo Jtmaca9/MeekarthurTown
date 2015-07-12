@@ -34,13 +34,39 @@ public class EntityLiving extends Entity {
 	}
 	
 	void getEffect(int id){		
-		effectList.add(new Effect(id));
+		Effect incomingEffect = new Effect(id);
+		
+		if (incomingEffect.effectsSpeed) {
+			effectIterator = effectList.iterator();
+			while (effectIterator.hasNext()) {
+				Effect e = effectIterator.next();
+				if (e.effectsSpeed) {
+					System.out.println("Effects speed");
+					effectIterator.remove();
+					speed = baseSpeed;
+				}
+			}
+			effectList.add(incomingEffect);
+		} else {
+			effectIterator = effectList.iterator();
+			while (effectIterator.hasNext()) {
+				Effect e = effectIterator.next();
+				if (e.effectID == incomingEffect.effectID) {
+					System.out.println("Is the same");
+					effectIterator.remove();
+				}
+
+			}
+			effectList.add(incomingEffect);
+		}
+		
+		
 	}
 	
 	void updateEffects(){
 		effectIterator = effectList.iterator();
 		while (effectIterator.hasNext()) {
-			System.out.println("update");
+			//System.out.println("update");
 			Effect e = effectIterator.next();
 			e.currTickTime += Game.currLevel.deltaTime;
 			if ((e.currTick < e.tickCount) && (e.currTickTime >= e.tickDuration)) {
@@ -53,7 +79,7 @@ public class EntityLiving extends Entity {
 				
 				e.currTickTime = 0;
 				e.currTick++;
-				System.out.println("tick");
+				//System.out.println("tick");
 				
 			}else if((e.currTick >= e.tickCount) && (e.currTickTime >= e.tickDuration)){
 				speed = baseSpeed;

@@ -40,7 +40,7 @@ public class EntityPlayer extends EntityLiving {
 		case "wizard":
 			health = 75;
 			currHealth = health;
-			speed = 4;
+			speed = 6;
 			baseSpeed = speed;
 			image = Game.player;
 
@@ -75,7 +75,7 @@ public class EntityPlayer extends EntityLiving {
 	}
 
 	void useAbility(int dir) {
-		activeAbility.useAbility(dir, xpos, ypos, width);
+		activeAbility.useAbility(dir, (int) xpos, (int) ypos, width);
 		activeAbility = ability[0];
 	}
 
