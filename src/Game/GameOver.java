@@ -34,7 +34,7 @@ public class GameOver extends BasicGameState{
 		// Player 1 Controls
 		if (key == Input.KEY_SPACE) {
 			Game.currLevel = new Level(Game.playerCount, "level");
-			game.enterState(0);
+			game.enterState(1);
 			
 		}
 	}

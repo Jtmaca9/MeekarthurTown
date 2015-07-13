@@ -20,8 +20,8 @@ public class EntityPlayer extends EntityLiving {
 		enemy = false;
 		playerID = pID;
 		playerClass = pClass;
-		width = 32;
-		height = 32;
+		width = 48;
+		height = 48;
 		xpos = x;
 		ypos = y;
 		ability = new Ability[3];
@@ -37,12 +37,42 @@ public class EntityPlayer extends EntityLiving {
 
 		switch (playerClass) {
 
-		case "wizard":
+		case "Wizard":
 			health = 75;
 			currHealth = health;
 			speed = 6;
 			baseSpeed = speed;
-			image = Game.player;
+			image = Game.wizard;
+
+			ability[0] = new AbilityProjectile(0);
+			ability[1] = new AbilityProjectile(1);
+			ability[2] = new AbilityProjectile(2);
+
+			activeAbility = ability[0];
+
+			break;
+			
+		case "Archer":
+			health = 75;
+			currHealth = health;
+			speed = 8;
+			baseSpeed = speed;
+			image = Game.archer;
+
+			ability[0] = new AbilityProjectile(3);
+			ability[1] = new AbilityProjectile(4);
+			ability[2] = new AbilityProjectile(5);
+
+			activeAbility = ability[0];
+
+			break;
+			
+		case "Knight":
+			health = 75;
+			currHealth = health;
+			speed = 6;
+			baseSpeed = speed;
+			image = Game.knight;
 
 			ability[0] = new AbilityProjectile(0);
 			ability[1] = new AbilityProjectile(1);
@@ -51,8 +81,35 @@ public class EntityPlayer extends EntityLiving {
 			activeAbility = ability[0];
 
 			break;
+			
+		case "Rogue":
+			health = 75;
+			currHealth = health;
+			speed = 8;
+			baseSpeed = speed;
+			image = Game.rogue;
 
-		default:
+			ability[0] = new AbilityProjectile(0);
+			ability[1] = new AbilityProjectile(1);
+			ability[2] = new AbilityProjectile(1);
+
+			activeAbility = ability[0];
+
+			break;
+			
+		case "Cleric":
+			health = 75;
+			currHealth = health;
+			speed = 6;
+			baseSpeed = speed;
+			image = Game.cleric;
+
+			ability[0] = new AbilityProjectile(0);
+			ability[1] = new AbilityProjectile(1);
+			ability[2] = new AbilityProjectile(1);
+
+			activeAbility = ability[0];
+
 			break;
 		}
 	}

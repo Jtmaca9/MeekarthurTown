@@ -17,13 +17,13 @@ public class EnemyFlyingStandard extends EnemyFlying{
 			// Test values
 			health = 30;
 			speed = 1.5f;
-			width = 64;
-			height = 64;
+			width = 96;
+			height = 96;
 		} else {
 			health = 20;
 			speed = 1.5f;
-			width = 32;
-			height = 32;
+			width = 48;
+			height = 48;
 		}
 
 		xpos = (int) (lane.x - (0.5 * width));

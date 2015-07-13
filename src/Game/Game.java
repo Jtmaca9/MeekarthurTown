@@ -16,26 +16,49 @@ public class Game extends BasicGameState {
 
 	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, NOMOVE = 4;
 
-	static Image player;
+	static Image archer;
+	static Image wizard;
+	static Image knight;
+	static Image rogue;
+	static Image cleric;
 	static Image StandardMeleeImage;
 	static Image BerserkerMeleeImage;
 	static Image StandardRangedImage;
 	static Image StandardFlyingImage;
+	static Image boss;
+	static Image boss2;
 	static Image meleeIndicator;
 	static Image blueProjectile;
 	static Image redProjectile;
 	static Image wallFullImage;
 	static Image wallHalfImage;
 	static Image healthImage;
+	static Image projectileWater; 
+	static Image projectileFire; 
+	static Image projectileIce;
+	static Image projectileArrows;
+	static Image projectilePoison;
+	static Image projectileAxe;
+	static Image projectileDagger;
+	static Image projectilePoisonArrow; 
 	static Image bg;
 	StateBasedGame game;
 
 	static Level currLevel;
+	static String levelName;
 
-	public static int playerCount = 2;
+	public static int playerCount;
 
+	static int[] pControls;
+	static String[] pClass;
+	
+	static int[] con;
+	
 	public Game(String title) {
 		super();
+		
+
+		
 
 	}
 
@@ -43,14 +66,32 @@ public class Game extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.game = game;
 		loadImages();
-		currLevel = new Level(playerCount, "level");
+		//newGame();
+		
 
+	}
+	
+	static void newGame(){
+		playerCount = MainMenuPlayerSelect.playerCount;
+		pControls = new int[MainMenuPlayerSelect.playerCount];
+		pClass = new String[MainMenuPlayerSelect.playerCount];
+		levelName = MainMenuPlayerSelect.levelName;
+		for(int i = 0; i < playerCount; i++){
+			pControls[i] = MainMenuPlayerSelect.pControls[i];
+			pClass[i] = MainMenuPlayerSelect.pClass[i];
+		}
+		con = new int[10];
+		for(int j = 0; j < playerCount; j++){
+			con[pControls[j]] = j;
+		}
+		currLevel = new Level(playerCount, levelName);
+		
+		
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame arg1, Graphics g) throws SlickException {
-		g.setColor(Color.white);
-		g.fillRect(0, 0, 1920, 1080);
+		bg.draw(0, 0, 1920, 1080);
 		currLevel.render(container, g);
 		g.setColor(Color.green);
 		g.drawString("Current time: " + (currLevel.time / 1000), 20, 20);
@@ -68,8 +109,13 @@ public class Game extends BasicGameState {
 
 	void loadImages() {
 		try {
-			bg = new Image("Images/bg.jpg");
-			player = new Image("Images/obama_sprite.png");
+			boss = new Image("Images/boss.png");
+			bg = new Image("Images/Level1.png");
+			wizard = new Image("Images/Wizard.png");
+			archer = new Image("Images/Archer.png");
+			knight = new Image("Images/Knight.png");
+			rogue = new Image("Images/Rogue.png");
+			cleric = new Image("Images/Cleric.png");
 			StandardFlyingImage = new Image("Images/FlyingStandard.png");
 			StandardMeleeImage = new Image("Images/Goblin.png");
 			BerserkerMeleeImage = new Image("Images/GoblinB.png");
@@ -77,6 +123,14 @@ public class Game extends BasicGameState {
 			meleeIndicator = new Image("Images/MeleeIndicator.png");
 			blueProjectile = new Image("Images/BlueOrb.png");
 			redProjectile = new Image("Images/RedOrb.png");
+			projectileWater = new Image("Images/Projectile_Water.png");
+			projectileFire = new Image("Images/Projectile_Fire.png");
+			projectileIce = new Image("Images/Projectile_Ice.png");
+			projectileArrows = new Image("Images/Projectile_Arrows.png");
+			projectilePoison = new Image("Images/Projectile_Poison.png");
+			projectileDagger = new Image("Images/Projectile_Dagger.png");
+			projectilePoisonArrow = new Image("Images/Projectile_PoisonArrow.png");
+			projectileAxe = new Image("Images/Projectile_Axe.png");
 			wallFullImage = new Image("Images/WallFull.png");
 			wallHalfImage = new Image("Images/WallHalf.png");
 			healthImage = new Image("Images/Health.png");
@@ -92,9 +146,95 @@ public class Game extends BasicGameState {
 	public int getID() {
 		return 0;
 	}
+	
+	public void controllerButtonPressed(int controller, int button){
+		System.out.println(controller + " : " + button);
+		if (button == 5) {
+			currLevel.players[con[controller]].moveUp(true);
+		}
+
+		if (button == 8) {
+			currLevel.players[con[controller]].moveLeft(true);
+		}
+
+		if (button == 7) {
+			currLevel.players[con[controller]].moveDown(true);
+		}
+
+		if (button == 6) {
+			currLevel.players[con[controller]].moveRight(true);
+		}
+
+		if (button == 13) {
+			currLevel.players[con[controller]].useAbility(UP);
+		}
+
+		if (button == 16) {
+			currLevel.players[con[controller]].useAbility(LEFT);
+		}
+
+		if (button == 15) {
+			currLevel.players[con[controller]].useAbility(DOWN);
+		}
+
+		if (button == 14) {
+			currLevel.players[con[controller]].useAbility(RIGHT);
+		}
+
+		if (button == 11) {
+			currLevel.players[con[controller]].primeAbility(1);
+		}
+
+		if (button == 12) {
+			currLevel.players[con[controller]].primeAbility(2);
+		}
+	
+		//start 4
+		//up 5
+		//right 6
+		//down 7
+		//left 8
+		//x 15
+		//0 14
+		//∆ 13
+		//sq 16
+		//r1 12
+		//l1 11
+	}
+	
+	public void controllerButtonReleased(int controller, int button){
+		if (button == 5) {
+			currLevel.players[con[controller]].moveUp(false);
+		}
+
+		if (button == 8) {
+			currLevel.players[con[controller]].moveLeft(false);
+		}
+
+		if (button == 7) {
+			currLevel.players[con[controller]].moveDown(false);
+		}
+
+		if (button == 6) {
+			currLevel.players[con[controller]].moveRight(false);
+		}
+
+	
+		//start 4
+		//up 5
+		//right 6
+		//down 7
+		//left 8
+		//x 15
+		//0 14
+		//∆ 13
+		//sq 16
+		//r1 12
+		//l1 11
+	}
 
 	public void keyPressed(int key, char code) {
-		// Player 1 Controls
+		// Player 1 keyboard Controls
 		if (key == Input.KEY_W) {
 			currLevel.players[0].moveUp(true);
 		}
@@ -134,6 +274,7 @@ public class Game extends BasicGameState {
 		if (key == Input.KEY_E) {
 			currLevel.players[0].primeAbility(2);
 		}
+		
 	}
 
 	public void keyReleased(int key, char code) {
@@ -153,6 +294,7 @@ public class Game extends BasicGameState {
 		if (key == Input.KEY_D) {
 			currLevel.players[0].moveRight(false);
 		}
+		
 	}
 
 }

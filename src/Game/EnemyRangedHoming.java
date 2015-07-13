@@ -17,13 +17,13 @@ public class EnemyRangedHoming extends EnemyRanged {
 			// Test values
 			health = 30;
 			speed = 1;
-			width = 64;
-			height = 64;
+			width = 96;
+			height = 96;
 		} else {
 			health = 20;
 			speed = 1;
-			width = 32;
-			height = 32;
+			width = 48;
+			height = 48;
 		}
 
 		xpos = (int) (lane.x - (0.5 * width));

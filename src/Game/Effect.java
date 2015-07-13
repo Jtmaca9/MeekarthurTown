@@ -15,21 +15,21 @@ public class Effect {
 	void createEffect(){
 		switch(effectID){
 		case 0:
-			// DOT
-			healthMod = -5;
+			// DOT Fire
+			healthMod = -2;
 			speedMod = 0;
-			tickCount = 4;
-			tickDuration = 1000;
+			tickCount = 8;
+			tickDuration = 750;
 			currTickTime = tickDuration;
 			effectsSpeed = false;
 			snare = false;
 			break;
 		case 1:
-			// Slow
+			// Slow Ice
 			healthMod = 0;
 			speedMod = -0.5f;
 			tickCount = 1;
-			tickDuration = 1000;
+			tickDuration = 3000;
 			currTickTime = tickDuration;
 			snare = false;
 			effectsSpeed = true;

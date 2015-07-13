@@ -61,9 +61,9 @@ public class Level {
 		}
 
 		// testing area
-		players[0] = new EntityPlayer(1, 320, 320, "wizard");
-		players[1] = new EntityPlayer(2, 320, 640, "wizard");
-		
+		for(int k = 0; k < playerCount; k++){
+			players[k] = new EntityPlayer(k+1, 300 + (k*64), 640, Game.pClass[k]); 
+		}
 		loadLevel();
 
 	}
