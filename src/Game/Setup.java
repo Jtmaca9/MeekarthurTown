@@ -29,6 +29,7 @@ public class Setup extends StateBasedGame {
 		app.setAlwaysRender(true);
 		app.setVSync(true);
 		app.setTargetFrameRate(60);
+		app.setMouseGrabbed(true);
 		app.start();
 	}
 

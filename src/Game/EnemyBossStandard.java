@@ -15,12 +15,12 @@ public class EnemyBossStandard extends EnemyBoss {
 
 		if (bigMonster) {
 			// Test values
-			health = 800;
+			health = 200;
 			speed = 1;
 			width = 256;
 			height = 256;
 		} else {
-			health = 500;
+			health = 100;
 			speed = 1;
 			width = 128;
 			height = 128;

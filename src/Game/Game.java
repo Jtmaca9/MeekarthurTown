@@ -42,6 +42,7 @@ public class Game extends BasicGameState {
 	static Image projectileDagger;
 	static Image projectilePoisonArrow; 
 	static Image bg;
+	static Image blood;
 	StateBasedGame game;
 
 	static Level currLevel;
@@ -110,6 +111,8 @@ public class Game extends BasicGameState {
 	void loadImages() {
 		try {
 			boss = new Image("Images/boss.png");
+			boss2 = new Image("Images/boss2.png");
+			blood = new Image("Images/blood.png");
 			bg = new Image("Images/Level1.png");
 			wizard = new Image("Images/Wizard.png");
 			archer = new Image("Images/Archer.png");
@@ -131,8 +134,8 @@ public class Game extends BasicGameState {
 			projectileDagger = new Image("Images/Projectile_Dagger.png");
 			projectilePoisonArrow = new Image("Images/Projectile_PoisonArrow.png");
 			projectileAxe = new Image("Images/Projectile_Axe.png");
-			wallFullImage = new Image("Images/WallFull.png");
-			wallHalfImage = new Image("Images/WallHalf.png");
+			wallFullImage = new Image("Images/Wall_Full.png");
+			wallHalfImage = new Image("Images/Wall_Half.png");
 			healthImage = new Image("Images/Health.png");
 			
 		} catch (SlickException e) {

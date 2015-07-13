@@ -29,6 +29,30 @@ public class EntityItem extends Entity{
 			duration = 10000;
 			hitBox = new Rectangle(xpos, ypos, width, height);
 			break;
+		case 1: //lil blood splat
+			image = Game.blood;
+			width = 48;
+			height = 48;
+			xpos -= width/2;
+			ypos -= height/2;
+			healthMod = 0;
+			hasEffect = false;
+			effectID = 0;
+			duration = 20000;
+			hitBox = new Rectangle(xpos, ypos, width, height);
+			break;
+		case 2: //big blood splat
+			image = Game.blood;
+			width = 96;
+			height = 96;
+			xpos -= width/2;
+			ypos -= height/2;
+			healthMod = 0;
+			hasEffect = false;
+			effectID = 0;
+			duration = 20000;
+			hitBox = new Rectangle(xpos, ypos, width, height);
+			break;
 		}
 	}
 	

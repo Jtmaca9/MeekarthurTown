@@ -33,6 +33,7 @@ public class Level {
 	List<EntityAbilityMelee> playerMeleeList = new ArrayList<EntityAbilityMelee>();
 	List<EntityAbilityAOE> enemyAOEList = new ArrayList<EntityAbilityAOE>();
 	List<EntityAbilityAOE> playerAOEList = new ArrayList<EntityAbilityAOE>();
+	List<EntityItem> bloodList = new ArrayList<EntityItem>();
 	List<EntityItem> itemList = new ArrayList<EntityItem>();
 	Iterator<EntityItem> itemIterator;
 	Iterator<EntityAbilityAOE> AOEIterator;
@@ -85,7 +86,9 @@ public class Level {
 				walls[j].render(container, g);
 			}
 		}
-		
+		for (EntityItem i : bloodList) {
+			i.render(container, g);
+		}
 		for (Enemy i : enemyList) {
 			i.render(container, g);
 		}
@@ -110,6 +113,7 @@ public class Level {
 		for (EntityItem i : itemList) {
 			i.render(container, g);
 		}
+		
 
 		
 
@@ -170,7 +174,20 @@ public class Level {
 			i.update(deltaTime);
 		}
 		
+		for (EntityItem i : bloodList) {
+			i.update(deltaTime);
+		}
+		
 		itemIterator = itemList.iterator();
+		while (itemIterator.hasNext()) {
+			EntityItem i = itemIterator.next();
+			if (i.destroyed) {
+				itemIterator.remove();
+			}
+
+		}
+		
+		itemIterator = bloodList.iterator();
 		while (itemIterator.hasNext()) {
 			EntityItem i = itemIterator.next();
 			if (i.destroyed) {
@@ -308,6 +325,9 @@ public class Level {
 			if (e.destroyed) {
 				if(e.bigMonster){
 					itemList.add(new EntityItem(0, (int)e.xpos + (e.width/2),(int) e.ypos + (e.height/2)));
+					bloodList.add(new EntityItem(2, (int)e.xpos + (e.width/2),(int) e.ypos + (e.height/2)));
+				}else{
+					bloodList.add(new EntityItem(1, (int)e.xpos + (e.width/2),(int) e.ypos + (e.height/2)));
 				}
 				enemyIterator.remove();
 				
