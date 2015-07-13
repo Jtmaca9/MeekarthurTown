@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,6 +24,7 @@ public class Level {
 	int[] tempEvent;
 	String levelName;
 	Coords[] lanes;
+	Image bg;
 
 	// Player List and Enemy list and Event list
 	List<EntityLiving> livingEntityList = new ArrayList<EntityLiving>();
@@ -81,6 +84,7 @@ public class Level {
 	}
 
 	void render(GameContainer container, Graphics g) {
+		bg.draw(0, 0, 1920, 1080);
 		for (int j = 0; j < 5; j++) {
 			if (!walls[j].destroyed) {
 				walls[j].render(container, g);
@@ -118,9 +122,7 @@ public class Level {
 		
 
 		for (int i = 0; i < playerCount; i++) {
-			if (!players[i].destroyed) {
-				players[i].render(container, g);
-			}
+			players[i].render(container, g);
 		}
 	}
 	
@@ -149,6 +151,12 @@ public class Level {
 				
 			}
 			
+		}
+		try {
+			bg = new Image("Data/Levels/" + levelName + ".png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

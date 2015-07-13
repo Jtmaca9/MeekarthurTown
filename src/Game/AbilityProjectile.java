@@ -44,6 +44,7 @@ public class AbilityProjectile extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectileFire;
+			abilityIcon = Game.wizardAbility0;
 			hasEffect = true;
 			effectID = 0;
 			spawnsAOE = false;
@@ -61,6 +62,7 @@ public class AbilityProjectile extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectileIce;
+			abilityIcon = Game.wizardAbility1;
 			hasEffect = true;
 			effectID = 1;
 			spawnsAOE = false;
@@ -68,7 +70,7 @@ public class AbilityProjectile extends Ability {
 			break;
 		case 3:
 			// Archer Basic Range Attack
-			speed = 8;
+			speed = 10;
 			cooldown = 300;
 			currCooldown = cooldown;
 			healthMod = -8;
@@ -85,7 +87,7 @@ public class AbilityProjectile extends Ability {
 			break;
 		case 4:
 			// Archer Arrow Burst
-			speed = 8;
+			speed = 10;
 			cooldown = 4000;
 			currCooldown = cooldown;
 			healthMod = -5;
@@ -95,6 +97,7 @@ public class AbilityProjectile extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 3;
 			image = Game.projectileArrows;
+			abilityIcon = Game.archerAbility0;
 			hasEffect = false;
 			effectID = 0;
 			spawnsAOE = false;
@@ -102,7 +105,7 @@ public class AbilityProjectile extends Ability {
 			break;
 		case 5:
 			// Archer Poison
-			speed = 8;
+			speed = 10;
 			cooldown = 4000;
 			currCooldown = cooldown;
 			healthMod = -5;
@@ -112,6 +115,7 @@ public class AbilityProjectile extends Ability {
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.projectilePoisonArrow;
+			abilityIcon = Game.archerAbility1;
 			hasEffect = true;
 			effectID = 0;
 			spawnsAOE = false;

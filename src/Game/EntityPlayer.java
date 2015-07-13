@@ -3,6 +3,7 @@ package Game;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 public class EntityPlayer extends EntityLiving {
@@ -11,10 +12,11 @@ public class EntityPlayer extends EntityLiving {
 	int playerID;
 	int movementQueue[];
 	int lastDirection;
-	int tempX, tempY;
+	int tempX, tempY, dx, dy;
 	int abilityDir;
 	float healthPercent;
 	Ability activeAbility;
+	Image classIcon;
 
 	EntityPlayer(int pID, int x, int y, String pClass) {
 		enemy = false;
@@ -43,6 +45,7 @@ public class EntityPlayer extends EntityLiving {
 			speed = 6;
 			baseSpeed = speed;
 			image = Game.wizard;
+			classIcon = Game.wizardIcon;
 
 			ability[0] = new AbilityProjectile(0);
 			ability[1] = new AbilityProjectile(1);
@@ -58,6 +61,7 @@ public class EntityPlayer extends EntityLiving {
 			speed = 8;
 			baseSpeed = speed;
 			image = Game.archer;
+			classIcon = Game.archerIcon;
 
 			ability[0] = new AbilityProjectile(3);
 			ability[1] = new AbilityProjectile(4);
@@ -114,11 +118,61 @@ public class EntityPlayer extends EntityLiving {
 		}
 	}
 	void render(GameContainer container, Graphics g) {
-		image.draw(xpos, ypos, width, height);
+		if(!destroyed){
+			image.draw(xpos, ypos, width, height);
+			g.setColor(Color.red);
+			g.fillRect(xpos, ypos - 10, 32, 5);
+			g.setColor(Color.green);
+			g.fillRect(xpos, ypos - 10, ((currHealth / health)) * 32, 5);
+		}
+		drawPlayerFrame(container, g);
+	}
+	
+	void drawPlayerFrame(GameContainer container, Graphics g){
+		if(playerID == 1){
+			 dx = 10;
+			 dy = 10;
+			
+		}else if(playerID == 2){
+			 dx = 1920 - 270;
+			 dy = 10;
+			
+		}else if(playerID == 3){
+			 dx = 10;
+			 dy = 1080 - 140;
+			
+		}else if(playerID == 4){
+			 dx = 1920 - 270;
+			 dy = 1080 - 140;
+			
+		}
+		
+		g.setColor(Color.lightGray);
+		g.fillRect(dx, dy, 260, 130);
+		g.setColor(Color.black);
+		g.drawRect(dx, dy, 260, 130);
+		g.setColor(Color.blue);
+		g.drawString("Player " + playerID, dx + 10, dy + 10);
+		classIcon.draw(dx + 180, dy + 10, 64, 64);
 		g.setColor(Color.red);
-		g.fillRect(xpos, ypos - 10, 32, 5);
+		g.fillRect(dx + 10, dy + 40, 150, 20);
 		g.setColor(Color.green);
-		g.fillRect(xpos, ypos - 10, ((currHealth / health)) * 32, 5);
+		g.fillRect(dx + 10, dy + 40, ((currHealth / health)) * 150, 20);
+		if(ability[1].currCooldown > 0){
+			g.setColor(Color.red);
+		}else{
+			g.setColor(Color.white);
+		}
+		g.fillRect(dx + 10, dy + 70, 48, 48);
+		ability[1].abilityIcon.draw(dx + 10, dy + 70, 48, 48);
+		
+		if(ability[2].currCooldown > 0){
+			g.setColor(Color.red);
+		}else{
+			g.setColor(Color.white);
+		}
+		g.fillRect(dx + 68, dy + 70, 48, 48);
+		ability[2].abilityIcon.draw(dx + 68, dy + 70, 48, 48);
 	}
 
 	void update() {

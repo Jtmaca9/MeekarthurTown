@@ -24,7 +24,7 @@ public class MainMenuPlayerSelect extends BasicGameState{
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.game = game;
-		levelName = "level";
+		levelName = "level1";
 		pControls = new int[4];
 		pClassIn = new int[4];
 		pClass = new String[4];

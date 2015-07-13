@@ -8,6 +8,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -21,6 +22,22 @@ public class Game extends BasicGameState {
 	static Image knight;
 	static Image rogue;
 	static Image cleric;
+	
+	static Image archerIcon;
+	static Image wizardIcon;
+	static Image knightIcon;
+	static Image rogueIcon;
+	static Image clericIcon;
+	
+	static Image wizardAbility0;
+	static Image wizardAbility1;
+	static Image knightAbility0;
+	static Image knightAbility1;
+	static Image archerAbility0;
+	static Image archerAbility1;
+	static Image rogueAbility0;
+	static Image clericAbility0;
+	
 	static Image StandardMeleeImage;
 	static Image BerserkerMeleeImage;
 	static Image StandardRangedImage;
@@ -41,8 +58,10 @@ public class Game extends BasicGameState {
 	static Image projectileAxe;
 	static Image projectileDagger;
 	static Image projectilePoisonArrow; 
-	static Image bg;
 	static Image blood;
+	
+	private Music music;
+	
 	StateBasedGame game;
 
 	static Level currLevel;
@@ -67,6 +86,8 @@ public class Game extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.game = game;
 		loadImages();
+		music.setVolume(0.1f);
+		music.loop();
 		//newGame();
 		
 
@@ -92,11 +113,10 @@ public class Game extends BasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame arg1, Graphics g) throws SlickException {
-		bg.draw(0, 0, 1920, 1080);
 		currLevel.render(container, g);
 		g.setColor(Color.green);
-		g.drawString("Current time: " + (currLevel.time / 1000), 20, 20);
-		g.drawString("Current lives: " + (currLevel.lives), 20, 40);
+		//g.drawString("Current time: " + (currLevel.time / 1000), 20, 20);
+		//g.drawString("Current lives: " + (currLevel.lives), 20, 40);
 	}
 
 	@Override
@@ -113,12 +133,24 @@ public class Game extends BasicGameState {
 			boss = new Image("Images/boss.png");
 			boss2 = new Image("Images/boss2.png");
 			blood = new Image("Images/blood.png");
-			bg = new Image("Images/Level1.png");
 			wizard = new Image("Images/Wizard.png");
 			archer = new Image("Images/Archer.png");
 			knight = new Image("Images/Knight.png");
 			rogue = new Image("Images/Rogue.png");
 			cleric = new Image("Images/Cleric.png");
+			wizardIcon = new Image("Images/Class_Wizard.png");
+			archerIcon = new Image("Images/Class_Archer.png");
+			knightIcon = new Image("Images/Class_Knight.png");
+			rogueIcon = new Image("Images/Class_Rogue.png");
+			clericIcon = new Image("Images/Cleric.png");
+			wizardAbility0 = new Image("Images/Wizard_Ability0.png");
+			wizardAbility1 = new Image("Images/Wizard_Ability1.png");
+			knightAbility0 = new Image("Images/Knight_Ability0.png");
+			knightAbility1 = new Image("Images/Knight_Ability1.png");
+			archerAbility0 = new Image("Images/Archer_Ability0.png");
+			archerAbility1 = new Image("Images/Archer_Ability1.png");
+			rogueAbility0 = new Image("Images/Rogue_Ability0.png");
+			clericAbility0 = new Image("Images/Cleric_Ability0.png");
 			StandardFlyingImage = new Image("Images/FlyingStandard.png");
 			StandardMeleeImage = new Image("Images/Goblin.png");
 			BerserkerMeleeImage = new Image("Images/GoblinB.png");
@@ -137,6 +169,8 @@ public class Game extends BasicGameState {
 			wallFullImage = new Image("Images/Wall_Full.png");
 			wallHalfImage = new Image("Images/Wall_Half.png");
 			healthImage = new Image("Images/Health.png");
+			
+			music = new Music("Sounds/Journey.ogg");
 			
 		} catch (SlickException e) {
 

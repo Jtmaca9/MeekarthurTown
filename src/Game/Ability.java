@@ -19,7 +19,7 @@ public class Ability {
 	// if targetsEnemy is false, it hits players
 	boolean targetsEnemy;
 
-	Image abilityIcon, projectileImage;
+	Image abilityIcon;
 
 	void useAbility(int dir, int pX, int pY, int cS) {
 
