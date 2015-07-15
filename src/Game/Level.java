@@ -25,6 +25,10 @@ public class Level {
 	String levelName;
 	Coords[] lanes;
 	Image bg;
+	
+	//score shiz
+	int score = 0;
+	int scoreMultiplier = 1;
 
 	// Player List and Enemy list and Event list
 	List<EntityLiving> livingEntityList = new ArrayList<EntityLiving>();
@@ -341,6 +345,9 @@ public class Level {
 				if(e instanceof EnemyMeleeTargetExplosive){
 					enemyAOEList.add(new EntityAbilityAOE((int)e.xpos,(int) e.ypos, 1));
 				}
+				
+				score += e.score * scoreMultiplier;
+				scoreMultiplier++;
 				enemyIterator.remove();
 				
 			}

@@ -377,6 +377,7 @@ public class EntityPlayer extends EntityLiving {
 					getEffect(p.effectID);
 				}
 				currHealth += p.healthMod;
+				Game.currLevel.scoreMultiplier = 1;
 				p.destroyed = true;
 			}
 		}
@@ -397,6 +398,7 @@ public class EntityPlayer extends EntityLiving {
 					getEffect(m.effectID);
 				}
 				currHealth += m.healthMod;
+				Game.currLevel.scoreMultiplier = 1;
 				m.destroyed = true;
 			}
 		}

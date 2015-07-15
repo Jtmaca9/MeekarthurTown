@@ -8,7 +8,7 @@ public class Enemy extends EntityLiving {
 
 	int monsterID;
 	boolean bigMonster;
-	int target;
+	int target, score = 10;
 
 	void update() {
 		baseBehaviour();

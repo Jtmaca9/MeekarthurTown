@@ -123,6 +123,7 @@ public class Game extends BasicGameState {
 		g.setColor(Color.red);
 		g.drawString("Current time: " + (currLevel.time / 1000), 850, 20);
 		g.drawString("Current lives: " + (currLevel.lives), 850, 40);
+		g.drawString("Score: " + (currLevel.score) + " Multiplier: " + currLevel.scoreMultiplier, 850, 60);
 	}
 
 	@Override
