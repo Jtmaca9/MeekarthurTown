@@ -50,7 +50,6 @@ public class EntityLiving extends Entity {
 			while (effectIterator.hasNext()) {
 				Effect e = effectIterator.next();
 				if (e.effectsSpeed) {
-					System.out.println("Effects speed");
 					effectIterator.remove();
 					speed = baseSpeed;
 				}
@@ -60,13 +59,19 @@ public class EntityLiving extends Entity {
 			effectIterator = effectList.iterator();
 			while (effectIterator.hasNext()) {
 				Effect e = effectIterator.next();
-				if (e.effectID == incomingEffect.effectID) {
-					System.out.println("Is the same");
+				if (e.effectID == incomingEffect.effectID && e.currTick > 1) {
 					effectIterator.remove();
+					effectList.add(incomingEffect);
+					break;
+				} else if (e.effectID == incomingEffect.effectID) {
+					break;
 				}
+				effectList.add(incomingEffect);
 
+			} 
+			if(effectList.size() < 1){
+				effectList.add(incomingEffect);
 			}
-			effectList.add(incomingEffect);
 		}
 		
 		

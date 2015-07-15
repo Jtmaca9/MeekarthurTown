@@ -1,17 +1,25 @@
 package Game;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Vector2f;
 
 public class EntityAbilityProjectileHoming extends EntityProjectile {
 	
 	int direction, casterXpos, casterYpos, casterSize, size, range, target, targetXpos, targetYpos, currRange = 0;
 	float speed;
 	Coords vector;
+	Vector2f v;
 	
 	EntityAbilityProjectileHoming(int cX, int cY, int cS, int t, int s, Image im, int sz, int hM, int r, boolean sA, int AOID) {
 		speed = s;
-		image = im;
+		try {
+			image = new Image("Images/Projectile_Fire.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		spawnsAOE = sA;
 		AOEID = AOID;
 		size = sz;
@@ -30,7 +38,7 @@ public class EntityAbilityProjectileHoming extends EntityProjectile {
 		
 		target = t;
 		
-
+		v = new Vector2f(0, 0);
 		vector = getVector();
 		
 
@@ -47,6 +55,12 @@ public class EntityAbilityProjectileHoming extends EntityProjectile {
 		
 		vector.x = (float) ((x / trueDistance) * speed);
 		vector.y = (float) ((y / trueDistance) * speed);
+		
+		v.x = vector.x;
+		v.y = vector.y;
+		
+
+		image.setRotation((float) v.getTheta() + 90);
 
 		return vector;
 	}

@@ -13,7 +13,7 @@ public class Entity {
 	int width, height;
 	Shape hitBox;
 	boolean destroyed;
-	boolean enemy;
+	boolean enemy, meleeAttack = false;
 	Rectangle rangeBox;
 
 	Entity() {
@@ -22,7 +22,10 @@ public class Entity {
 
 	void render(GameContainer container, Graphics g) {
 		image.draw((int) xpos, (int) ypos, width, height);
+		
 	}
+	
+	
 
 	void update() {
 

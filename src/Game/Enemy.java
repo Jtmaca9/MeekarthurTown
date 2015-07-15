@@ -8,6 +8,7 @@ public class Enemy extends EntityLiving {
 
 	int monsterID;
 	boolean bigMonster;
+	int target;
 
 	void update() {
 		baseBehaviour();
@@ -31,6 +32,8 @@ public class Enemy extends EntityLiving {
 	void behaviour() {
 
 	}
+	
+	
 
 	void checkBounds() {
 		if (ypos > Setup.GAMEHEIGHT) {
@@ -69,6 +72,16 @@ public class Enemy extends EntityLiving {
 		g.fillRect(xpos, ypos - 10, width, 5);
 		g.setColor(Color.green);
 		g.fillRect(xpos, ypos - 10, ((currHealth / health)) * width, 5);
+		enemyMeleeAttack(container, g);
+	}
+	
+	void enemyMeleeAttack(GameContainer container, Graphics g){
+		if(meleeAttack){
+			Game.meleeAttack.drawFlash(xpos - 48, ypos - 48, width +96, height + 96);
+			meleeAttack = false;
+			
+			
+		}
 	}
 
 	boolean checkFacingCollision(EntityLiving e) {
@@ -92,5 +105,18 @@ public class Enemy extends EntityLiving {
 			}
 		}
 		return false;
+	}
+	
+	void findTargetHighestHP() {
+		// sets target to index of player with highest hp percentage
+		target = 0;
+		float highest = 0;
+		for (int i = 0; i < Game.currLevel.playerCount; i++) {
+			if(Game.currLevel.players[i].healthPercent >= highest){
+				target = i;
+				highest = Game.currLevel.players[i].healthPercent;
+			}
+		}
+			
 	}
 }

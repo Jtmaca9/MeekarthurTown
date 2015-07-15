@@ -43,7 +43,9 @@ public class EnemyMeleeStandard extends EnemyMelee {
 	}
 
 	void attack(int i) {
+		meleeAttack = true;
 		ability[i].useAbility(direction, (int) xpos, (int) ypos, width);
+		
 	}
 
 	void move() {

@@ -1,6 +1,7 @@
 package Game;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 public class EntityAbilityProjectile extends EntityProjectile {
@@ -9,16 +10,37 @@ public class EntityAbilityProjectile extends EntityProjectile {
 	final int N = 0, NE = 1, E = 2, SE = 3, S = 4, SW = 5, W = 6, NW = 7;
 
 	int direction, casterXpos, casterYpos, casterSize, size, range, currRange = 0;
+	int ii;
 	float speed;
 	
 	Coords spawn;
 
-	EntityAbilityProjectile(float s, int hM, int sz, int dir, Image im, int pX, int pY, int cS, int r, boolean hE, int eID, boolean sA, int AOID, boolean tE ) {
+	EntityAbilityProjectile(float s, int hM, int sz, int dir, int im, int pX, int pY, int cS, int r, boolean hE, int eID, boolean sA, int AOID, boolean tE ) {
 		spawnsAOE = sA;
 		targetsEnemy = tE;
 		AOEID = AOID;
 		speed = s;
-		image = im;
+		ii = im;
+		try{
+			if(ii== 0){
+				image = new Image("Images/Projectile_Water.png");
+			}else if(ii ==1){
+				image = new Image("Images/Projectile_Fire.png");
+			}else if( ii == 2){
+				image = new Image("Images/Projectile_Ice.png");
+			}else if( ii == 3){
+				image = new Image("Images/Projectile_Arrows.png");
+			}else if( ii == 4){
+				image = new Image("Images/Projectile_Arrows.png");
+			}else if( ii == 5){
+				image = new Image("Images/Projectile_PoisonArrow.png");
+			}else if( ii == 10){
+				image = new Image("Images/RedOrb.png");
+			}
+		}catch(SlickException e){
+			e.printStackTrace();
+		}
+		
 		hasEffect = hE;
 		effectID = eID;
 		
@@ -53,24 +75,31 @@ public class EntityAbilityProjectile extends EntityProjectile {
 		} else if (direction == NE) {
 			spawn.x = (int) (casterXpos + casterSize + size + 1);
 			spawn.y = (int) (casterYpos - size - 1);
+			image.rotate(45);
 		} else if (direction == E) {
 			spawn.x = (int) (casterXpos + casterSize + 1);
 			spawn.y = (int) (casterYpos + (0.5 * casterSize) - (0.5 * size));
+			image.rotate(90);
 		} else if (direction == SE) {
 			spawn.x = (int) (casterXpos + casterSize + 1);
 			spawn.y = (int) (casterYpos + casterSize + 1);
+			image.rotate(135);
 		} else if (direction == S) {
 			spawn.x = (int) (casterXpos + (0.5 * casterSize) - (0.5 * size));
 			spawn.y = (int) (casterYpos + casterSize + 1);
+			image.rotate(180);
 		} else if (direction == SW) {
 			spawn.x = (int) (casterXpos - size - 1);
 			spawn.y = (int) (casterYpos + casterSize + 1);
+			image.rotate(225);
 		} else if (direction == W) {
 			spawn.x = (int) (casterXpos - size - 1);
 			spawn.y = (int) (casterYpos + (0.5 * casterSize) - (0.5 * size));
+			image.rotate(270);
 		} else if (direction == NW) { // CHANGE
 			spawn.x = (int) (casterXpos - size - 1);
 			spawn.y = (int) (casterYpos - size - 1);
+			image.rotate(315);
 		}
 	}
 

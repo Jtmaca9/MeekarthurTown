@@ -17,6 +17,8 @@ public class EntityPlayer extends EntityLiving {
 	float healthPercent;
 	Ability activeAbility;
 	Image classIcon;
+	int animTime = 0;
+	boolean  anim = false;
 
 	EntityPlayer(int pID, int x, int y, String pClass) {
 		enemy = false;
@@ -77,8 +79,9 @@ public class EntityPlayer extends EntityLiving {
 			speed = 6;
 			baseSpeed = speed;
 			image = Game.knight;
+			classIcon = Game.knightIcon;
 
-			ability[0] = new AbilityProjectile(0);
+			ability[0] = new AbilityMelee(1);
 			ability[1] = new AbilityProjectile(1);
 			ability[2] = new AbilityProjectile(1);
 
@@ -92,6 +95,7 @@ public class EntityPlayer extends EntityLiving {
 			speed = 8;
 			baseSpeed = speed;
 			image = Game.rogue;
+			classIcon = Game.rogueIcon;
 
 			ability[0] = new AbilityProjectile(0);
 			ability[1] = new AbilityProjectile(1);
@@ -107,6 +111,7 @@ public class EntityPlayer extends EntityLiving {
 			speed = 6;
 			baseSpeed = speed;
 			image = Game.cleric;
+			classIcon = Game.clericIcon;
 
 			ability[0] = new AbilityProjectile(0);
 			ability[1] = new AbilityProjectile(1);
@@ -121,11 +126,25 @@ public class EntityPlayer extends EntityLiving {
 		if(!destroyed){
 			image.draw(xpos, ypos, width, height);
 			g.setColor(Color.red);
-			g.fillRect(xpos, ypos - 10, 32, 5);
+			g.fillRect(xpos, ypos - 10, width, 5);
 			g.setColor(Color.green);
-			g.fillRect(xpos, ypos - 10, ((currHealth / health)) * 32, 5);
+			g.fillRect(xpos, ypos - 10, ((currHealth / health)) * width, 5);
+		
+			meleeAttack(container, g);
 		}
+		
 		drawPlayerFrame(container, g);
+	}
+	
+	void meleeAttack(GameContainer container, Graphics g){
+		if(meleeAttack){
+			animTime += Game.currLevel.deltaTime;
+			Game.meleeAttack.drawFlash(xpos - 75, ypos - 75, width +150, height + 150);
+		}
+		if (animTime > 260){
+			meleeAttack = false;
+		}
+		
 	}
 	
 	void drawPlayerFrame(GameContainer container, Graphics g){
@@ -176,15 +195,22 @@ public class EntityPlayer extends EntityLiving {
 	}
 
 	void update() {
+		
 		move();
 		collision();
 		checkHealth();
 		updateEffects();
 		cooldowns();
 		healthPercent = (currHealth / health) * 100;
+		
+		
 	}
 
 	void useAbility(int dir) {
+		if((activeAbility == ability[0]) && (ability[0] instanceof AbilityMelee)){
+			meleeAttack = true;
+			animTime = 0;
+		}
 		activeAbility.useAbility(dir, (int) xpos, (int) ypos, width);
 		activeAbility = ability[0];
 	}
@@ -367,9 +393,26 @@ public class EntityPlayer extends EntityLiving {
 		
 		for (EntityAbilityMelee m : Game.currLevel.enemyMeleeList) {
 			if (checkCollision(m)) {
+				if(m.hasEffect){
+					getEffect(m.effectID);
+				}
 				currHealth += m.healthMod;
 				m.destroyed = true;
 			}
+		}
+		
+		checkBounds();
+	}
+	
+	void checkBounds() {
+		if (xpos < 0) {
+			xpos = 0;
+		} else if (xpos > Setup.GAMEWIDTH - width) {
+			xpos = Setup.GAMEWIDTH - width;
+		} else if (ypos < 0) {
+			ypos = 0;
+		} else if (ypos > Setup.GAMEHEIGHT -  height) {
+			ypos = Setup.GAMEHEIGHT - height;
 		}
 	}
 	

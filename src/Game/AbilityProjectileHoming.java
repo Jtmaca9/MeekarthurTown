@@ -12,12 +12,12 @@ public class AbilityProjectileHoming extends Ability {
 
 		case 0:
 			// StandardRangedEnemy Basic
-			speed = 4;
-			cooldown = 800;
+			speed = 3;
+			cooldown = 1500;
 			currCooldown = cooldown;
 			healthMod = -10;
-			size = 16;
-			range = 600;
+			size = 24;
+			range = 800;
 			targetsEnemy = false;
 			directionMod = 0;
 			numOfProjectiles = 1;

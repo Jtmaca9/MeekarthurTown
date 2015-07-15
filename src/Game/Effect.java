@@ -16,7 +16,7 @@ public class Effect {
 		switch(effectID){
 		case 0:
 			// DOT Fire
-			healthMod = -2;
+			healthMod = -3;
 			speedMod = 0;
 			tickCount = 8;
 			tickDuration = 750;
@@ -46,8 +46,4 @@ public class Effect {
 			break;
 		}
 	}
-	
-	
-	
-
 }

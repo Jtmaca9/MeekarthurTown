@@ -32,10 +32,13 @@ public class MainMenuPlayerSelect extends BasicGameState{
 		for(int i = 0; i < 4; i++){
 			pClassIn[i] = 0;
 		}
-		classList = new String[2];
-		classCount = 2;
+		classList = new String[5];
+		classCount = 5;
 		classList[0] = "Wizard";
 		classList[1] = "Archer";
+		classList[2] = "Rogue";
+		classList[3] = "Cleric";
+		classList[4] = "Knight";
 		
 	}
 
@@ -106,6 +109,11 @@ public class MainMenuPlayerSelect extends BasicGameState{
 			}
 			
 		}
+		
+		if (button == 15){
+			game.enterState(0);
+			Game.newGame();
+		}
 
 	}
 	
@@ -122,6 +130,33 @@ public class MainMenuPlayerSelect extends BasicGameState{
 			game.enterState(0);
 			Game.newGame();
 		}
+		
+		if (key == Input.KEY_UP || key == Input.KEY_W) {
+			if(pClass[0] != classList[classCount-1]){
+				for(int i = 0; i < classCount-1; i ++){
+					if(pClass[0] == classList[i]){
+						pClass[0] = classList[i+1];
+						break;
+					}
+				}
+			}else{
+				pClass[0] = classList[0];
+			}
+		}
+		
+		if (key == Input.KEY_DOWN || key == Input.KEY_S) {
+			if(pClass[0] != classList[0]){
+				for(int i = classCount-1; i >= 0; i --){
+					if(pClass[0] == classList[i]){
+						pClass[0] = classList[i-1];
+						break;
+					}
+				}
+			}else{
+				pClass[0] = classList[classCount-1];
+			}
+		}
+		
 	}
 
 	@Override

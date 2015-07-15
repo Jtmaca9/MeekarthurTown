@@ -24,22 +24,16 @@ public class AbilityAOE extends Ability {
 			range = 10;
 			targetsEnemy = true;
 			image = Game.blueProjectile;
-			hasEffect = false;
 			break;
 		}
 	}
 
-	void useAbility(int dir, int pX, int pY, int cS) {
+	void useAbility(int dir, int cX, int cY, int cS) {
 		if (checkCooldown()) {
-
-		}
-	}
-
-	void spawnHitBoxCentre(int x, int y, int cS) {
-		// Spawns the 'Melee attack' hitbox in centre of caster
-		if (!targetsEnemy) {
-			Game.currLevel.enemyMeleeList
-					.add(new EntityAbilityMelee(x - range, y - range, cS + (2 * range), cS + (2 * range), healthMod));
+			if (!targetsEnemy) {
+				Game.currLevel.enemyAOEList
+						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID));
+			}
 		}
 	}
 }

@@ -3,6 +3,7 @@ package Game;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -59,6 +60,10 @@ public class Game extends BasicGameState {
 	static Image projectileDagger;
 	static Image projectilePoisonArrow; 
 	static Image blood;
+	static Image fire;
+	
+	static Image[] meleeAttackAnimation;
+	static Animation meleeAttack;
 	
 	private Music music;
 	
@@ -85,6 +90,7 @@ public class Game extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.game = game;
+		meleeAttackAnimation = new Image[16];
 		loadImages();
 		music.setVolume(0.1f);
 		music.loop();
@@ -114,14 +120,15 @@ public class Game extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame arg1, Graphics g) throws SlickException {
 		currLevel.render(container, g);
-		g.setColor(Color.green);
-		//g.drawString("Current time: " + (currLevel.time / 1000), 20, 20);
-		//g.drawString("Current lives: " + (currLevel.lives), 20, 40);
+		g.setColor(Color.red);
+		g.drawString("Current time: " + (currLevel.time / 1000), 850, 20);
+		g.drawString("Current lives: " + (currLevel.lives), 850, 40);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int delta) throws SlickException {
 		currLevel.update(delta);
+		meleeAttack.update(delta);
 
 		if (currLevel.checkLives()) {
 			game.enterState(1);
@@ -169,6 +176,7 @@ public class Game extends BasicGameState {
 			wallFullImage = new Image("Images/Wall_Full.png");
 			wallHalfImage = new Image("Images/Wall_Half.png");
 			healthImage = new Image("Images/Health.png");
+			fire = new Image("Images/FireAOE.png");
 			
 			music = new Music("Sounds/Journey.ogg");
 			
@@ -176,13 +184,27 @@ public class Game extends BasicGameState {
 
 			e.printStackTrace();
 		}
+		
+		loadAttackAnimation();
 
 	}
-
-	@Override
-	public int getID() {
-		return 0;
+	
+	void loadAttackAnimation() {
+		try {
+			for (int i = 0; i < 16; i++) {
+				if (i < 9) {
+					meleeAttackAnimation[i] = new Image("Images/MeleeAttack/Melee0" + (i+1) + ".png");
+				} else {
+					meleeAttackAnimation[i] = new Image("Images/MeleeAttack/Melee" + (i+1) + ".png");
+				}
+			}
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		meleeAttack = new Animation(meleeAttackAnimation, 30);
 	}
+
+	
 	
 	public void controllerButtonPressed(int controller, int button){
 		System.out.println(controller + " : " + button);
@@ -332,6 +354,11 @@ public class Game extends BasicGameState {
 			currLevel.players[0].moveRight(false);
 		}
 		
+	}
+	
+	@Override
+	public int getID() {
+		return 0;
 	}
 
 }

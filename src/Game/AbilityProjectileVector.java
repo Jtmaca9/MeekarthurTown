@@ -12,16 +12,16 @@ public class AbilityProjectileVector extends Ability {
 
 		case 0:
 			// StandardRangedEnemy Basic
-			speed = 4;
-			cooldown = 800;
+			speed = 7;
+			cooldown = 1500;
 			currCooldown = cooldown;
 			healthMod = -10;
-			size = 16;
+			size = 24;
 			range = 2000;
 			targetsEnemy = false;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.redProjectile;
+			image = Game.projectileFire;
 			spawnsAOE = false;
 			AOEID = 1;
 			break;
@@ -39,7 +39,7 @@ public class AbilityProjectileVector extends Ability {
 			targetsEnemy = false;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.redProjectile;
+			image = Game.projectileFire;
 			spawnsAOE = false;
 			AOEID = 1;
 			break;

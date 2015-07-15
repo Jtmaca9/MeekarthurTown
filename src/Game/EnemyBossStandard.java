@@ -31,7 +31,7 @@ public class EnemyBossStandard extends EnemyBoss {
 
 		ability = new Ability[2];
 		hitBox = new Rectangle(xpos, ypos, width, height);
-		image = Game.boss;
+		image = Game.boss2;
 		
 		currHealth = health;
 		currAttackCD = attackCD;

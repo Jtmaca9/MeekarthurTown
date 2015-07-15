@@ -23,7 +23,8 @@ public class GameOver extends BasicGameState{
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
-		g.drawString("Game Over", 950, 500);
+		g.drawString("Game Over", 800, 500);
+		g.drawString("Press Space to retry.", 800, 550);
 		
 	}
 
@@ -33,8 +34,9 @@ public class GameOver extends BasicGameState{
 	}public void keyPressed(int key, char code) {
 		// Player 1 Controls
 		if (key == Input.KEY_SPACE) {
-			Game.currLevel = new Level(Game.playerCount, "level");
-			game.enterState(1);
+			//Game.currLevel = new Level(Game.playerCount, "level1");
+			Game.newGame();
+			game.enterState(0);
 			
 		}
 	}

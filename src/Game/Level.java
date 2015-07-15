@@ -52,7 +52,7 @@ public class Level {
 		playerCount = pCount;
 		levelName = lName;
 		lanes = new Coords[5];
-		lives = 50;
+		lives = 5;
 		deltaTime = 0;
 
 		// Adjust so they are in the middle of wall segment
@@ -93,6 +93,12 @@ public class Level {
 		for (EntityItem i : bloodList) {
 			i.render(container, g);
 		}
+		for (EntityAbilityAOE a : enemyAOEList) {
+			a.render(container, g);
+		}
+		for (EntityAbilityAOE o : playerAOEList) {
+			o.render(container, g);
+		}
 		for (Enemy i : enemyList) {
 			i.render(container, g);
 		}
@@ -107,12 +113,6 @@ public class Level {
 		}
 		for (EntityProjectile k : enemyProjectiles) {
 			k.render(container, g);
-		}
-		for (EntityAbilityAOE a : enemyAOEList) {
-			a.render(container, g);
-		}
-		for (EntityAbilityAOE o : playerAOEList) {
-			o.render(container, g);
 		}
 		for (EntityItem i : itemList) {
 			i.render(container, g);
@@ -337,6 +337,10 @@ public class Level {
 				}else{
 					bloodList.add(new EntityItem(1, (int)e.xpos + (e.width/2),(int) e.ypos + (e.height/2)));
 				}
+				
+				if(e instanceof EnemyMeleeTargetExplosive){
+					enemyAOEList.add(new EntityAbilityAOE((int)e.xpos,(int) e.ypos, 1));
+				}
 				enemyIterator.remove();
 				
 			}
@@ -345,11 +349,21 @@ public class Level {
 	}
 
 	boolean checkLives() {
-		if (lives <= 0) {
+		if (lives <= 0 || checkPlayers()) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	boolean checkPlayers(){
+		boolean dead = true;
+		for(int i = 0; i < playerCount; i++){
+			if(!players[i].destroyed){
+				dead = false;
+			}
+		}
+		return dead;
 	}
 
 }

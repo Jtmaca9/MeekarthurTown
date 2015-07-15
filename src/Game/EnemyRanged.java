@@ -3,7 +3,7 @@ package Game;
 public class EnemyRanged extends Enemy {
 	
 	int range;
-	int target;
+	
 	Coords targetPos;
 	
 	void move() {
@@ -36,18 +36,6 @@ public class EnemyRanged extends Enemy {
 		getTargetCoords();
 	}
 	
-	void findTargetHighestHP() {
-		// sets target to index of player with highest hp percentage
-		target = 0;
-		float highest = 0;
-		for (int i = 0; i < Game.currLevel.playerCount; i++) {
-			if(Game.currLevel.players[i].healthPercent >= highest){
-				target = i;
-				highest = Game.currLevel.players[i].healthPercent;
-			}
-		}
-			
-	}
 	
 	void getTargetCoords() {
 		targetPos.x = Game.currLevel.players[target].xpos;
