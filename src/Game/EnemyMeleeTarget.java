@@ -36,6 +36,8 @@ public class EnemyMeleeTarget extends EnemyMelee {
 		image = Game.StandardMeleeImage;
 		baseSpeed = speed;
 		v = new Coords(0,0);
+		
+		targetEntity = new Entity();
 
 		currHealth = health;
 
@@ -67,8 +69,8 @@ public class EnemyMeleeTarget extends EnemyMelee {
 	}
 	
 	Coords getVector() {
-		targetXpos = (int) Game.currLevel.players[target].xpos;
-		targetYpos = (int) Game.currLevel.players[target].ypos;
+		targetXpos = (int) targetEntity.xpos;
+		targetYpos = (int) targetEntity.ypos;
 		Coords vector = new Coords(0,0);
 		float x = (targetXpos - xpos);
 		float y = (targetYpos - ypos);

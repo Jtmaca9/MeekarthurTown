@@ -40,12 +40,18 @@ public class EntityWall extends EntityLiving {
 
 		for (EntityAbilityMelee m : Game.currLevel.enemyMeleeList) {
 			if (checkCollision(m)) {
-				currHealth += m.healthMod;
+				currHealth += m.playerHealthMod;
 				m.destroyed = true;
 			}
 		}
 
 		for (EntityProjectile p : Game.currLevel.playerProjectiles) {
+			if (checkCollision(p)) {
+				p.destroyed = true;
+			}
+		}
+		
+		for (EntityProjectile p : Game.currLevel.bothProjectiles) {
 			if (checkCollision(p)) {
 				p.destroyed = true;
 			}

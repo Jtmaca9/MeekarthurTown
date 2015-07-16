@@ -9,15 +9,16 @@ public class Ability {
 	int range;
 	int numOfProjectiles;
 	boolean hasEffect, spawnsAOE;
-	int effectID, AOEID;
+	int effectIDPlayer, effectIDEnemy, AOEID;
 	Image image;
+	float speed;
 
 	final int UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
 
 	// negative healthMod value means damage, positive means heal
-	int speed, cooldown, currCooldown, healthMod, size;
+	int cooldown, currCooldown, playerHealthMod, enemyHealthMod, size;
 	// if targetsEnemy is false, it hits players
-	boolean targetsEnemy;
+	int targets;
 
 	Image abilityIcon;
 
@@ -25,7 +26,7 @@ public class Ability {
 
 	}
 	
-	void useAbilityTarget(int cX, int cY, int cS, int x, int y) {
+	void useAbilityTarget(int cX, int cY, int cS, Entity t, Entity o) {
 		
 	}
 

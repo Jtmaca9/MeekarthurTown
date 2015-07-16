@@ -4,14 +4,15 @@ import org.newdawn.slick.geom.Circle;
 
 public class EntityAbilityMelee extends Entity {
 
-	int healthMod;
+	int playerHealthMod, enemyHealthMod;
 	int duration, currDuration;
-	int effectID;
+	int effectIDPlayer, effectIDEnemy;
 	boolean hasEffect;
 	float radius;
 
-	EntityAbilityMelee(int x, int y, float r, int hM, boolean hE, int eID) {
-		healthMod = hM;
+	EntityAbilityMelee(int x, int y, float r, int pHM, int eHM, boolean hE, int eIDp, int eIDe) {
+		playerHealthMod = pHM;
+		enemyHealthMod = eHM;
 		currDuration = 0;
 		duration = 500;
 		radius = r;
@@ -23,7 +24,8 @@ public class EntityAbilityMelee extends Entity {
 		
 
 		hasEffect = hE;
-		effectID = eID;
+		effectIDPlayer = eIDp;
+		effectIDEnemy = eIDe;
 
 	}
 

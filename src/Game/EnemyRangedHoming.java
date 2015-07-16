@@ -36,6 +36,8 @@ public class EnemyRangedHoming extends EnemyRanged {
 		currHealth = health;
 		currAttackCD = attackCD;
 		baseSpeed = speed;
+		
+		targetEntity = new Entity();
 
 		direction = DOWN;
 		ability[0] = new AbilityMelee(3);
@@ -52,7 +54,7 @@ public class EnemyRangedHoming extends EnemyRanged {
 	}
 	
 	void attackTarget() {
-		ability[1].useAbilityTarget((int) xpos, (int) ypos, width, target, 0);
+		ability[1].useAbilityTarget((int) xpos, (int) ypos, width, targetEntity, this);
 	}
 	
 	void behaviour() {

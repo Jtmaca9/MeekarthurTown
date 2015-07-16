@@ -28,6 +28,8 @@ public class EnemyBossStandard extends EnemyBoss {
 
 		xpos = (int) (lane.x - (0.5 * width));
 		ypos = (int) lane.y;
+		
+		targetEntity = new Entity();
 
 		ability = new Ability[2];
 		hitBox = new Rectangle(xpos, ypos, width, height);
@@ -51,7 +53,7 @@ public class EnemyBossStandard extends EnemyBoss {
 	}
 	
 	void attackTarget() {
-		ability[1].useAbilityTarget((int) xpos, (int) ypos, width, (int) targetPos.x, (int)targetPos.y);
+		ability[1].useAbilityTarget((int) xpos, (int) ypos, width, targetEntity, this);
 	}
 	
 	void behaviour() {

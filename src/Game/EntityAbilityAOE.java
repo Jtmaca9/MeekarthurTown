@@ -5,13 +5,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
 
 public class EntityAbilityAOE extends Entity {
-	int healthMod;
+	int playerHealthMod, enemyHealthMod;
 	int currTickTime;
 	int AOEID;
 	int tickTime, tickCount, currTick;
 	int radius;
-	boolean targetsEnemy;
-	int effectID;
+	int targets;
+	int effectIDPlayer, effectIDEnemy;
 	boolean hasEffect;
 
 	EntityAbilityAOE(int x, int y, int id) {
@@ -25,7 +25,8 @@ public class EntityAbilityAOE extends Entity {
 	void create(){
 		switch(AOEID){
 		case 0:
-			healthMod = -1;
+			playerHealthMod = 0;
+			enemyHealthMod = -1;
 			tickTime = 400;
 			currTickTime = tickTime;
 			tickCount = 10;
@@ -34,12 +35,14 @@ public class EntityAbilityAOE extends Entity {
 			height = radius*2;
 			hitBox = new Circle(xpos + (radius/2), ypos + (radius/2), radius);
 			image = Game.fire;
-			targetsEnemy = true;
+			targets = 1;
 			hasEffect = false;
-			effectID = 0;
+			effectIDPlayer = -1;
+			effectIDEnemy = -1;
 			break;
 		case 1:
-			healthMod = -15;
+			playerHealthMod = -15;
+			enemyHealthMod = 0;
 			tickTime = 400;
 			currTickTime = tickTime;
 			tickCount = 10;
@@ -48,9 +51,10 @@ public class EntityAbilityAOE extends Entity {
 			height = radius*2;
 			hitBox = new Circle(xpos + (radius/2), ypos + (radius/2), radius);
 			image = Game.fire;
-			targetsEnemy = false;
+			targets = 0;
 			hasEffect = false;
-			effectID = 0;
+			effectIDPlayer = -1;
+			effectIDEnemy = -1;
 			break;
 		}
 	}
@@ -60,12 +64,12 @@ public class EntityAbilityAOE extends Entity {
 		if (currTickTime >= tickTime) {
 			currTickTime = 0;
 			currTick++;
-			if(targetsEnemy){
+			if (targets == 1) {
 				Game.currLevel.playerMeleeList
-					.add(new EntityAbilityMelee((int)xpos, (int)ypos, (float)radius, healthMod, hasEffect, effectID));
-			}else{
+					.add(new EntityAbilityMelee((int)xpos, (int)ypos, (float)radius, playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
+			}else if (targets == 0) {
 				Game.currLevel.enemyMeleeList
-					.add(new EntityAbilityMelee((int)xpos, (int)ypos,(float)radius, healthMod, hasEffect, effectID));
+					.add(new EntityAbilityMelee((int)xpos, (int)ypos,(float)radius, playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
 			}
 		}else if (currTick >= tickCount ){
 			destroyed = true;

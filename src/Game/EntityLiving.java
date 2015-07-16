@@ -16,7 +16,6 @@ public class EntityLiving extends Entity {
 	int direction; // between 0-3 clockwise
 	Ability ability[];
 	List<Effect> effectList = new ArrayList<Effect>();
-	Iterator<Effect> effectIterator;
 
 	boolean checkCollisionDirection() {
 		return false;
@@ -42,42 +41,9 @@ public class EntityLiving extends Entity {
 		}
 	}
 	
-	void getEffect(int id){		
-		Effect incomingEffect = new Effect(id);
-		
-		if (incomingEffect.effectsSpeed) {
-			effectIterator = effectList.iterator();
-			while (effectIterator.hasNext()) {
-				Effect e = effectIterator.next();
-				if (e.effectsSpeed) {
-					effectIterator.remove();
-					speed = baseSpeed;
-				}
-			}
-			effectList.add(incomingEffect);
-		} else {
-			effectIterator = effectList.iterator();
-			while (effectIterator.hasNext()) {
-				Effect e = effectIterator.next();
-				if (e.effectID == incomingEffect.effectID && e.currTick > 1) {
-					effectIterator.remove();
-					effectList.add(incomingEffect);
-					break;
-				} else if (e.effectID == incomingEffect.effectID) {
-					break;
-				}
-				effectList.add(incomingEffect);
-
-			} 
-			if(effectList.size() < 1){
-				effectList.add(incomingEffect);
-			}
-		}
-		
-		
-	}
-	
 	void updateEffects(){
+		
+		Iterator<Effect> effectIterator;
 		effectIterator = effectList.iterator();
 		while (effectIterator.hasNext()) {
 			//System.out.println("update");
@@ -102,4 +68,45 @@ public class EntityLiving extends Entity {
 
 		}
 	}
+	
+	void getEffect(int id) {
+		
+		Effect incomingEffect = new Effect(id);
+		
+		if (incomingEffect.effectsSpeed) {
+			Iterator<Effect> effectIterator;
+			effectIterator = effectList.iterator();
+			while (effectIterator.hasNext()) {
+				Effect e = effectIterator.next();
+				if (e.effectsSpeed) {
+					effectIterator.remove();
+					speed = baseSpeed;
+				}
+			}
+			effectList.add(incomingEffect);
+		} else {
+			Iterator<Effect> effectIterator;
+			effectIterator = effectList.iterator();
+			while (effectIterator.hasNext()) {
+				Effect e = effectIterator.next();
+				if (e.effectID == incomingEffect.effectID) {
+					if (e.currTick > 1) {
+						effectIterator.remove();
+						effectList.add(incomingEffect);
+						break;
+					} else {
+						break;
+					}
+				} else if (!effectIterator.hasNext()) {
+					effectList.add(incomingEffect);
+					break;
+				}
+			}
+			if(effectList.size() < 1){
+				effectList.add(incomingEffect);
+			}
+		}
+	}
+	
+	
 }

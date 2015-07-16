@@ -8,11 +8,12 @@ import org.newdawn.slick.geom.Vector2f;
 public class EntityAbilityProjectileHoming extends EntityProjectile {
 	
 	int direction, casterXpos, casterYpos, casterSize, size, range, target, targetXpos, targetYpos, currRange = 0;
+	Entity targetEntity;
 	float speed;
 	Coords vector;
 	Vector2f v;
 	
-	EntityAbilityProjectileHoming(int cX, int cY, int cS, int t, int s, Image im, int sz, int hM, int r, boolean sA, int AOID) {
+	EntityAbilityProjectileHoming(int cX, int cY, int cS, Entity t, int s, int sz, int pHM, int eHM, int eIDp, int eIDe, int r, boolean sA, boolean hE, int AOID, Entity o) {
 		speed = s;
 		try {
 			image = new Image("Images/Projectile_Fire.png");
@@ -25,8 +26,13 @@ public class EntityAbilityProjectileHoming extends EntityProjectile {
 		size = sz;
 		width = size;
 		height = size;
+		
+		hasEffect = hE;
+		effectIDPlayer = eIDp;
+		effectIDEnemy = eIDe;
 
-		healthMod = hM;
+		playerHealthMod = pHM;
+		enemyHealthMod = eHM;
 		range = r;
 
 		casterXpos = cX;
@@ -36,7 +42,8 @@ public class EntityAbilityProjectileHoming extends EntityProjectile {
 		xpos = (int) (cX + (0.5 * cS));
 		ypos = (int) (cY + (0.5 * cS));
 		
-		target = t;
+		targetEntity = t;
+		owner = o;
 		
 		v = new Vector2f(0, 0);
 		vector = getVector();
@@ -46,8 +53,8 @@ public class EntityAbilityProjectileHoming extends EntityProjectile {
 	}
 	
 	Coords getVector() {
-		targetXpos = (int) Game.currLevel.players[target].xpos;
-		targetYpos = (int) Game.currLevel.players[target].ypos;
+		targetXpos = (int) targetEntity.xpos;
+		targetYpos = (int) targetEntity.ypos;
 		Coords vector = new Coords(0,0);
 		float x = (targetXpos - xpos);
 		float y = (targetYpos - ypos);

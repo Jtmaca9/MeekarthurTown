@@ -20,9 +20,10 @@ public class AbilityAOE extends Ability {
 			// Wizard Basic Melee Attack
 			cooldown = 0;
 			currCooldown = cooldown;
-			healthMod = -10;
+			enemyHealthMod = -10;
+			playerHealthMod = 0;
 			range = 10;
-			targetsEnemy = true;
+			targets = 1;
 			image = Game.blueProjectile;
 			break;
 		}
@@ -30,8 +31,14 @@ public class AbilityAOE extends Ability {
 
 	void useAbility(int dir, int cX, int cY, int cS) {
 		if (checkCooldown()) {
-			if (!targetsEnemy) {
+			if (targets == 0) {
 				Game.currLevel.enemyAOEList
+						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID));
+			} else if (targets == 1) {
+				Game.currLevel.playerAOEList
+						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID));
+			} else if (targets == 2) {
+				Game.currLevel.bothAOEList
 						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID));
 			}
 		}

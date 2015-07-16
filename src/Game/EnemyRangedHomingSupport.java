@@ -2,13 +2,14 @@ package Game;
 
 import org.newdawn.slick.geom.Rectangle;
 
-public class EnemyRangedStandard extends EnemyRanged {
+public class EnemyRangedHomingSupport extends EnemyRanged {
 	
-	final int MONSTERID = 4;
+	final int MONSTERID = 11;
 	int attackCD = 30, currAttackCD;
+	Enemy t;
 	
 
-	EnemyRangedStandard(Coords lane, boolean bM) {
+	EnemyRangedHomingSupport(Coords lane, boolean bM) {
 
 		destroyed = false;
 		bigMonster = bM;
@@ -33,17 +34,17 @@ public class EnemyRangedStandard extends EnemyRanged {
 		hitBox = new Rectangle(xpos, ypos, width, height);
 		image = Game.StandardRangedImage;
 		
-		targetEntity = new Entity();
-		
 		currHealth = health;
 		currAttackCD = attackCD;
 		baseSpeed = speed;
+		
+		targetEntity = new Entity();
 
 		direction = DOWN;
 		ability[0] = new AbilityMelee(3);
 		range = ability[0].range;
 		targetPos = new Coords(0,0);
-		ability[1] = new AbilityProjectileVector(0);
+		ability[1] = new AbilityProjectileHoming(1);
 		
 		
 	}
@@ -66,10 +67,22 @@ public class EnemyRangedStandard extends EnemyRanged {
 			}
 		}
 		if (currAttackCD < 0 && (alive > 0)) {
-			findTargetHighestHP();
+			findTargetLowestHP();
 			attackTarget();
 			currAttackCD = attackCD;
 		} 
+	}
+	
+	void findTargetLowestHP() {
+		// sets target to index of player with highest hp percentage
+		float lowest = 1000;
+		for (Enemy e : Game.currLevel.enemyList) {
+			if (e.currHealth <= lowest && !(e == this)){
+				targetEntity = e;
+				lowest = e.currHealth;
+			}
+		}
+			
 	}
 
 }

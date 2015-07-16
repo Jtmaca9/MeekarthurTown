@@ -111,8 +111,10 @@ public class MainMenuPlayerSelect extends BasicGameState{
 		}
 		
 		if (button == 15){
-			game.enterState(0);
-			Game.newGame();
+			if (playerCount > 0) {
+				game.enterState(0);
+				Game.newGame();
+			}
 		}
 
 	}
@@ -127,8 +129,10 @@ public class MainMenuPlayerSelect extends BasicGameState{
 				con[pControls[j]] = j;
 			}
 		}else if (key == Input.KEY_SPACE){
-			game.enterState(0);
-			Game.newGame();
+			if (playerCount > 0) {
+				game.enterState(0);
+				Game.newGame();
+			}
 		}
 		
 		if (key == Input.KEY_UP || key == Input.KEY_W) {

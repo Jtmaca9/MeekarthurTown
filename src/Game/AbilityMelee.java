@@ -26,14 +26,14 @@ public class AbilityMelee extends Ability {
 			speed = 8;
 			cooldown = 50;
 			currCooldown = cooldown;
-			healthMod = -6;
+			enemyHealthMod = -6;
 			range = 75;
-			targetsEnemy = true;
+			targets = 1;
 			directionMod = 0;
 			numOfProjectiles = 1;
 			image = Game.blueProjectile;
 			hasEffect = false;
-			effectID = 0;
+			effectIDEnemy = 0;
 			break;
 		case 2:
 			// Blank
@@ -43,14 +43,14 @@ public class AbilityMelee extends Ability {
 			speed = 8;
 			cooldown = 500;
 			currCooldown = cooldown;
-			healthMod = -10;
+			playerHealthMod = -10;
 			range = 48;
-			targetsEnemy = false;
+			targets = 0;
 			directional = false;
 			numOfProjectiles = 1;
 			image = Game.redProjectile;
 			hasEffect = true;
-			effectID = 1;
+			effectIDPlayer = 1;
 			break;
 		}
 	}
@@ -66,12 +66,18 @@ public class AbilityMelee extends Ability {
 
 	void spawnHitBoxCentre(int x, int y, int cS) {
 		// Spawns the 'Melee attack' hitbox in centre of caster
-		if (!targetsEnemy) {
-			Game.currLevel.enemyMeleeList
-					.add(new EntityAbilityMelee((int) ((0.5 * cS) + x), (int) ((0.5 * cS) + y), (float) ((0.5 * cS) + range), healthMod, hasEffect, effectID));
-		}else{
-			Game.currLevel.playerMeleeList
-			.add(new EntityAbilityMelee((int) ((0.5 * cS) + x), (int) ((0.5 * cS) + y), (float) ((0.5 * cS) + range), healthMod, hasEffect, effectID));
+		if (targets == 0) {
+			Game.currLevel.enemyMeleeList.add(
+					new EntityAbilityMelee((int) ((0.5 * cS) + x), (int) ((0.5 * cS) + y), (float) ((0.5 * cS) + range),
+							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
+		} else if (targets == 1) {
+			Game.currLevel.playerMeleeList.add(
+					new EntityAbilityMelee((int) ((0.5 * cS) + x), (int) ((0.5 * cS) + y), (float) ((0.5 * cS) + range),
+							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
+		} else if (targets == 2) {
+			Game.currLevel.bothMeleeList.add(
+					new EntityAbilityMelee((int) ((0.5 * cS) + x), (int) ((0.5 * cS) + y), (float) ((0.5 * cS) + range),
+							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
 		}
 	}
 }

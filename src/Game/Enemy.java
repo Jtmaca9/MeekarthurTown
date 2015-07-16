@@ -9,6 +9,7 @@ public class Enemy extends EntityLiving {
 	int monsterID;
 	boolean bigMonster;
 	int target, score = 10;
+	Entity targetEntity;
 
 	void update() {
 		baseBehaviour();
@@ -46,10 +47,23 @@ public class Enemy extends EntityLiving {
 		for (EntityProjectile p : Game.currLevel.playerProjectiles) {
 			if (checkCollision(p)) {
 				if(p.hasEffect){
-					getEffect(p.effectID);
+					getEffect(p.effectIDEnemy);
 				}
 				p.destroyed = true;
-				currHealth += p.healthMod;
+				currHealth += p.enemyHealthMod;
+			}
+		}
+		
+		for (EntityProjectile p : Game.currLevel.bothProjectiles) {
+			if (checkCollision(p)) {
+				if (!(p.owner == this)){
+					if (p.hasEffect){
+						getEffect(p.effectIDEnemy);
+					}
+					p.destroyed = true;
+					currHealth += p.enemyHealthMod;
+					System.out.println("Nigga i should've healed");
+				}
 			}
 		}
 		
@@ -57,7 +71,15 @@ public class Enemy extends EntityLiving {
 			if (checkCollision(m)) {
 			
 				m.destroyed = true;
-				currHealth += m.healthMod;
+				currHealth += m.enemyHealthMod;
+			}
+		}
+		
+		for (EntityAbilityMelee m : Game.currLevel.bothMeleeList) {
+			if (checkCollision(m)) {
+			
+				m.destroyed = true;
+				currHealth += m.enemyHealthMod;
 			}
 		}
 	}
@@ -77,7 +99,7 @@ public class Enemy extends EntityLiving {
 	
 	void enemyMeleeAttack(GameContainer container, Graphics g){
 		if(meleeAttack){
-			Game.meleeAttack.drawFlash(xpos - 48, ypos - 48, width +96, height + 96);
+			Game.meleeAttack.draw(xpos - 48, ypos - 48, width +96, height + 96);
 			meleeAttack = false;
 			
 			
@@ -113,10 +135,19 @@ public class Enemy extends EntityLiving {
 		float highest = 0;
 		for (int i = 0; i < Game.currLevel.playerCount; i++) {
 			if(Game.currLevel.players[i].healthPercent >= highest){
-				target = i;
+				targetEntity = Game.currLevel.players[i];
 				highest = Game.currLevel.players[i].healthPercent;
 			}
 		}
 			
+	}
+	
+	void checkHealth() {
+		if (currHealth <= 0) {
+			currHealth = 0;
+			destroyed = true;
+		}else if(currHealth > health){
+			currHealth = health;
+		}
 	}
 }

@@ -11,8 +11,9 @@ public class EntityAbilityProjectileVector extends EntityProjectile {
 	float speed;
 	Coords vector;
 	Vector2f v;
+	Entity targetEntity;
 	
-	EntityAbilityProjectileVector(int cX, int cY, int cS, int tX, int tY, int s, Image im, int sz, int hM, int r, boolean sA, int AOID) {
+	EntityAbilityProjectileVector(int cX, int cY, int cS, Entity t, int s, int sz, int pHM, int eHM, int eIDp, int eIDe, int r, boolean sA, boolean hE, int AOID, Entity o) {
 		speed = s;
 		try {
 			image = new Image("Images/Projectile_Fire.png");
@@ -25,21 +26,29 @@ public class EntityAbilityProjectileVector extends EntityProjectile {
 		size = sz;
 		width = size;
 		height = size;
+		
+		hasEffect = hE;
+		effectIDPlayer = eIDp;
+		effectIDEnemy = eIDe;
 
-		healthMod = hM;
+		playerHealthMod = pHM;
+		enemyHealthMod = eHM;
 		range = r;
 
 		casterXpos = cX;
 		casterYpos = cY;
 		casterSize = cS;
 		
-		xpos = (int) (cX );//+ (0.5 * cS));
-		ypos = (int) (cY );//+ (0.5 * cS));
+		xpos = (int) (cX);
+		ypos = (int) (cY);
 		
-		targetXpos = tX;
-		targetYpos = tY;
+		targetEntity = t;
+		targetXpos = (int) targetEntity.xpos;
+		targetYpos = (int) targetEntity.ypos;
 		v = new Vector2f(0, 0);
 		vector = getVector();
+		
+		owner = o;
 		
 
 		hitBox = new Rectangle(xpos, ypos, width, height);

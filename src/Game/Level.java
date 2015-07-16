@@ -33,13 +33,17 @@ public class Level {
 	// Player List and Enemy list and Event list
 	List<EntityLiving> livingEntityList = new ArrayList<EntityLiving>();
 	List<Enemy> enemyList = new ArrayList<Enemy>();
+	List<Enemy> flyingEnemyList = new ArrayList<Enemy>();
 	List<Event> eventList = new ArrayList<Event>();
 	List<EntityProjectile> playerProjectiles = new ArrayList<EntityProjectile>();
 	List<EntityProjectile> enemyProjectiles = new ArrayList<EntityProjectile>();
+	List<EntityProjectile> bothProjectiles = new ArrayList<EntityProjectile>();
 	List<EntityAbilityMelee> enemyMeleeList = new ArrayList<EntityAbilityMelee>();
 	List<EntityAbilityMelee> playerMeleeList = new ArrayList<EntityAbilityMelee>();
+	List<EntityAbilityMelee> bothMeleeList = new ArrayList<EntityAbilityMelee>();
 	List<EntityAbilityAOE> enemyAOEList = new ArrayList<EntityAbilityAOE>();
 	List<EntityAbilityAOE> playerAOEList = new ArrayList<EntityAbilityAOE>();
+	List<EntityAbilityAOE> bothAOEList = new ArrayList<EntityAbilityAOE>();
 	List<EntityItem> bloodList = new ArrayList<EntityItem>();
 	List<EntityItem> itemList = new ArrayList<EntityItem>();
 	Iterator<EntityItem> itemIterator;
@@ -103,17 +107,29 @@ public class Level {
 		for (EntityAbilityAOE o : playerAOEList) {
 			o.render(container, g);
 		}
+		for (EntityAbilityAOE o : bothAOEList) {
+			o.render(container, g);
+		}
 		for (Enemy i : enemyList) {
+			i.render(container, g);
+		}
+		for (Enemy i : flyingEnemyList) {
 			i.render(container, g);
 		}
 		for (EntityAbilityMelee m : enemyMeleeList) {
 			m.render(container, g);
+		}
+		for (EntityAbilityMelee u : bothMeleeList) {
+			u.render(container, g);
 		}
 		for (EntityAbilityMelee n : playerMeleeList) {
 			n.render(container, g);
 		}
 		for (EntityProjectile p : playerProjectiles) {
 			p.render(container, g);
+		}
+		for (EntityProjectile c : bothProjectiles) {
+			c.render(container, g);
 		}
 		for (EntityProjectile k : enemyProjectiles) {
 			k.render(container, g);
@@ -241,12 +257,19 @@ public class Level {
 		for (EntityProjectile p : playerProjectiles) {
 			p.update();
 		}
+		for (EntityProjectile u : bothProjectiles) {
+			u.update();
+		}
 		for (EntityProjectile k : enemyProjectiles) {
 			k.update();
 		}
 
 		for (EntityAbilityMelee m : enemyMeleeList) {
 			m.update(deltaTime);
+		}
+		
+		for (EntityAbilityMelee c : bothMeleeList) {
+			c.update(deltaTime);
 		}
 		
 		for (EntityAbilityMelee n : playerMeleeList) {
@@ -261,13 +284,31 @@ public class Level {
 			o.update(deltaTime);
 		}
 		
+		for (EntityAbilityAOE o : bothAOEList) {
+			o.update(deltaTime);
+		}
+		
 		projectileIterator = playerProjectiles.iterator();
 		while (projectileIterator.hasNext()) {
 			EntityProjectile p = projectileIterator.next();
 			if (p.destroyed) {
-				if(p.targetsEnemy && p.spawnsAOE){
+				if(p.targets == 1 && p.spawnsAOE){
 					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0));
-				}else if(p.spawnsAOE){
+				}else if(p.targets == 0 && p.spawnsAOE){
+					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1));
+				}
+				projectileIterator.remove();
+			}
+
+		}
+		
+		projectileIterator = bothProjectiles.iterator();
+		while (projectileIterator.hasNext()) {
+			EntityProjectile p = projectileIterator.next();
+			if (p.destroyed) {
+				if(p.targets == 1 && p.spawnsAOE){
+					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0));
+				}else if(p.targets == 0 && p.spawnsAOE){
 					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1));
 				}
 				projectileIterator.remove();
@@ -279,9 +320,9 @@ public class Level {
 		while (projectileIterator.hasNext()) {
 			EntityProjectile p = projectileIterator.next();
 			if (p.destroyed) {
-				if(p.targetsEnemy && p.spawnsAOE){
+				if(p.targets == 1 && p.spawnsAOE){
 					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0));
-				}else if(p.spawnsAOE){
+				}else if(p.targets == 0 && p.spawnsAOE){
 					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1));
 				}
 				projectileIterator.remove();
@@ -306,8 +347,26 @@ public class Level {
 			}
 
 		}
+		
+		AOEIterator = bothAOEList.iterator();
+		while (AOEIterator.hasNext()) {
+			EntityAbilityAOE o = AOEIterator.next();
+			if (o.destroyed) {
+				AOEIterator.remove();
+			}
+
+		}
 
 		enemyMeleeIterator = enemyMeleeList.iterator();
+		while (enemyMeleeIterator.hasNext()) {
+			EntityAbilityMelee m = enemyMeleeIterator.next();
+			if (m.destroyed) {
+				enemyMeleeIterator.remove();
+			}
+
+		}
+		
+		enemyMeleeIterator = bothMeleeList.iterator();
 		while (enemyMeleeIterator.hasNext()) {
 			EntityAbilityMelee m = enemyMeleeIterator.next();
 			if (m.destroyed) {
@@ -330,8 +389,35 @@ public class Level {
 		for (Enemy j : enemyList) {
 			j.update();
 		}
+		
+		for (Enemy j : flyingEnemyList) {
+			j.update();
+		}
 
 		enemyIterator = enemyList.iterator();
+		while (enemyIterator.hasNext()) {
+			Enemy e = enemyIterator.next();
+			if (e.destroyed) {
+				if(e.bigMonster){
+					itemList.add(new EntityItem(0, (int)e.xpos + (e.width/2),(int) e.ypos + (e.height/2)));
+					bloodList.add(new EntityItem(2, (int)e.xpos + (e.width/2),(int) e.ypos + (e.height/2)));
+				}else{
+					bloodList.add(new EntityItem(1, (int)e.xpos + (e.width/2),(int) e.ypos + (e.height/2)));
+				}
+				
+				if(e instanceof EnemyMeleeTargetExplosive){
+					enemyAOEList.add(new EntityAbilityAOE((int)e.xpos,(int) e.ypos, 1));
+				}
+				
+				score += e.score * scoreMultiplier;
+				scoreMultiplier++;
+				enemyIterator.remove();
+				
+			}
+
+		}
+		
+		enemyIterator = flyingEnemyList.iterator();
 		while (enemyIterator.hasNext()) {
 			Enemy e = enemyIterator.next();
 			if (e.destroyed) {

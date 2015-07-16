@@ -139,9 +139,9 @@ public class EntityPlayer extends EntityLiving {
 	void meleeAttack(GameContainer container, Graphics g){
 		if(meleeAttack){
 			animTime += Game.currLevel.deltaTime;
-			Game.meleeAttack.drawFlash(xpos - 75, ypos - 75, width +150, height + 150);
+			Game.meleeAttack.draw(xpos - 75, ypos - 75, width +150, height + 150);
 		}
-		if (animTime > 260){
+		if (animTime > 320){
 			meleeAttack = false;
 		}
 		
@@ -205,6 +205,7 @@ public class EntityPlayer extends EntityLiving {
 		
 		
 	}
+	
 
 	void useAbility(int dir) {
 		if((activeAbility == ability[0]) && (ability[0] instanceof AbilityMelee)){
@@ -374,9 +375,20 @@ public class EntityPlayer extends EntityLiving {
 		for (EntityProjectile p : Game.currLevel.enemyProjectiles) {
 			if (checkCollision(p)) {
 				if(p.hasEffect){
-					getEffect(p.effectID);
+					getEffect(p.effectIDPlayer);
 				}
-				currHealth += p.healthMod;
+				currHealth += p.playerHealthMod;
+				Game.currLevel.scoreMultiplier = 1;
+				p.destroyed = true;
+			}
+		}
+		
+		for (EntityProjectile p : Game.currLevel.bothProjectiles) {
+			if (checkCollision(p)) {
+				if(p.hasEffect){
+					getEffect(p.effectIDPlayer);
+				}
+				currHealth += p.playerHealthMod;
 				Game.currLevel.scoreMultiplier = 1;
 				p.destroyed = true;
 			}
@@ -395,9 +407,20 @@ public class EntityPlayer extends EntityLiving {
 		for (EntityAbilityMelee m : Game.currLevel.enemyMeleeList) {
 			if (checkCollision(m)) {
 				if(m.hasEffect){
-					getEffect(m.effectID);
+					getEffect(m.effectIDPlayer);
 				}
-				currHealth += m.healthMod;
+				currHealth += m.playerHealthMod;
+				Game.currLevel.scoreMultiplier = 1;
+				m.destroyed = true;
+			}
+		}
+		
+		for (EntityAbilityMelee m : Game.currLevel.bothMeleeList) {
+			if (checkCollision(m)) {
+				if(m.hasEffect){
+					getEffect(m.effectIDPlayer);
+				}
+				currHealth += m.playerHealthMod;
 				Game.currLevel.scoreMultiplier = 1;
 				m.destroyed = true;
 			}

@@ -15,9 +15,9 @@ public class EntityAbilityProjectile extends EntityProjectile {
 	
 	Coords spawn;
 
-	EntityAbilityProjectile(float s, int hM, int sz, int dir, int im, int pX, int pY, int cS, int r, boolean hE, int eID, boolean sA, int AOID, boolean tE ) {
+	EntityAbilityProjectile(float s, int pHM, int eHM, int sz, int dir, int im, int pX, int pY, int cS, int r, boolean hE, int eIDp, int eIDe, boolean sA, int AOID, int t) {
 		spawnsAOE = sA;
-		targetsEnemy = tE;
+		targets = t;
 		AOEID = AOID;
 		speed = s;
 		ii = im;
@@ -42,14 +42,16 @@ public class EntityAbilityProjectile extends EntityProjectile {
 		}
 		
 		hasEffect = hE;
-		effectID = eID;
+		effectIDPlayer = eIDp;
+		effectIDEnemy = eIDe;
 		
 		size = sz;
 		width = size;
 		height = size;
 
 		direction = dir;
-		healthMod = hM;
+		playerHealthMod = pHM;
+		enemyHealthMod = eHM;
 		range = r;
 
 		casterXpos = pX;

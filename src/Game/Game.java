@@ -93,7 +93,7 @@ public class Game extends BasicGameState {
 		meleeAttackAnimation = new Image[16];
 		loadImages();
 		music.setVolume(0.1f);
-		music.loop();
+		//music.loop();
 		//newGame();
 		
 

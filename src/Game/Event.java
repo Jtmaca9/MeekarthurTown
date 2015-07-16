@@ -44,13 +44,16 @@ public class Event {
 			Game.currLevel.enemyList.add(new EnemyRangedBurst(lane, bigMonster));
 			break;
 		case 7:
-			Game.currLevel.enemyList.add(new EnemyFlyingStandard(lane, bigMonster));
+			Game.currLevel.flyingEnemyList.add(new EnemyFlyingStandard(lane, bigMonster));
 			break;
 		case 8:
-			Game.currLevel.enemyList.add(new EnemyFlyingZigzag(lane, bigMonster));
+			Game.currLevel.flyingEnemyList.add(new EnemyFlyingZigzag(lane, bigMonster));
 			break;
 		case 10:
 			Game.currLevel.enemyList.add(new EnemyBossStandard(lane, bigMonster));
+			break;
+		case 11:
+			Game.currLevel.enemyList.add(new EnemyRangedHomingSupport(lane, bigMonster));
 			break;
 		}
 

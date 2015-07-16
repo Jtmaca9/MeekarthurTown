@@ -20,15 +20,16 @@ public class AbilityProjectile extends Ability {
 			speed = 8;
 			cooldown = 300;
 			currCooldown = cooldown;
-			healthMod = -5;
+			enemyHealthMod = -5;
+			playerHealthMod = 5;
 			size = 32;
 			range = 800;
-			targetsEnemy = true;
+			targets = 2;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.projectileWater;
-			hasEffect = false;
-			effectID = 0;
+			hasEffect = true;
+			effectIDEnemy = -1;
+			effectIDPlayer = -1;
 			spawnsAOE = false;
 			AOEID = 0;
 			break;
@@ -37,16 +38,17 @@ public class AbilityProjectile extends Ability {
 			speed = 8;
 			cooldown = 2000;
 			currCooldown = cooldown;
-			healthMod = -5;
+			enemyHealthMod = -5;
+			playerHealthMod = 0;
 			size = 32;
 			range = 1000;
-			targetsEnemy = true;
+			targets = 1;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.projectileFire;
 			abilityIcon = Game.wizardAbility0;
 			hasEffect = true;
-			effectID = 0;
+			effectIDEnemy = 0;
+			effectIDPlayer = -1;
 			spawnsAOE = false;
 			AOEID = 0;
 			break;
@@ -55,16 +57,17 @@ public class AbilityProjectile extends Ability {
 			speed = 8;
 			cooldown = 2000;
 			currCooldown = cooldown;
-			healthMod = -5;
+			enemyHealthMod = -5;
+			playerHealthMod = 0;
 			size = 32;
 			range = 1000;
-			targetsEnemy = true;
+			targets = 2;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.projectileIce;
 			abilityIcon = Game.wizardAbility1;
 			hasEffect = true;
-			effectID = 1;
+			effectIDEnemy = 1;
+			effectIDPlayer = -1;
 			spawnsAOE = false;
 			AOEID = 0;
 			break;
@@ -73,15 +76,16 @@ public class AbilityProjectile extends Ability {
 			speed = 10;
 			cooldown = 300;
 			currCooldown = cooldown;
-			healthMod = -8;
+			enemyHealthMod = -8;
+			playerHealthMod = 0;
 			size = 32;
 			range = 800;
-			targetsEnemy = true;
+			targets = 1;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.projectileArrows;
 			hasEffect = false;
-			effectID = 0;
+			effectIDEnemy = 0;
+			effectIDPlayer = -1;
 			spawnsAOE = false;
 			AOEID = 0;
 			break;
@@ -90,16 +94,17 @@ public class AbilityProjectile extends Ability {
 			speed = 10;
 			cooldown = 2000;
 			currCooldown = cooldown;
-			healthMod = -5;
+			enemyHealthMod = -5;
+			playerHealthMod = 0;
 			size = 32;
 			range = 500;
-			targetsEnemy = true;
+			targets = 1;
 			directionMod = 0;
 			numOfProjectiles = 3;
-			image = Game.projectileArrows;
 			abilityIcon = Game.archerAbility0;
 			hasEffect = false;
-			effectID = 0;
+			effectIDEnemy = 0;
+			effectIDPlayer = -1;
 			spawnsAOE = false;
 			AOEID = 0;
 			break;
@@ -108,16 +113,17 @@ public class AbilityProjectile extends Ability {
 			speed = 10;
 			cooldown = 2000;
 			currCooldown = cooldown;
-			healthMod = -5;
+			enemyHealthMod = -5;
+			playerHealthMod = 0;
 			size = 32;
 			range = 1000;
-			targetsEnemy = true;
+			targets = 1;
 			directionMod = 0;
 			numOfProjectiles = 1;
-			image = Game.projectilePoisonArrow;
 			abilityIcon = Game.archerAbility1;
 			hasEffect = true;
-			effectID = 0;
+			effectIDEnemy = 0;
+			effectIDPlayer = -1;
 			spawnsAOE = false;
 			AOEID = 0;
 			break;
@@ -126,16 +132,17 @@ public class AbilityProjectile extends Ability {
 			speed = 10;
 			cooldown = 2000;
 			currCooldown = cooldown;
-			healthMod = -5;
+			enemyHealthMod = -5;
+			playerHealthMod = 0;
 			size = 32;
 			range = 1000;
-			targetsEnemy = false;
+			targets = 1;
 			directionMod = 0;
 			numOfProjectiles = 8;
-			image = Game.redProjectile;
 			abilityIcon = Game.archerAbility1;
 			hasEffect = false;
-			effectID = 0;
+			effectIDEnemy = 0;
+			effectIDPlayer = -1;
 			spawnsAOE = false;
 			AOEID = 0;
 			break;
@@ -151,43 +158,66 @@ public class AbilityProjectile extends Ability {
 
 	void spawnProjectiles(int dir, int pX, int pY, int cS) {
 		if (numOfProjectiles == 1) {
-			if (targetsEnemy) {
-				Game.currLevel.playerProjectiles
-						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, abilityID, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
-			} else {
-				Game.currLevel.enemyProjectiles
-						.add(new EntityAbilityProjectile(speed, healthMod, size, dir, abilityID, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
+			if (targets == 1) {
+				Game.currLevel.playerProjectiles.add(
+						new EntityAbilityProjectile(speed, playerHealthMod, enemyHealthMod, size, dir, abilityID, pX,
+								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets));
+			} else if (targets == 0) {
+				Game.currLevel.enemyProjectiles.add(
+						new EntityAbilityProjectile(speed, playerHealthMod, enemyHealthMod, size, dir, abilityID, pX,
+								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets));
+			} else if (targets == 2) {
+				Game.currLevel.bothProjectiles.add(
+						new EntityAbilityProjectile(speed, playerHealthMod, enemyHealthMod, size, dir, abilityID, pX,
+								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets));
 			}
 		} else if (numOfProjectiles == 3) {
-			if (targetsEnemy) {
+			if (targets == 1) {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
-					Game.currLevel.playerProjectiles
-							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
+					Game.currLevel.playerProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
+							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
+							effectIDEnemy, spawnsAOE, AOEID, targets));
 				}
-			} else {
+			} else if (targets == 0) {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
-					Game.currLevel.enemyProjectiles
-							.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
+					Game.currLevel.enemyProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
+							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
+							effectIDEnemy, spawnsAOE, AOEID, targets));
+				}
+			} else if (targets == 2) {
+				for (int i = -1; i < 2; i++) {
+					projDir = getProjectileDirection(direction + i);
+					Game.currLevel.bothProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
+							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
+							effectIDEnemy, spawnsAOE, AOEID, targets));
+				}
+			}
+		} else if (numOfProjectiles == 8) {
+			if (targets == 1) {
+				for (int i = -4; i < 3; i++) {
+					projDir = getProjectileDirection(direction + i);
+					Game.currLevel.playerProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
+							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
+							effectIDEnemy, spawnsAOE, AOEID, targets));
+				}
+			} else if (targets == 0) {
+				for (int i = -4; i < 3; i++) {
+					projDir = getProjectileDirection(direction + i);
+					Game.currLevel.enemyProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
+							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
+							effectIDEnemy, spawnsAOE, AOEID, targets));
+				}
+			} else if (targets == 2) {
+				for (int i = -4; i < 3; i++) {
+					projDir = getProjectileDirection(direction + i);
+					Game.currLevel.bothProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
+							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
+							effectIDEnemy, spawnsAOE, AOEID, targets));
 				}
 			}
 		}
-		 else if (numOfProjectiles == 8) {
-				if (targetsEnemy) {
-					for (int i = -4; i < 3; i++) {
-						projDir = getProjectileDirection(direction + i);
-						Game.currLevel.playerProjectiles
-								.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
-					}
-				} else {
-					for (int i = -4; i < 3; i++) {
-						projDir = getProjectileDirection(direction + i);
-						Game.currLevel.enemyProjectiles
-								.add(new EntityAbilityProjectile(speed, healthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectID, spawnsAOE, AOEID, targetsEnemy));
-					}
-				}
-			}
 	}
 
 	void convertFourDirToEightDir(int dir) {
