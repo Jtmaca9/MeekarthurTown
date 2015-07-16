@@ -13,11 +13,13 @@ public class EntityAbilityAOE extends Entity {
 	int targets;
 	int effectIDPlayer, effectIDEnemy;
 	boolean hasEffect;
+	Entity owner;
 
-	EntityAbilityAOE(int x, int y, int id) {
+	EntityAbilityAOE(int x, int y, int id, Entity o) {
 		AOEID = id;
 		xpos = x;
 		ypos = y;
+		owner = o;
 		create();
 		
 	}
@@ -66,10 +68,10 @@ public class EntityAbilityAOE extends Entity {
 			currTick++;
 			if (targets == 1) {
 				Game.currLevel.playerMeleeList
-					.add(new EntityAbilityMelee((int)xpos, (int)ypos, (float)radius, playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
+					.add(new EntityAbilityMelee((int)xpos, (int)ypos, (float)radius, playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy, owner));
 			}else if (targets == 0) {
 				Game.currLevel.enemyMeleeList
-					.add(new EntityAbilityMelee((int)xpos, (int)ypos,(float)radius, playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
+					.add(new EntityAbilityMelee((int)xpos, (int)ypos,(float)radius, playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy, owner));
 			}
 		}else if (currTick >= tickCount ){
 			destroyed = true;

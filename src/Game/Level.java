@@ -293,9 +293,9 @@ public class Level {
 			EntityProjectile p = projectileIterator.next();
 			if (p.destroyed) {
 				if(p.targets == 1 && p.spawnsAOE){
-					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0));
+					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 0, p.owner));
 				}else if(p.targets == 0 && p.spawnsAOE){
-					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1));
+					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1, p.owner));
 				}
 				projectileIterator.remove();
 			}
@@ -307,9 +307,9 @@ public class Level {
 			EntityProjectile p = projectileIterator.next();
 			if (p.destroyed) {
 				if(p.targets == 1 && p.spawnsAOE){
-					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0));
+					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0, p.owner));
 				}else if(p.targets == 0 && p.spawnsAOE){
-					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1));
+					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1, p.owner));
 				}
 				projectileIterator.remove();
 			}
@@ -321,9 +321,9 @@ public class Level {
 			EntityProjectile p = projectileIterator.next();
 			if (p.destroyed) {
 				if(p.targets == 1 && p.spawnsAOE){
-					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0));
+					Game.currLevel.playerAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos,0, p.owner));
 				}else if(p.targets == 0 && p.spawnsAOE){
-					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1));
+					Game.currLevel.enemyAOEList.add(new EntityAbilityAOE((int)p.xpos,(int) p.ypos, 1, p.owner));
 				}
 				projectileIterator.remove();
 			}
@@ -406,7 +406,7 @@ public class Level {
 				}
 				
 				if(e instanceof EnemyMeleeTargetExplosive){
-					enemyAOEList.add(new EntityAbilityAOE((int)e.xpos,(int) e.ypos, 1));
+					enemyAOEList.add(new EntityAbilityAOE((int)e.xpos,(int) e.ypos, 1, e));
 				}
 				
 				score += e.score * scoreMultiplier;
@@ -429,7 +429,7 @@ public class Level {
 				}
 				
 				if(e instanceof EnemyMeleeTargetExplosive){
-					enemyAOEList.add(new EntityAbilityAOE((int)e.xpos,(int) e.ypos, 1));
+					enemyAOEList.add(new EntityAbilityAOE((int)e.xpos,(int) e.ypos, 1, e));
 				}
 				
 				score += e.score * scoreMultiplier;

@@ -149,27 +149,27 @@ public class AbilityProjectile extends Ability {
 		}
 	}
 
-	void useAbility(int dir, int pX, int pY, int cS) {
+	void useAbility(int dir, int pX, int pY, int cS, Entity o) {
 		if (checkCooldown()) {
 			convertFourDirToEightDir(dir);
-			spawnProjectiles(direction, pX, pY, cS);
+			spawnProjectiles(direction, pX, pY, cS, o);
 		}
 	}
 
-	void spawnProjectiles(int dir, int pX, int pY, int cS) {
+	void spawnProjectiles(int dir, int pX, int pY, int cS, Entity o) {
 		if (numOfProjectiles == 1) {
 			if (targets == 1) {
 				Game.currLevel.playerProjectiles.add(
 						new EntityAbilityProjectile(speed, playerHealthMod, enemyHealthMod, size, dir, abilityID, pX,
-								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets));
+								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets, o));
 			} else if (targets == 0) {
 				Game.currLevel.enemyProjectiles.add(
 						new EntityAbilityProjectile(speed, playerHealthMod, enemyHealthMod, size, dir, abilityID, pX,
-								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets));
+								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets, o));
 			} else if (targets == 2) {
 				Game.currLevel.bothProjectiles.add(
 						new EntityAbilityProjectile(speed, playerHealthMod, enemyHealthMod, size, dir, abilityID, pX,
-								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets));
+								pY, cS, range, hasEffect, effectIDPlayer, effectIDEnemy, spawnsAOE, AOEID, targets, o));
 			}
 		} else if (numOfProjectiles == 3) {
 			if (targets == 1) {
@@ -177,21 +177,21 @@ public class AbilityProjectile extends Ability {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.playerProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
 							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
-							effectIDEnemy, spawnsAOE, AOEID, targets));
+							effectIDEnemy, spawnsAOE, AOEID, targets, o));
 				}
 			} else if (targets == 0) {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.enemyProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
 							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
-							effectIDEnemy, spawnsAOE, AOEID, targets));
+							effectIDEnemy, spawnsAOE, AOEID, targets, o));
 				}
 			} else if (targets == 2) {
 				for (int i = -1; i < 2; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.bothProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
 							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
-							effectIDEnemy, spawnsAOE, AOEID, targets));
+							effectIDEnemy, spawnsAOE, AOEID, targets, o));
 				}
 			}
 		} else if (numOfProjectiles == 8) {
@@ -200,21 +200,21 @@ public class AbilityProjectile extends Ability {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.playerProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
 							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
-							effectIDEnemy, spawnsAOE, AOEID, targets));
+							effectIDEnemy, spawnsAOE, AOEID, targets, o));
 				}
 			} else if (targets == 0) {
 				for (int i = -4; i < 3; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.enemyProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
 							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
-							effectIDEnemy, spawnsAOE, AOEID, targets));
+							effectIDEnemy, spawnsAOE, AOEID, targets, o));
 				}
 			} else if (targets == 2) {
 				for (int i = -4; i < 3; i++) {
 					projDir = getProjectileDirection(direction + i);
 					Game.currLevel.bothProjectiles.add(new EntityAbilityProjectile(speed, playerHealthMod,
 							enemyHealthMod, size, projDir, abilityID, pX, pY, cS, range, hasEffect, effectIDPlayer,
-							effectIDEnemy, spawnsAOE, AOEID, targets));
+							effectIDEnemy, spawnsAOE, AOEID, targets, o));
 				}
 			}
 		}

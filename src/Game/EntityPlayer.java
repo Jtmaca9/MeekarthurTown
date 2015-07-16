@@ -212,7 +212,7 @@ public class EntityPlayer extends EntityLiving {
 			meleeAttack = true;
 			animTime = 0;
 		}
-		activeAbility.useAbility(dir, (int) xpos, (int) ypos, width);
+		activeAbility.useAbility(dir, (int) xpos, (int) ypos, width, this);
 		activeAbility = ability[0];
 	}
 
@@ -385,12 +385,14 @@ public class EntityPlayer extends EntityLiving {
 		
 		for (EntityProjectile p : Game.currLevel.bothProjectiles) {
 			if (checkCollision(p)) {
-				if(p.hasEffect){
-					getEffect(p.effectIDPlayer);
+					if (!(p.owner == this)){
+					if(p.hasEffect){
+						getEffect(p.effectIDPlayer);
+					}
+					currHealth += p.playerHealthMod;
+					Game.currLevel.scoreMultiplier = 1;
+					p.destroyed = true;
 				}
-				currHealth += p.playerHealthMod;
-				Game.currLevel.scoreMultiplier = 1;
-				p.destroyed = true;
 			}
 		}
 		

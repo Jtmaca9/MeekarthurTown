@@ -49,7 +49,7 @@ public class EnemyRangedHoming extends EnemyRanged {
 	}
 
 	void attack(int i) {
-		ability[i].useAbility(direction, (int) xpos, (int) ypos, width);
+		ability[i].useAbility(direction, (int) xpos, (int) ypos, width, this);
 		meleeAttack = true;
 	}
 	

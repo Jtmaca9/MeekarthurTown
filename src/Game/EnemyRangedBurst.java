@@ -47,12 +47,12 @@ public class EnemyRangedBurst extends EnemyRanged {
 	}
 
 	void attack(int i) {
-		ability[i].useAbility(direction, (int) xpos, (int) ypos, width);
+		ability[i].useAbility(direction, (int) xpos, (int) ypos, width, this);
 		meleeAttack = true;
 	}
 	
 	void attackTarget() {
-		ability[1].useAbility(direction, (int) xpos, (int) ypos, width);
+		ability[1].useAbility(direction, (int) xpos, (int) ypos, width, this);
 	}
 	
 	void behaviour() {

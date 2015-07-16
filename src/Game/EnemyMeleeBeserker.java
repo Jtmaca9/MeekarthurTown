@@ -42,7 +42,7 @@ public class EnemyMeleeBeserker extends EnemyMelee {
 	}
 
 	void attack(int i) {
-		ability[i].useAbility(direction, (int) xpos, (int) ypos, width);
+		ability[i].useAbility(direction, (int) xpos, (int) ypos, width, this);
 		meleeAttack = true;
 	}
 

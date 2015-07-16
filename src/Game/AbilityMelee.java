@@ -55,29 +55,29 @@ public class AbilityMelee extends Ability {
 		}
 	}
 
-	void useAbility(int dir, int pX, int pY, int cS) {
+	void useAbility(int dir, int pX, int pY, int cS, Entity o) {
 		if (checkCooldown()) {
 			if (!directional) {
-				spawnHitBoxCentre(pX, pY, cS);
+				spawnHitBoxCentre(pX, pY, cS, o);
 			}
 
 		}
 	}
 
-	void spawnHitBoxCentre(int x, int y, int cS) {
+	void spawnHitBoxCentre(int x, int y, int cS, Entity o) {
 		// Spawns the 'Melee attack' hitbox in centre of caster
 		if (targets == 0) {
 			Game.currLevel.enemyMeleeList.add(
 					new EntityAbilityMelee((int) ((0.5 * cS) + x), (int) ((0.5 * cS) + y), (float) ((0.5 * cS) + range),
-							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
+							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy, o));
 		} else if (targets == 1) {
 			Game.currLevel.playerMeleeList.add(
 					new EntityAbilityMelee((int) ((0.5 * cS) + x), (int) ((0.5 * cS) + y), (float) ((0.5 * cS) + range),
-							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
+							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy, o));
 		} else if (targets == 2) {
 			Game.currLevel.bothMeleeList.add(
 					new EntityAbilityMelee((int) ((0.5 * cS) + x), (int) ((0.5 * cS) + y), (float) ((0.5 * cS) + range),
-							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy));
+							playerHealthMod, enemyHealthMod, hasEffect, effectIDPlayer, effectIDEnemy, o));
 		}
 	}
 }

@@ -9,13 +9,16 @@ public class EntityAbilityMelee extends Entity {
 	int effectIDPlayer, effectIDEnemy;
 	boolean hasEffect;
 	float radius;
+	Entity owner;
 
-	EntityAbilityMelee(int x, int y, float r, int pHM, int eHM, boolean hE, int eIDp, int eIDe) {
+	EntityAbilityMelee(int x, int y, float r, int pHM, int eHM, boolean hE, int eIDp, int eIDe, Entity o) {
 		playerHealthMod = pHM;
 		enemyHealthMod = eHM;
 		currDuration = 0;
 		duration = 500;
 		radius = r;
+		
+		owner = o;
 		
 		xpos = x;
 		ypos = y;

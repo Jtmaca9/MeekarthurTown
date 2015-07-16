@@ -29,17 +29,17 @@ public class AbilityAOE extends Ability {
 		}
 	}
 
-	void useAbility(int dir, int cX, int cY, int cS) {
+	void useAbility(int dir, int cX, int cY, int cS, Entity o) {
 		if (checkCooldown()) {
 			if (targets == 0) {
 				Game.currLevel.enemyAOEList
-						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID));
+						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID, o));
 			} else if (targets == 1) {
 				Game.currLevel.playerAOEList
-						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID));
+						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID, o));
 			} else if (targets == 2) {
 				Game.currLevel.bothAOEList
-						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID));
+						.add(new EntityAbilityAOE((int) (cX + (0.5 * cS)), (int) (cY + (0.5 * cS)), abilityID, o));
 			}
 		}
 	}

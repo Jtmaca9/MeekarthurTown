@@ -22,7 +22,7 @@ public class Ability {
 
 	Image abilityIcon;
 
-	void useAbility(int dir, int pX, int pY, int cS) {
+	void useAbility(int dir, int pX, int pY, int cS, Entity o) {
 
 	}
 	

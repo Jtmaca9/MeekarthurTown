@@ -76,6 +76,9 @@ public class EntityAbilityProjectileHoming extends EntityProjectile {
 		move();
 		checkBounds();
 		currRange += speed;
+		if (targetEntity.destroyed) {
+			destroyed = true;
+		}
 	}
 	
 	void checkBounds() {
