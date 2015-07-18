@@ -92,9 +92,9 @@ public class Game extends BasicGameState {
 		this.game = game;
 		meleeAttackAnimation = new Image[16];
 		loadImages();
-		music.setVolume(0.1f);
-		//music.loop();
-		//newGame();
+//		music.setVolume(0.1f);
+//		music.loop();
+
 		
 
 	}
@@ -333,6 +333,11 @@ public class Game extends BasicGameState {
 
 		if (key == Input.KEY_E) {
 			currLevel.players[0].primeAbility(2);
+		}
+		
+		if(key == Input.KEY_BACK){
+			game.enterState(3);
+			
 		}
 		
 	}

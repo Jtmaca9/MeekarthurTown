@@ -1,5 +1,6 @@
 package Game;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -24,7 +25,6 @@ public class MainMenuPlayerSelect extends BasicGameState{
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.game = game;
-		levelName = "level1";
 		pControls = new int[4];
 		pClassIn = new int[4];
 		pClass = new String[4];
@@ -44,6 +44,7 @@ public class MainMenuPlayerSelect extends BasicGameState{
 
 	@Override
 	public void render(GameContainer container, StateBasedGame arg1, Graphics g) throws SlickException {
+		g.setColor(Color.white);
 		g.drawString("Press Start or Enter to join the game!", 500, 500);
 		g.drawString("Players = " + playerCount, 500, 550);
 		g.drawString("Press space to continue.", 500, 600);

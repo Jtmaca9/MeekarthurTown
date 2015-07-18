@@ -30,7 +30,7 @@ public class MainMenuGameSelect extends BasicGameState {
 		loadImages();
 		buttons = new ButtonMenu[buttonCount];
 		buttons[0] = new ButtonMenu(campaignButton, campaignButtonSelected, 960 - 142, 400, 5);
-		buttons[1] = new ButtonMenu(customButton, customButtonSelected,  960 - 142, 500, 2);
+		buttons[1] = new ButtonMenu(customButton, customButtonSelected,  960 - 142, 500, 6);
 		buttons[2] = new ButtonMenu(survivalButton, survivalButtonSelected,  960 - 142, 600, 5);
 		buttons[3] = new ButtonMenu(backButton, backButtonSelected,  960 - 142, 700, 3);
 		buttons[buttonSelected].selected = true;

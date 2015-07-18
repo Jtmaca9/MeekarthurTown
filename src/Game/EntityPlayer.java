@@ -42,7 +42,7 @@ public class EntityPlayer extends EntityLiving {
 		switch (playerClass) {
 
 		case "Wizard":
-			health = 75;
+			health = 7500;
 			currHealth = health;
 			speed = 6;
 			baseSpeed = speed;
@@ -245,23 +245,23 @@ public class EntityPlayer extends EntityLiving {
 	void move() {
 		direction = movementQueue[0];
 
-		if (direction == NOMOVE) {
-			currSpeed = 0;
-		} else {
-			currSpeed = speed;
-		}
-
+//		if (direction == NOMOVE) {
+//			currSpeed = 0;
+//		} else {
+//			currSpeed = speed;
+//		}
+		/////// CHECK THIS
 		if (direction == UP) {
-			ypos -= currSpeed;
+			ypos -= speed;
 			lastDirection = UP;
 		} else if (direction == RIGHT) {
-			xpos += currSpeed;
+			xpos += speed;
 			lastDirection = RIGHT;
 		} else if (direction == DOWN) {
-			ypos += currSpeed;
+			ypos += speed;
 			lastDirection = DOWN;
 		} else if (direction == LEFT) {
-			xpos -= currSpeed;
+			xpos -= speed;
 			lastDirection = LEFT;
 		}
 
@@ -360,7 +360,7 @@ public class EntityPlayer extends EntityLiving {
 
 	void collision() {
 		for (Enemy e : Game.currLevel.enemyList) {
-			checkFacingCollision(e);
+			//checkFacingCollision(e);
 			if (e instanceof EnemyMelee) {
 				if (checkRangeBox(e)) {
 					e.attack(0);
@@ -456,6 +456,25 @@ public class EntityPlayer extends EntityLiving {
 	boolean checkFacingCollision(EntityLiving e) {
 		if ((xpos + width - speed) >= e.xpos && xpos + speed <= (e.xpos + e.width)
 				&& (ypos + height - speed) >= e.ypos - e.speed && ypos + e.speed <= (e.ypos + e.height)) {
+			if (direction == RIGHT) {// right
+				xpos -= speed;
+				return true;
+
+			} else if (direction == LEFT) {// left
+				xpos += speed;
+				return true;
+
+			} else if (direction == UP) {// up
+				ypos += speed;
+				return true;
+
+			} else if (direction == DOWN) {// down
+				ypos -= speed;
+				return true;
+
+			}
+		}else if ((xpos + width) >= e.xpos && xpos <= (e.xpos + e.width)
+				&& (ypos + height) >= e.ypos && ypos <= (e.ypos + e.height)) {
 			if (direction == RIGHT) {// right
 				xpos -= speed;
 				return true;

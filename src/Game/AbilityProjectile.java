@@ -136,7 +136,7 @@ public class AbilityProjectile extends Ability {
 			playerHealthMod = 0;
 			size = 32;
 			range = 1000;
-			targets = 1;
+			targets = 0;
 			directionMod = 0;
 			numOfProjectiles = 8;
 			abilityIcon = Game.archerAbility1;

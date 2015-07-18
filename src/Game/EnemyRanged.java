@@ -38,8 +38,10 @@ public class EnemyRanged extends Enemy {
 	
 	
 	void getTargetCoords() {
-		targetPos.x = targetEntity.xpos;
-		targetPos.y = targetEntity.ypos;
+		if(targetEntity != null){
+			targetPos.x = targetEntity.xpos;
+			targetPos.y = targetEntity.ypos;
+		}
 	}
 	
 }

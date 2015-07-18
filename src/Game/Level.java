@@ -147,10 +147,10 @@ public class Level {
 	}
 	
 	void loadLevel(){
-		if (new File("Data/Levels/" + levelName + ".txt").isFile()){
+		if (new File("Data/Levels/" + levelName + "/" + levelName + ".txt").isFile()){
 			
 			try {
-				scanner = new Scanner(new File("Data/Levels/" + levelName + ".txt"));
+				scanner = new Scanner(new File("Data/Levels/" + levelName + "/" + levelName + ".txt"));
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -173,7 +173,7 @@ public class Level {
 			
 		}
 		try {
-			bg = new Image("Data/Levels/" + levelName + ".png");
+			bg = new Image("Data/Levels/" + levelName + "/" + levelName + ".png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

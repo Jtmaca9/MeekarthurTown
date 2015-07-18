@@ -16,8 +16,8 @@ public class EnemyMelee extends Enemy {
 
 	void baseBehaviour() {
 		for (EntityPlayer e : Game.currLevel.players) {
-			if (checkFacingCollision(e)) {
-			}
+			checkFacingCollision(e);
+			
 		}
 
 		for (EntityWall w : Game.currLevel.walls) {

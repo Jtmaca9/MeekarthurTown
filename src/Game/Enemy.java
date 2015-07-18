@@ -12,8 +12,8 @@ public class Enemy extends EntityLiving {
 	Entity targetEntity;
 
 	void update() {
-		baseBehaviour();
 		behaviour();
+		baseBehaviour();
 		move();
 		cooldowns();
 		collision();
@@ -62,7 +62,6 @@ public class Enemy extends EntityLiving {
 					}
 					p.destroyed = true;
 					currHealth += p.enemyHealthMod;
-					System.out.println("Nigga i should've healed");
 				}
 			}
 		}

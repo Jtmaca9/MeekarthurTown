@@ -55,11 +55,23 @@ public class EnemyMeleeTarget extends EnemyMelee {
 	}
 
 	void move() {
-		currSpeed = speed; // Change this later (test)
+		currSpeed = speed;
 		v = getVector();
+		if((Math.abs(v.y) > Math.abs(v.x) && v.y < 0) || ((Math.abs(v.y) == v.x) && v.y < 0)){
+			direction = UP;
+			ypos -= speed;
+		}else if((Math.abs(v.y) > Math.abs(v.x) && v.y > 0) || ((v.y == Math.abs(v.x)) && v.x < 0)){
+			direction = DOWN;
+			ypos += speed;
+		}else if((Math.abs(v.x) > Math.abs(v.y) && v.x > 0) || ((v.y == v.x) && v.x > 0)){
+			direction = RIGHT;
+			xpos += speed;
+		}else if((Math.abs(v.x) > Math.abs(v.y) && v.x < 0) || ((v.y == v.x) && v.y < 0)){
+			direction = LEFT;
+			xpos -= speed;
+		}
 		
-		xpos += v.x;
-		ypos += v.y;
+		
 
 		hitBox.setY(ypos);
 		hitBox.setX(xpos);
@@ -81,6 +93,14 @@ public class EnemyMeleeTarget extends EnemyMelee {
 		
 
 		return vector;
+	}
+	
+	void baseBehaviour() {
+		for (EntityWall w : Game.currLevel.walls) {
+			if (checkFacingCollision(w)) {
+				attack(0);
+			}
+		}
 	}
 
 }
